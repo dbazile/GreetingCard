@@ -15,6 +15,11 @@
 		63AA5CDD19D7E31C009E15E7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63AA5CDC19D7E31C009E15E7 /* Images.xcassets */; };
 		63AA5CE019D7E31C009E15E7 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63AA5CDE19D7E31C009E15E7 /* LaunchScreen.xib */; };
 		63AA5CEC19D7E31C009E15E7 /* GreetingCardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AA5CEB19D7E31C009E15E7 /* GreetingCardTests.swift */; };
+		63AA5CFD19D7E37E009E15E7 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AA5CF819D7E37E009E15E7 /* CardViewController.swift */; };
+		63AA5CFE19D7E37E009E15E7 /* DataUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AA5CF919D7E37E009E15E7 /* DataUtility.swift */; };
+		63AA5CFF19D7E37E009E15E7 /* InboxTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AA5CFA19D7E37E009E15E7 /* InboxTableViewController.swift */; };
+		63AA5D0019D7E37E009E15E7 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AA5CFB19D7E37E009E15E7 /* Models.swift */; };
+		63AA5D0119D7E37E009E15E7 /* SceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AA5CFC19D7E37E009E15E7 /* SceneViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +45,11 @@
 		63AA5CE519D7E31C009E15E7 /* GreetingCardTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GreetingCardTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		63AA5CEA19D7E31C009E15E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63AA5CEB19D7E31C009E15E7 /* GreetingCardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingCardTests.swift; sourceTree = "<group>"; };
+		63AA5CF819D7E37E009E15E7 /* CardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
+		63AA5CF919D7E37E009E15E7 /* DataUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataUtility.swift; sourceTree = "<group>"; };
+		63AA5CFA19D7E37E009E15E7 /* InboxTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxTableViewController.swift; sourceTree = "<group>"; };
+		63AA5CFB19D7E37E009E15E7 /* Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		63AA5CFC19D7E37E009E15E7 /* SceneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,10 +91,13 @@
 		63AA5CCE19D7E31C009E15E7 /* GreetingCard */ = {
 			isa = PBXGroup;
 			children = (
+				63AA5CF819D7E37E009E15E7 /* CardViewController.swift */,
+				63AA5CF919D7E37E009E15E7 /* DataUtility.swift */,
+				63AA5CFA19D7E37E009E15E7 /* InboxTableViewController.swift */,
+				63AA5CFB19D7E37E009E15E7 /* Models.swift */,
+				63AA5CFC19D7E37E009E15E7 /* SceneViewController.swift */,
 				63AA5CD119D7E31C009E15E7 /* AppDelegate.swift */,
-				63AA5CD319D7E31C009E15E7 /* RootViewController.swift */,
-				63AA5CD519D7E31C009E15E7 /* DataViewController.swift */,
-				63AA5CD719D7E31C009E15E7 /* ModelController.swift */,
+				63AA5CF519D7E340009E15E7 /* junk */,
 				63AA5CD919D7E31C009E15E7 /* Main.storyboard */,
 				63AA5CDC19D7E31C009E15E7 /* Images.xcassets */,
 				63AA5CDE19D7E31C009E15E7 /* LaunchScreen.xib */,
@@ -116,6 +129,16 @@
 				63AA5CEA19D7E31C009E15E7 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		63AA5CF519D7E340009E15E7 /* junk */ = {
+			isa = PBXGroup;
+			children = (
+				63AA5CD319D7E31C009E15E7 /* RootViewController.swift */,
+				63AA5CD519D7E31C009E15E7 /* DataViewController.swift */,
+				63AA5CD719D7E31C009E15E7 /* ModelController.swift */,
+			);
+			name = junk;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,9 +241,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63AA5D0119D7E37E009E15E7 /* SceneViewController.swift in Sources */,
+				63AA5CFF19D7E37E009E15E7 /* InboxTableViewController.swift in Sources */,
 				63AA5CD419D7E31C009E15E7 /* RootViewController.swift in Sources */,
 				63AA5CD819D7E31C009E15E7 /* ModelController.swift in Sources */,
+				63AA5D0019D7E37E009E15E7 /* Models.swift in Sources */,
 				63AA5CD619D7E31C009E15E7 /* DataViewController.swift in Sources */,
+				63AA5CFD19D7E37E009E15E7 /* CardViewController.swift in Sources */,
+				63AA5CFE19D7E37E009E15E7 /* DataUtility.swift in Sources */,
 				63AA5CD219D7E31C009E15E7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
