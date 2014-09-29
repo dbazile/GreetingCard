@@ -10,7 +10,10 @@ import UIKit
 
 class InboxTableViewController: UITableViewController, UITableViewDataSource
 {
-	let SEGUE_VIEW_CARD = "view_card"
+	let IDENTIFIER_CARD_CELL = "CardCell"
+	let IDENTIFIER_VIEWCARD_SEGUE = "ViewCard"
+	let TAG_TITLE_LABEL = 1001
+	let TAG_DETAIL_LABEL = 1002
 	
 	var cards: [Card] = DataUtility.GenerateCards()
 	
@@ -28,7 +31,7 @@ class InboxTableViewController: UITableViewController, UITableViewDataSource
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		let index = self.tableView.indexPathForCell(sender as UITableViewCell)!.item
 		
-		if (SEGUE_VIEW_CARD == segue.identifier) {
+		if (IDENTIFIER_VIEWCARD_SEGUE == segue.identifier) {
 			let controller = segue.destinationViewController as CardViewController
 			controller.card = self.cards[index]
 		}
@@ -47,13 +50,20 @@ class InboxTableViewController: UITableViewController, UITableViewDataSource
 	///
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
 	{
-		let cell = tableView.dequeueReusableCellWithIdentifier("card", forIndexPath:indexPath) as UITableViewCell
+		let cell = tableView.dequeueReusableCellWithIdentifier(IDENTIFIER_CARD_CELL, forIndexPath:indexPath) as UITableViewCell
+		let card = cards[indexPath.item]
 		
-		let currentCard = cards[indexPath.item]
-		
-		cell.textLabel?.text = currentCard.title;
-		cell.detailTextLabel?.text = "1 / \(currentCard.scenes.count)"
+		self.updateCell(cell, card:card)
 		
 		return cell
+	}
+	
+	private func updateCell(cell: UITableViewCell, card: Card)
+	{
+		let title = cell.viewWithTag(TAG_TITLE_LABEL) as UILabel
+		let details = cell.viewWithTag(TAG_DETAIL_LABEL) as UILabel
+		
+		title.text = card.title
+		details.text = "(1 / \(card.scenes.count))"
 	}
 }

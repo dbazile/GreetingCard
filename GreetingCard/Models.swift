@@ -8,23 +8,35 @@
 
 import Foundation
 
-struct Layer {
-	var image: String
-	var visible: Bool
-	var scale: Float
-	var rotation: Int32
-	var opacity: Float
-	var top: Int32
-	var left: Int32
+struct Layer : Printable {
+	var image : String
+	var visible : Bool
+	var scale : Float
+	var rotation : Int
+	var opacity : Float
+	var top : Int
+	var left : Int
+	
+	var description : String {
+		return "<Layer image=\(image) xy=(\(left), \(top))>"
+	}
 }
 
-struct Scene {
-	var layers: [Layer]
-	var caption: String
+struct Scene : Printable {
+	var caption : String
+	var layers : [Layer]
+	
+	var description : String {
+		return "<Scene '\(caption)'>"
+	}
 }
 
-struct Card {
-	var scenes: [Scene]
-	var title: String
-	var isNew: Bool
+struct Card : Printable {
+	var title : String
+	var isNew : Bool
+	var scenes : [Scene]
+	
+	var description : String {
+		return "<Card\n\ttitle='\(title)'\n\tscenes=\(scenes)>"
+	}
 }

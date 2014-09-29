@@ -9,9 +9,10 @@
 import UIKit
 
 class CardViewController: UIViewController, UIPageViewControllerDataSource {
-
-	var pageViewController: UIPageViewController?
-	var card: Card? = DataUtility.GenerateCards().first
+	
+	let VERTICAL_OFFSET : CGFloat = 0
+	var pageViewController : UIPageViewController?
+	var card : Card?
 	
     override func viewDidLoad()
 	{
@@ -28,13 +29,24 @@ class CardViewController: UIViewController, UIPageViewControllerDataSource {
 		self.addChildViewController(controller)
 		self.view.addSubview(controller.view)
 
-		controller.view.frame = CGRectMake(0, 70, self.view.bounds.width, self.view.bounds.height-70)
+		controller.view.frame = CGRectMake(0, VERTICAL_OFFSET, self.view.bounds.width, self.view.bounds.height-VERTICAL_OFFSET)
 		
 		controller.didMoveToParentViewController(self)
 		
 		self.pageViewController = controller
 		self.view.gestureRecognizers = controller.gestureRecognizers
     }
+	
+	override func viewWillAppear(animated: Bool) {
+		self.navigationController?.navigationBarHidden = true
+		self.navigationController?.hidesBarsOnTap = true
+		self.title = card?.title
+	}
+	
+	override func viewWillDisappear(animated: Bool) {
+		self.navigationController?.navigationBarHidden = false
+		self.navigationController?.hidesBarsOnTap = false
+	}
 	
 	func presentationCountForPageViewController(pageViewController: UIPageViewController) -> Int {
 		return card!.scenes.count
