@@ -26,7 +26,14 @@ class SceneViewController: UIViewController {
 	private func render()
 	{
 		caption.text = scene?.caption
+		var counter = 0
 		for layer in scene!.layers {
+			counter += 1
+			if (1 == counter) {
+				self.parentViewController!.view.backgroundColor = UIColor.blueColor()
+				continue
+			}
+			
 			let image = UIImage(contentsOfFile: layer.image)
 			let container = UIImageView(image: image)
 			

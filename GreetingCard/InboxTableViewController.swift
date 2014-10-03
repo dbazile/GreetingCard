@@ -15,7 +15,7 @@ class InboxTableViewController: UITableViewController, UITableViewDataSource
 	let TAG_TITLE_LABEL = 1001
 	let TAG_DETAIL_LABEL = 1002
 	
-	var cards: [Card] = DataUtility.GenerateCards()
+	var cards: [Card] = DataUtility.LoadCards()
 	
 	///
 	/// Post-initialization hook

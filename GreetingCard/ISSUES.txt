@@ -1,0 +1,6 @@
+
+View scaling to larger resolutions probably doesn't work
+
+
+Visibility flag not honored
+

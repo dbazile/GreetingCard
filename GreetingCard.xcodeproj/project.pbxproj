@@ -7,15 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		63781A8C19D8C92D003174F7 /* backdrop-home-indoors.png in Resources */ = {isa = PBXBuildFile; fileRef = 63781A8319D8C92D003174F7 /* backdrop-home-indoors.png */; };
-		63781A8D19D8C92D003174F7 /* backdrop-road.png in Resources */ = {isa = PBXBuildFile; fileRef = 63781A8419D8C92D003174F7 /* backdrop-road.png */; };
-		63781A8E19D8C92D003174F7 /* backdrop-yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 63781A8519D8C92D003174F7 /* backdrop-yellow.png */; };
-		63781A8F19D8C92D003174F7 /* cake.png in Resources */ = {isa = PBXBuildFile; fileRef = 63781A8619D8C92D003174F7 /* cake.png */; };
-		63781A9019D8C92D003174F7 /* home-bed.png in Resources */ = {isa = PBXBuildFile; fileRef = 63781A8719D8C92D003174F7 /* home-bed.png */; };
-		63781A9119D8C92D003174F7 /* home-sink.png in Resources */ = {isa = PBXBuildFile; fileRef = 63781A8819D8C92D003174F7 /* home-sink.png */; };
-		63781A9219D8C92D003174F7 /* home-table.png in Resources */ = {isa = PBXBuildFile; fileRef = 63781A8919D8C92D003174F7 /* home-table.png */; };
-		63781A9319D8C92D003174F7 /* person.png in Resources */ = {isa = PBXBuildFile; fileRef = 63781A8A19D8C92D003174F7 /* person.png */; };
-		63781A9419D8C92D003174F7 /* road-car-front.png in Resources */ = {isa = PBXBuildFile; fileRef = 63781A8B19D8C92D003174F7 /* road-car-front.png */; };
+		633FC8E619DF4ECE0033F742 /* sprites in Resources */ = {isa = PBXBuildFile; fileRef = 633FC8E519DF4ECE0033F742 /* sprites */; };
 		63AA5CD219D7E31C009E15E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AA5CD119D7E31C009E15E7 /* AppDelegate.swift */; };
 		63AA5CDB19D7E31C009E15E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63AA5CD919D7E31C009E15E7 /* Main.storyboard */; };
 		63AA5CDD19D7E31C009E15E7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63AA5CDC19D7E31C009E15E7 /* Images.xcassets */; };
@@ -39,15 +31,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		63781A8319D8C92D003174F7 /* backdrop-home-indoors.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backdrop-home-indoors.png"; sourceTree = "<group>"; };
-		63781A8419D8C92D003174F7 /* backdrop-road.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backdrop-road.png"; sourceTree = "<group>"; };
-		63781A8519D8C92D003174F7 /* backdrop-yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "backdrop-yellow.png"; sourceTree = "<group>"; };
-		63781A8619D8C92D003174F7 /* cake.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cake.png; sourceTree = "<group>"; };
-		63781A8719D8C92D003174F7 /* home-bed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-bed.png"; sourceTree = "<group>"; };
-		63781A8819D8C92D003174F7 /* home-sink.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-sink.png"; sourceTree = "<group>"; };
-		63781A8919D8C92D003174F7 /* home-table.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "home-table.png"; sourceTree = "<group>"; };
-		63781A8A19D8C92D003174F7 /* person.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = person.png; sourceTree = "<group>"; };
-		63781A8B19D8C92D003174F7 /* road-car-front.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "road-car-front.png"; sourceTree = "<group>"; };
+		633FC8E519DF4ECE0033F742 /* sprites */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sprites; sourceTree = "<group>"; };
 		63AA5CCC19D7E31C009E15E7 /* GreetingCard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GreetingCard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63AA5CD019D7E31C009E15E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63AA5CD119D7E31C009E15E7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -91,30 +75,6 @@
 			name = Data;
 			sourceTree = "<group>";
 		};
-		63781A5119D8B7AF003174F7 /* sprites */ = {
-			isa = PBXGroup;
-			children = (
-				63781A8219D8C8F3003174F7 /* backdrops */,
-				63781A8619D8C92D003174F7 /* cake.png */,
-				63781A8719D8C92D003174F7 /* home-bed.png */,
-				63781A8819D8C92D003174F7 /* home-sink.png */,
-				63781A8919D8C92D003174F7 /* home-table.png */,
-				63781A8A19D8C92D003174F7 /* person.png */,
-				63781A8B19D8C92D003174F7 /* road-car-front.png */,
-			);
-			name = sprites;
-			sourceTree = "<group>";
-		};
-		63781A8219D8C8F3003174F7 /* backdrops */ = {
-			isa = PBXGroup;
-			children = (
-				63781A8319D8C92D003174F7 /* backdrop-home-indoors.png */,
-				63781A8419D8C92D003174F7 /* backdrop-road.png */,
-				63781A8519D8C92D003174F7 /* backdrop-yellow.png */,
-			);
-			name = backdrops;
-			sourceTree = "<group>";
-		};
 		63AA5CC319D7E31C009E15E7 = {
 			isa = PBXGroup;
 			children = (
@@ -136,7 +96,7 @@
 		63AA5CCE19D7E31C009E15E7 /* GreetingCard */ = {
 			isa = PBXGroup;
 			children = (
-				63781A5119D8B7AF003174F7 /* sprites */,
+				633FC8E519DF4ECE0033F742 /* sprites */,
 				63AA5CD919D7E31C009E15E7 /* Main.storyboard */,
 				63AA5CF819D7E37E009E15E7 /* CardViewController.swift */,
 				63AA5CFA19D7E37E009E15E7 /* InboxTableViewController.swift */,
@@ -255,18 +215,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63781A9019D8C92D003174F7 /* home-bed.png in Resources */,
-				63781A9219D8C92D003174F7 /* home-table.png in Resources */,
-				63781A8D19D8C92D003174F7 /* backdrop-road.png in Resources */,
 				63AA5CDB19D7E31C009E15E7 /* Main.storyboard in Resources */,
+				633FC8E619DF4ECE0033F742 /* sprites in Resources */,
 				63AA5CE019D7E31C009E15E7 /* LaunchScreen.xib in Resources */,
-				63781A8F19D8C92D003174F7 /* cake.png in Resources */,
-				63781A9319D8C92D003174F7 /* person.png in Resources */,
-				63781A9119D8C92D003174F7 /* home-sink.png in Resources */,
-				63781A9419D8C92D003174F7 /* road-car-front.png in Resources */,
-				63781A8E19D8C92D003174F7 /* backdrop-yellow.png in Resources */,
 				63AA5CDD19D7E31C009E15E7 /* Images.xcassets in Resources */,
-				63781A8C19D8C92D003174F7 /* backdrop-home-indoors.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

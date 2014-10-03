@@ -1,0 +1,59 @@
+View all Cards
+	# Create View
+	- Link to 'Create', 'Edit', 'Share', 'Delete'
+	- Add custom logo to navbar
+
+
+View a single Card
+	# Create Card View
+	# Create PageViewController to facilitate cycling through scenes
+	# Ability to specify background color
+	- Link to 'Edit', 'Share', 'Delete'
+
+
+Edit a Card
+	- Create 'Card Overview' View
+	- Create 'Scene Editor' View
+	- Create 'Layer List' View
+	- Create 'Sprite Picker' View
+	- Add 'Create' and 'Edit' shortcuts on the Inbox
+
+
+Share a Card
+	- Create View
+
+
+Import a Card
+	- Read card data from JSON into local storage
+
+
+Delete a Card
+	- After confirmation, remove a card from local storage
+
+
+View Cards with new Sprites
+	- Download and cache sprites in local repository
+	- Determine repository strategy
+
+
+Read and Save Data
+	- Saving a card locally
+	- Sharing a card
+	- Read a card from JSON
+	- Local sprite repository
+	- Web sprite repository
+	- HTTP call strategy
+	- Caching strategy
+	- Sharing strategy
+
+
+Use Sprites
+	- Build more sprites!
+	- Ideas:
+		- 'Alarm Clock' from mothers day (sleeping and awake)
+		- Moon
+		- Z's
+		- Gradients for times of day
+
+
+

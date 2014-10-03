@@ -17,30 +17,14 @@ class CardViewController: UIViewController, UIPageViewControllerDataSource {
     override func viewDidLoad()
 	{
         super.viewDidLoad()
-		
-		self.pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
-		let controller = self.pageViewController!
-		
-		let controllers = [sceneController(0)!]
-		controller.setViewControllers(controllers, direction: .Forward, animated: false, completion: {done in})
-		
-		controller.dataSource = self
-		
-		self.addChildViewController(controller)
-		self.view.addSubview(controller.view)
-
-		controller.view.frame = CGRectMake(0, VERTICAL_OFFSET, self.view.bounds.width, self.view.bounds.height-VERTICAL_OFFSET)
-		
-		controller.didMoveToParentViewController(self)
-		
-		self.pageViewController = controller
-		self.view.gestureRecognizers = controller.gestureRecognizers
+		self.initializePageViewController()
     }
 	
 	override func viewWillAppear(animated: Bool) {
 		self.navigationController?.navigationBarHidden = true
 		self.navigationController?.hidesBarsOnTap = true
 		self.title = card?.title
+		self.view.backgroundColor = UIColor.redColor()
 	}
 	
 	override func viewWillDisappear(animated: Bool) {
@@ -86,5 +70,26 @@ class CardViewController: UIViewController, UIPageViewControllerDataSource {
 		} else {
 			return nil
 		}
+	}
+	
+	private func initializePageViewController() {
+		self.pageViewController = UIPageViewController(transitionStyle: .Scroll, navigationOrientation: .Horizontal, options: nil)
+		let controller = self.pageViewController!
+		
+		let controllers = [sceneController(0)!]
+		controller.setViewControllers(controllers, direction: .Forward, animated: false, completion: {done in})
+		
+		controller.dataSource = self
+		
+		self.addChildViewController(controller)
+		self.view.addSubview(controller.view)
+		
+		controller.view.frame = CGRectMake(0, VERTICAL_OFFSET, self.view.bounds.width, self.view.bounds.height-VERTICAL_OFFSET)
+		
+		controller.didMoveToParentViewController(self)
+		
+		self.pageViewController = controller
+		self.view.gestureRecognizers = controller.gestureRecognizers
+		
 	}
 }

@@ -24,6 +24,8 @@ struct Layer : Printable {
 
 struct Scene : Printable {
 	var caption : String
+	var backgroundColor : String?
+	var foregroundColor : String?
 	var layers : [Layer]
 	
 	var description : String {
