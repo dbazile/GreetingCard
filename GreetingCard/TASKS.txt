@@ -2,6 +2,7 @@ View all Cards
 	# Create View
 	- Link to 'Create', 'Edit', 'Share', 'Delete'
 	- Add custom logo to navbar
+	- Generate a preview image for each Card tile
 
 
 View a single Card

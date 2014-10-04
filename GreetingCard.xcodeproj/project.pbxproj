@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		633FC8E619DF4ECE0033F742 /* sprites in Resources */ = {isa = PBXBuildFile; fileRef = 633FC8E519DF4ECE0033F742 /* sprites */; };
+		633FC8E819DF51E60033F742 /* EditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633FC8E719DF51E60033F742 /* EditCardViewController.swift */; };
+		633FC91A19DF6ABD0033F742 /* EditSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633FC91919DF6ABD0033F742 /* EditSceneViewController.swift */; };
+		633FC91C19DF73C30033F742 /* PrototypeEditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633FC91B19DF73C30033F742 /* PrototypeEditCardViewController.swift */; };
 		63AA5CD219D7E31C009E15E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AA5CD119D7E31C009E15E7 /* AppDelegate.swift */; };
 		63AA5CDB19D7E31C009E15E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63AA5CD919D7E31C009E15E7 /* Main.storyboard */; };
 		63AA5CDD19D7E31C009E15E7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63AA5CDC19D7E31C009E15E7 /* Images.xcassets */; };
@@ -32,6 +35,9 @@
 
 /* Begin PBXFileReference section */
 		633FC8E519DF4ECE0033F742 /* sprites */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sprites; sourceTree = "<group>"; };
+		633FC8E719DF51E60033F742 /* EditCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditCardViewController.swift; sourceTree = "<group>"; };
+		633FC91919DF6ABD0033F742 /* EditSceneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSceneViewController.swift; sourceTree = "<group>"; };
+		633FC91B19DF73C30033F742 /* PrototypeEditCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrototypeEditCardViewController.swift; sourceTree = "<group>"; };
 		63AA5CCC19D7E31C009E15E7 /* GreetingCard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GreetingCard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63AA5CD019D7E31C009E15E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63AA5CD119D7E31C009E15E7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +72,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		633FC91D19DF73E40033F742 /* View Card */ = {
+			isa = PBXGroup;
+			children = (
+				63AA5CFA19D7E37E009E15E7 /* InboxTableViewController.swift */,
+				63AA5CF819D7E37E009E15E7 /* CardViewController.swift */,
+				63AA5CFC19D7E37E009E15E7 /* SceneViewController.swift */,
+			);
+			name = "View Card";
+			sourceTree = "<group>";
+		};
+		633FC91E19DF74060033F742 /* Edit Card */ = {
+			isa = PBXGroup;
+			children = (
+				633FC8E719DF51E60033F742 /* EditCardViewController.swift */,
+				633FC91919DF6ABD0033F742 /* EditSceneViewController.swift */,
+				633FC91B19DF73C30033F742 /* PrototypeEditCardViewController.swift */,
+			);
+			name = "Edit Card";
+			sourceTree = "<group>";
+		};
 		63781A3E19D88BE0003174F7 /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -98,9 +124,8 @@
 			children = (
 				633FC8E519DF4ECE0033F742 /* sprites */,
 				63AA5CD919D7E31C009E15E7 /* Main.storyboard */,
-				63AA5CF819D7E37E009E15E7 /* CardViewController.swift */,
-				63AA5CFA19D7E37E009E15E7 /* InboxTableViewController.swift */,
-				63AA5CFC19D7E37E009E15E7 /* SceneViewController.swift */,
+				633FC91D19DF73E40033F742 /* View Card */,
+				633FC91E19DF74060033F742 /* Edit Card */,
 				63AA5CD119D7E31C009E15E7 /* AppDelegate.swift */,
 				63AA5CDC19D7E31C009E15E7 /* Images.xcassets */,
 				63AA5CDE19D7E31C009E15E7 /* LaunchScreen.xib */,
@@ -237,9 +262,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				63AA5D0119D7E37E009E15E7 /* SceneViewController.swift in Sources */,
+				633FC91C19DF73C30033F742 /* PrototypeEditCardViewController.swift in Sources */,
 				63AA5CFF19D7E37E009E15E7 /* InboxTableViewController.swift in Sources */,
 				63AA5D0019D7E37E009E15E7 /* Models.swift in Sources */,
+				633FC91A19DF6ABD0033F742 /* EditSceneViewController.swift in Sources */,
 				63AA5CFD19D7E37E009E15E7 /* CardViewController.swift in Sources */,
+				633FC8E819DF51E60033F742 /* EditCardViewController.swift in Sources */,
 				63AA5CFE19D7E37E009E15E7 /* DataUtility.swift in Sources */,
 				63AA5CD219D7E31C009E15E7 /* AppDelegate.swift in Sources */,
 			);

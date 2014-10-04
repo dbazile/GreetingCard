@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "GreetingCard.EditCardViewController.prepareForSegue (GreetingCard.EditCardViewController)(ObjectiveC.UIStoryboardSegue, sender : Swift.Optional&lt;Swift.AnyObject&gt;) -&gt; ():EditCardViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "(sender as UICollectionViewCell)">
+            </PersistentString>
+            <PersistentString
+               value = "sender as UICollectionViewCell">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
