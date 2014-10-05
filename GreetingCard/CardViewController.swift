@@ -24,7 +24,6 @@ class CardViewController: UIViewController, UIPageViewControllerDataSource {
 		self.navigationController?.navigationBarHidden = true
 		self.navigationController?.hidesBarsOnTap = true
 		self.title = card?.title
-		self.view.backgroundColor = UIColor.redColor()
 	}
 	
 	override func viewWillDisappear(animated: Bool) {

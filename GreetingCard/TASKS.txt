@@ -13,8 +13,9 @@ View a single Card
 
 
 Edit a Card
-	- Create 'Card Overview' View
-	- Create 'Scene Editor' View
+	# Create 'Card Overview' View
+		- Need to create a preview image
+	~ Create 'Scene Editor' View
 	- Create 'Layer List' View
 	- Create 'Sprite Picker' View
 	- Add 'Create' and 'Edit' shortcuts on the Inbox

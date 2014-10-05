@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Layer : Printable {
+class Layer : Printable {
 	var image : String
 	var visible : Bool
 	var scale : Float
@@ -16,6 +16,17 @@ struct Layer : Printable {
 	var opacity : Float
 	var top : Int
 	var left : Int
+	
+	init(image: String, visible: Bool, scale: Float, rotation: Int, opacity: Float, top: Int, left: Int)
+	{
+		self.image = image
+		self.visible = visible
+		self.scale = scale
+		self.rotation = rotation
+		self.opacity = opacity
+		self.top = top
+		self.left = left
+	}
 	
 	var description : String {
 		return "<Layer image=\(image) xy=(\(left), \(top))>"

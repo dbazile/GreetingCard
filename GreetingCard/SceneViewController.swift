@@ -8,74 +8,24 @@
 
 import UIKit
 
-class SceneViewController: UIViewController {
+class SceneViewController: UIViewController
+{
 	@IBOutlet weak var canvas: UIView!
 	@IBOutlet weak var caption: UILabel!
+	
+	let agent = RenderingAgent()
+	
 	var scene: Scene?
 	var index: Int = -1
 	
     override func viewDidLoad() {
         super.viewDidLoad()
+		agent.normalize(canvas)
     }
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		self.render()
-	}
-	
-	private func render()
-	{
+		agent.render(scene!, onCanvas: canvas)
 		caption.text = scene?.caption
-		var counter = 0
-		for layer in scene!.layers {
-			counter += 1
-			if (1 == counter) {
-				self.parentViewController!.view.backgroundColor = UIColor.blueColor()
-				continue
-			}
-			
-			let image = UIImage(contentsOfFile: layer.image)
-			let container = UIImageView(image: image)
-			
-			// The layer should maintain the image's aspect ratio
-			container.contentMode = UIViewContentMode.ScaleAspectFit
-			
-			// Image Size
-			container.frame = CGRect(origin: position(layer), size: scale(image, percentage: layer.scale))
-			
-			// Rotation
-			container.transform = rotation(layer)
-			
-			// Opacity
-			container.alpha = opacity(layer)
-			
-			canvas.addSubview(container)
-		}
-	}
-	
-	private func opacity(layer: Layer) -> CGFloat
-	{
-		return CGFloat(layer.opacity)
-	}
-	
-	private func rotation(layer: Layer) -> CGAffineTransform
-	{
-		let degrees = layer.rotation
-		let radians = CGFloat(degrees) * CGFloat(1/57.2957795)
-		
-		return CGAffineTransformMakeRotation(radians)
-	}
-	
-	private func position(layer: Layer) -> CGPoint
-	{
-		return CGPoint(x: Int(layer.left), y: Int(layer.top))
-	}
-	
-	private func scale(image: UIImage, percentage: Float) -> CGSize
-	{
-		let w = Float(image.size.width) * percentage
-		let h = Float(image.size.height) * percentage
-		
-		return CGSize(width: CGFloat(w), height: CGFloat(h))
 	}
 }

@@ -8,64 +8,69 @@
 
 import UIKit
 
-class EditCardViewController: UICollectionViewController, UICollectionViewDelegate {
+class EditCardViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
 	let SEGUE_EDIT_SCENE = "EditScene"
-	let REUSE_IDENTIFIER = "CardCell"
-	let SCENE_FONT_FACE = "Helvetica"
-	let SCENE_FONT_SIZE = CGFloat(60)
+	let REUSE_IDENTIFIER = "SceneCell"
+	let TAG_SCENE_INDEX = 100
 	
 	var card : Card? = DataUtility.LoadCards()[0]
 	
-    override func viewDidLoad() {
-        super.viewDidLoad()
+	@IBOutlet weak var cardTitle: UITextField!
+	@IBOutlet weak var collectionView: UICollectionView!
+	
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
 		
-        // Register cell classes
-        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: REUSE_IDENTIFIER)
-    }
-
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-		let destinationController = segue.destinationViewController as EditSceneViewController
-		let index = self.collectionView!.indexPathForCell(sender as UICollectionViewCell)!.item
-		destinationController.scene = self.card!.scenes[index]
+		cardTitle.text = card?.title
 	}
 	
-    // MARK: UICollectionViewDataSource
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		let destinationController = segue.destinationViewController as EditSceneViewController
+		let index = collectionView.indexPathForCell(sender as UICollectionViewCell)!.item
 
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+		if (index < card?.scenes.count) {
+			destinationController.scene = self.card!.scenes[index]
+		} else {
+			destinationController.scene = generateScene()
+		}
+	}
+	
+	// MARK: UICollectionViewDataSource
+	
+	func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
 		return 1
-    }
-
-
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return card!.scenes.count + 1
-    }
-
-	override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+	}
+	
+	func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+		// Return an extra cell to account for the 'New Scene' button
+		return card!.scenes.count + 1
+	}
+	
+	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCellWithReuseIdentifier(REUSE_IDENTIFIER, forIndexPath: indexPath) as UICollectionViewCell
 		let index = indexPath.item
 		
 		// Configure the cell
-		cell.backgroundColor = UIColor.blueColor()
+		cell.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
 		
-		let label = UILabel(frame: cell.bounds)
-		label.font = UIFont(name: SCENE_FONT_FACE, size: SCENE_FONT_SIZE)
-		label.textAlignment = NSTextAlignment.Center
-		label.textColor = UIColor.whiteColor()
+		let label = cell.viewWithTag(TAG_SCENE_INDEX)! as UILabel
 		
 		if (index < self.card!.scenes.count) {
 			label.text = "\(indexPath.item)"
 		} else {
 			label.text = "+"
-			cell.alpha = 0.5
+			cell.alpha = 0.2
 		}
-		
-		cell.addSubview(label)
 		
 		return cell
 	}
+
+	private func generateScene() -> Scene
+	{
+		return Scene(caption: "", backgroundColor: nil, foregroundColor: nil, layers: [])
+	}
 	
-	override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-		self.performSegueWithIdentifier(SEGUE_EDIT_SCENE, sender: self.collectionView!.cellForItemAtIndexPath(indexPath))
-		return true
+	@IBAction func titleDidChange(sender: UITextField) {
+		println("Title changed to '\(sender.text)'")
 	}
 }
