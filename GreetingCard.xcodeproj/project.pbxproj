@@ -10,10 +10,14 @@
 		633FC8E619DF4ECE0033F742 /* sprites in Resources */ = {isa = PBXBuildFile; fileRef = 633FC8E519DF4ECE0033F742 /* sprites */; };
 		633FC91A19DF6ABD0033F742 /* EditSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633FC91919DF6ABD0033F742 /* EditSceneViewController.swift */; };
 		633FC91C19DF73C30033F742 /* EditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633FC91B19DF73C30033F742 /* EditCardViewController.swift */; };
+		636A6A4B19E1D7EF001B4B6D /* SpritePickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636A6A4A19E1D7EF001B4B6D /* SpritePickerDelegate.swift */; };
+		636A6A4D19E1D8A8001B4B6D /* SpritePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636A6A4C19E1D8A8001B4B6D /* SpritePickerViewController.swift */; };
 		637C09AD19DFB48700E93BB0 /* EditSceneToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637C09AC19DFB48700E93BB0 /* EditSceneToolbarViewController.swift */; };
-		637C09AF19DFCA9600E93BB0 /* IToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637C09AE19DFCA9600E93BB0 /* IToolbarDelegate.swift */; };
+		637C09AF19DFCA9600E93BB0 /* EditSceneToolbarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637C09AE19DFCA9600E93BB0 /* EditSceneToolbarDelegate.swift */; };
 		637C09B119E0953100E93BB0 /* RenderingAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637C09B019E0953100E93BB0 /* RenderingAgent.swift */; };
 		637C09B519E1135300E93BB0 /* LayerPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637C09B419E1135300E93BB0 /* LayerPickerViewController.swift */; };
+		637C09B719E11BD200E93BB0 /* LayerPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637C09B619E11BD200E93BB0 /* LayerPickerDelegate.swift */; };
+		637C09B919E19BF700E93BB0 /* LayerPickerNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637C09B819E19BF700E93BB0 /* LayerPickerNavigationController.swift */; };
 		63AA5CD219D7E31C009E15E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AA5CD119D7E31C009E15E7 /* AppDelegate.swift */; };
 		63AA5CDB19D7E31C009E15E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63AA5CD919D7E31C009E15E7 /* Main.storyboard */; };
 		63AA5CDD19D7E31C009E15E7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63AA5CDC19D7E31C009E15E7 /* Images.xcassets */; };
@@ -40,10 +44,14 @@
 		633FC8E519DF4ECE0033F742 /* sprites */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sprites; sourceTree = "<group>"; };
 		633FC91919DF6ABD0033F742 /* EditSceneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSceneViewController.swift; sourceTree = "<group>"; };
 		633FC91B19DF73C30033F742 /* EditCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditCardViewController.swift; sourceTree = "<group>"; };
+		636A6A4A19E1D7EF001B4B6D /* SpritePickerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpritePickerDelegate.swift; sourceTree = "<group>"; };
+		636A6A4C19E1D8A8001B4B6D /* SpritePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpritePickerViewController.swift; sourceTree = "<group>"; };
 		637C09AC19DFB48700E93BB0 /* EditSceneToolbarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSceneToolbarViewController.swift; sourceTree = "<group>"; };
-		637C09AE19DFCA9600E93BB0 /* IToolbarDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IToolbarDelegate.swift; sourceTree = "<group>"; };
+		637C09AE19DFCA9600E93BB0 /* EditSceneToolbarDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSceneToolbarDelegate.swift; sourceTree = "<group>"; };
 		637C09B019E0953100E93BB0 /* RenderingAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderingAgent.swift; sourceTree = "<group>"; };
 		637C09B419E1135300E93BB0 /* LayerPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayerPickerViewController.swift; sourceTree = "<group>"; };
+		637C09B619E11BD200E93BB0 /* LayerPickerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayerPickerDelegate.swift; sourceTree = "<group>"; };
+		637C09B819E19BF700E93BB0 /* LayerPickerNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayerPickerNavigationController.swift; sourceTree = "<group>"; };
 		63AA5CCC19D7E31C009E15E7 /* GreetingCard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GreetingCard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63AA5CD019D7E31C009E15E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63AA5CD119D7E31C009E15E7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -91,11 +99,15 @@
 		633FC91E19DF74060033F742 /* Edit Card */ = {
 			isa = PBXGroup;
 			children = (
-				637C09AE19DFCA9600E93BB0 /* IToolbarDelegate.swift */,
 				633FC91B19DF73C30033F742 /* EditCardViewController.swift */,
 				633FC91919DF6ABD0033F742 /* EditSceneViewController.swift */,
 				637C09AC19DFB48700E93BB0 /* EditSceneToolbarViewController.swift */,
 				637C09B419E1135300E93BB0 /* LayerPickerViewController.swift */,
+				636A6A4C19E1D8A8001B4B6D /* SpritePickerViewController.swift */,
+				637C09B819E19BF700E93BB0 /* LayerPickerNavigationController.swift */,
+				637C09AE19DFCA9600E93BB0 /* EditSceneToolbarDelegate.swift */,
+				637C09B619E11BD200E93BB0 /* LayerPickerDelegate.swift */,
+				636A6A4A19E1D7EF001B4B6D /* SpritePickerDelegate.swift */,
 			);
 			name = "Edit Card";
 			sourceTree = "<group>";
@@ -270,17 +282,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				637C09B719E11BD200E93BB0 /* LayerPickerDelegate.swift in Sources */,
 				637C09B519E1135300E93BB0 /* LayerPickerViewController.swift in Sources */,
 				63AA5D0119D7E37E009E15E7 /* SceneViewController.swift in Sources */,
 				637C09B119E0953100E93BB0 /* RenderingAgent.swift in Sources */,
 				633FC91C19DF73C30033F742 /* EditCardViewController.swift in Sources */,
 				63AA5CFF19D7E37E009E15E7 /* InboxTableViewController.swift in Sources */,
-				637C09AF19DFCA9600E93BB0 /* IToolbarDelegate.swift in Sources */,
+				637C09AF19DFCA9600E93BB0 /* EditSceneToolbarDelegate.swift in Sources */,
+				636A6A4B19E1D7EF001B4B6D /* SpritePickerDelegate.swift in Sources */,
 				637C09AD19DFB48700E93BB0 /* EditSceneToolbarViewController.swift in Sources */,
 				63AA5D0019D7E37E009E15E7 /* Models.swift in Sources */,
 				633FC91A19DF6ABD0033F742 /* EditSceneViewController.swift in Sources */,
 				63AA5CFD19D7E37E009E15E7 /* CardViewController.swift in Sources */,
 				63AA5CFE19D7E37E009E15E7 /* DataUtility.swift in Sources */,
+				637C09B919E19BF700E93BB0 /* LayerPickerNavigationController.swift in Sources */,
+				636A6A4D19E1D8A8001B4B6D /* SpritePickerViewController.swift in Sources */,
 				63AA5CD219D7E31C009E15E7 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -405,6 +421,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = GreetingCard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -415,6 +432,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = GreetingCard/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

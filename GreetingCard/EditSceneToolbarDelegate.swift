@@ -10,34 +10,25 @@ protocol EditSceneToolbarDelegate
 {
 	
 	/// Handler for changes to the 'caption' textfield
-	func toolbarEvent(changed: Bool, caption: String)
+	func toolbarEvent(changed:Bool, caption:String)
 	
 	/// Handler for changes to the 'opacity' slider
-	func toolbarEvent(changed: Bool, opacity: Float)
+	func toolbarEvent(changed:Bool, opacity:Float)
 	
 	/// Handler for changes to the 'rotation' slider
-	func toolbarEvent(changed: Bool, rotation: Int)
+	func toolbarEvent(changed:Bool, rotation:Int)
 	
 	/// Handler for changes to the 'scale' slider
-	func toolbarEvent(changed: Bool, scale: Float)
+	func toolbarEvent(changed:Bool, scale:Float)
 	
 	/// Handler for changes to the 'top' slider
-	func toolbarEvent(changed: Bool, top: Int)
+	func toolbarEvent(changed:Bool, top:Int)
 	
 	/// Handler for changes to the 'left' slider
-	func toolbarEvent(changed: Bool, left: Int)
-	
-	
-	
-	
-	
-	
+	func toolbarEvent(changed:Bool, left:Int)
+
+	/// Handler for when the user clicks the 'Layer Picker' button
 	func toolbarEvent(clickedButton: Bool, layerPicker: Bool)
-	
-	
-	
-	
-	
 
 	//
 	// Initial values for the sliders

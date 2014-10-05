@@ -25,7 +25,7 @@ class SceneViewController: UIViewController
 	
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		agent.render(scene!, onCanvas: canvas)
+		agent.render(scene!, onto: canvas)
 		caption.text = scene?.caption
 	}
 }

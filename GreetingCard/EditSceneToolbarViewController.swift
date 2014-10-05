@@ -101,8 +101,8 @@ class EditSceneToolbarViewController: UIViewController {
 			self.caption.text = delegate!.initialCaption()
 		}
 		
-		// Set the layer name
-		self.labelLayerIndex.text = String(self.layerIndex)
+		// Set the layer index caption
+		self.labelLayerIndex.text = String(self.layerIndex + 1)
 		
 		// Trigger all of the change event handlers
 		rotationDidChange(rotation)

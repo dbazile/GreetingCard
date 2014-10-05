@@ -10,6 +10,24 @@ import Foundation
 
 class DataUtility {
 
+	class func LoadLocalSprites() -> [String]
+	{
+		var paths: [String] = []
+		
+		paths.append(png("backdrop-home-indoors")!)
+		paths.append(png("backdrop-road")!)
+		paths.append(png("backdrop-yellow")!)
+		paths.append(png("cake")!)
+		paths.append(png("home-bed")!)
+		paths.append(png("home-sink")!)
+		paths.append(png("home-table")!)
+		paths.append(png("person")!)
+		paths.append(png("road-car-front")!)
+		
+		return paths
+	}
+	
+	
 	class func LoadCards() -> [Card]
 	{
 		//var cards: [Card] = []

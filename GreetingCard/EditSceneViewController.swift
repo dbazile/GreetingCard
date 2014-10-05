@@ -8,22 +8,43 @@
 
 import UIKit
 
-class EditSceneViewController: UIViewController, EditSceneToolbarDelegate {
+class EditSceneViewController: UIViewController, EditSceneToolbarDelegate, LayerPickerDelegate, SpritePickerDelegate {
+	let STARTING_LAYER = 0
 	let EDIT_SCENE_TOOLBAR = "EditSceneToolbar"
+	let LAYER_PICKER_MODAL = "LayerPickerModal"
 	let agent = RenderingAgent()
 	var toolbarController : EditSceneToolbarViewController?
 	var scene : Scene?
-	var focusedLayer : Layer?
-	var focusedLayerIndex = 0
+	
+	// Property
+	var focusedLayer : Layer? {
+		get {
+			return scene?.layers[focusedLayerIndex]
+		}
+	}
+
+	// Property
+	private var _index = 0
+	var focusedLayerIndex : Int {
+		get {
+			return _index
+		}
+		set {
+			_index = newValue
+			toolbarController!.layerIndex = _index
+		}
+	}
 	
 	@IBOutlet weak var canvas: UIView!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		agent.normalize(canvas)
-		focusedLayerDidChange(focusedLayerIndex)
-//		navigationController?.hidesBarsOnTap = true
-//		navigationController?.navigationBarHidden = true
+		
+		navigationController?.hidesBarsOnTap = true
+		navigationController?.navigationBarHidden = true
+
+		self.focusedLayerIndex = STARTING_LAYER
 	}
 	
 	override func viewWillAppear(animated: Bool) {
@@ -42,28 +63,20 @@ class EditSceneViewController: UIViewController, EditSceneToolbarDelegate {
 		if (EDIT_SCENE_TOOLBAR == segue.identifier) {
 			let controller = segue.destinationViewController as EditSceneToolbarViewController
 			controller.delegate = self
-
+	
 			// Keep a reference to the toolbar controller
 			self.toolbarController = controller
+		} else if (LAYER_PICKER_MODAL == segue.identifier) {
+			let controller = segue.destinationViewController as LayerPickerNavigationController
+			controller.pickerDelegate = self
+			controller.layers = scene!.layers
+			controller.modalTransitionStyle = UIModalTransitionStyle.FlipHorizontal
 		}
 	}
 	
-	func focusedLayerDidChange(index: Int)
-	{
-		print("[focusedLayerDidChange \(index)] ")
-		if (index < scene?.layers.count) {
-			focusedLayerIndex = index
-			focusedLayer = scene!.layers[index]
-			toolbarController!.layerIndex = index
-		} else {
-			print("WARNING - index out of bounds")
-		}
-		println()
-	}
-
 	private func render()
 	{
-		agent.render(scene!, withHighlightIndex: focusedLayerIndex, onCanvas: canvas)
+		agent.render(scene!, onto:canvas, highlighting:focusedLayerIndex)
 	}
 	
 	func toolbarEvent(changed: Bool, caption: String) {
@@ -95,17 +108,35 @@ class EditSceneViewController: UIViewController, EditSceneToolbarDelegate {
 		focusedLayer?.left = left
 		render()
 	}
+
 	
 	
 	
-	let LAYER_PICKER = "LayerPickerViewController"
+	
+	
 	
 	func toolbarEvent(clickedButton: Bool, layerPicker: Bool) {
-		let controller = storyboard?.instantiateViewControllerWithIdentifier(LAYER_PICKER) as LayerPickerViewController
-		controller.layers = scene!.layers
-		controller.modalTransitionStyle = UIModalTransitionStyle.FlipHorizontal
-		self.presentViewController(controller, animated: true, completion: nil)
+		self.performSegueWithIdentifier(LAYER_PICKER_MODAL, sender: self)
 	}
+	
+	func layerPicker(pickerController: LayerPickerViewController, didSelectLayer index: Int) {
+		self.focusedLayerIndex = index
+		pickerController.dismissViewControllerAnimated(true, completion: nil)
+	}
+
+	func layerPicker(pickerController: LayerPickerViewController, didMoveIndex: Int, toIndex: Int)
+	{
+		println("triggered layer-moved event")
+	}
+	
+	func layerPicker(pickerController: LayerPickerViewController, didRequestNewLayer: Bool)
+	{
+		println("<<< REQUESTED NEW LAYER")
+		pickerController.dismissViewControllerAnimated(true, completion: nil)
+	}
+	
+	
+	
 	
 	
 	
