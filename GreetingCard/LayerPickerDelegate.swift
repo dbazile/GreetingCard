@@ -8,7 +8,7 @@
 
 protocol LayerPickerDelegate
 {
-	func layerPicker(pickerController: LayerPickerViewController, didSelectLayer: Int)
-	func layerPicker(pickerController: LayerPickerViewController, didMoveIndex: Int, toIndex: Int)
-	func layerPicker(pickerController: LayerPickerViewController, didRequestNewLayer: Bool)
+	func layerPicker(pickerController:LayerPickerViewController, didSelectLayer index:Int)
+	func layerPicker(pickerController:LayerPickerViewController, didMoveIndexFrom oldIndex:Int, to newIndex:Int)
+	func layerPicker(pickerController:LayerPickerViewController, didCreateLayer newLayer:Layer)
 }

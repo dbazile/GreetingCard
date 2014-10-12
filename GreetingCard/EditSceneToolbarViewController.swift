@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EditSceneToolbarViewController: UIViewController {
+class EditSceneToolbarViewController : UIViewController {
 	let WIDTH = 320
 	let HEIGHT = 265
 	

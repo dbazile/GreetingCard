@@ -8,8 +8,14 @@
 
 import Foundation
 
-class DataUtility {
+private let INITIAL_SCALE    = Float(0.5)
+private let INITIAL_ROTATION = 0
+private let INITIAL_OPACITY  = Float(1.0)
+private let INITIAL_TOP      = 0
+private let INITIAL_LEFT     = 0
 
+class DataUtility {
+	
 	class func LoadLocalSprites() -> [String]
 	{
 		var paths: [String] = []
@@ -26,6 +32,25 @@ class DataUtility {
 		
 		return paths
 	}
+	
+	
+	
+	
+	class func createLayer(image:String) -> Layer
+	{
+		
+		return Layer(image: image,
+			       visible: true,
+			         scale: INITIAL_SCALE,
+			      rotation: INITIAL_ROTATION,
+			       opacity: INITIAL_OPACITY,
+			           top: INITIAL_TOP,
+			          left: INITIAL_LEFT)
+	}
+	
+	
+	
+	
 	
 	
 	class func LoadCards() -> [Card]

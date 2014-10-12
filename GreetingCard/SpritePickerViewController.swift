@@ -34,4 +34,9 @@ class SpritePickerViewController: UICollectionViewController {
 		
 		return cell
 	}
+	
+	override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+		let sprite = sprites[indexPath.item]
+		delegate?.spritePicker(self, didSelectSprite:sprite)
+	}
 }

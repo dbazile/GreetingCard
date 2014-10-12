@@ -8,7 +8,10 @@
 
 import UIKit
 
-class EditSceneViewController: UIViewController, EditSceneToolbarDelegate, LayerPickerDelegate, SpritePickerDelegate {
+class EditSceneViewController : UIViewController,
+                                EditSceneToolbarDelegate,
+                                LayerPickerDelegate
+{
 	let STARTING_LAYER = 0
 	let EDIT_SCENE_TOOLBAR = "EditSceneToolbar"
 	let LAYER_PICKER_MODAL = "LayerPickerModal"
@@ -68,7 +71,8 @@ class EditSceneViewController: UIViewController, EditSceneToolbarDelegate, Layer
 			self.toolbarController = controller
 		} else if (LAYER_PICKER_MODAL == segue.identifier) {
 			let controller = segue.destinationViewController as LayerPickerNavigationController
-			controller.pickerDelegate = self
+			controller.layerPickerDelegate = self
+			
 			controller.layers = scene!.layers
 			controller.modalTransitionStyle = UIModalTransitionStyle.FlipHorizontal
 		}
@@ -115,6 +119,7 @@ class EditSceneViewController: UIViewController, EditSceneToolbarDelegate, Layer
 	
 	
 	
+	
 	func toolbarEvent(clickedButton: Bool, layerPicker: Bool) {
 		self.performSegueWithIdentifier(LAYER_PICKER_MODAL, sender: self)
 	}
@@ -124,17 +129,19 @@ class EditSceneViewController: UIViewController, EditSceneToolbarDelegate, Layer
 		pickerController.dismissViewControllerAnimated(true, completion: nil)
 	}
 
-	func layerPicker(pickerController: LayerPickerViewController, didMoveIndex: Int, toIndex: Int)
-	{
+	func layerPicker(pickerController: LayerPickerViewController, didMoveIndexFrom oldIndex: Int, to newIndex: Int) {
 		println("triggered layer-moved event")
 	}
 	
-	func layerPicker(pickerController: LayerPickerViewController, didRequestNewLayer: Bool)
-	{
-		println("<<< REQUESTED NEW LAYER")
+	func layerPicker(pickerController: LayerPickerViewController, didCreateLayer newLayer: Layer) {
+		let scene = self.scene!
+		scene.layers.append(newLayer)
+		
+		self.focusedLayerIndex = scene.layers.count - 1
+		
+		render()
 		pickerController.dismissViewControllerAnimated(true, completion: nil)
 	}
-	
 	
 	
 	

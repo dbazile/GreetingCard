@@ -18,7 +18,7 @@ Edit a Card
 		- Need to render a preview image
 	~ Create 'Scene Editor' View
 	~ Create 'Layer List' View
-	- Create 'Sprite Picker' View
+	~ Create 'Sprite Picker' View
 	- Add 'Create' and 'Edit' shortcuts on the Inbox
 
 

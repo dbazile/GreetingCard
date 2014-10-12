@@ -8,14 +8,16 @@
 
 import UIKit
 
-class LayerPickerViewController: UITableViewController, UITableViewDataSource {
+class LayerPickerViewController: UITableViewController,
+	                             UITableViewDataSource,
+	                             SpritePickerDelegate
+{
 	let SPRITE_PICKER_MODAL = "SpritePickerModal"
 	let CAPTION_ADD_NEW_LAYER = "Add New Layer"
 	let LAYER_CELL = "LayerCell"
 	let INDEX_NEW_LAYER = 0
 	let TAG_LABE_LAYERINDEX = 1
 	let TAG_ICON_PREVIEW = 2
-	
 	
 	var agent = RenderingAgent()
 	var delegate : LayerPickerDelegate?
@@ -60,11 +62,23 @@ class LayerPickerViewController: UITableViewController, UITableViewDataSource {
 	
 	
 	
+	
+	
+	func spritePicker(picker: SpritePickerViewController, didSelectSprite identifier: String) {
+		let layer = DataUtility.createLayer(identifier)
+		self.delegate?.layerPicker(self, didCreateLayer:layer)
+	}
+	
+	
+	
+	
+	
+	
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
 		super.prepareForSegue(segue, sender:sender)
 		
 		let controller = segue.destinationViewController as SpritePickerViewController
-		//controller.delegate = delegate
+		controller.delegate = self
 	}
 	
 	

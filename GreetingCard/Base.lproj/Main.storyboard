@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="WFG-Ti-r2g">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="a2q-wG-49K">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
@@ -67,7 +67,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="Edit Scene" id="0Ye-00-nmD">
-                        <barButtonItem key="backBarButtonItem" title="Cancel" id="Pr2-Hz-QYm"/>
+                        <barButtonItem key="backBarButtonItem" title="Scene" id="HMu-Av-KQg"/>
                     </navigationItem>
                     <connections>
                         <outlet property="canvas" destination="ai9-2z-bq6" id="eCW-Bm-2ey"/>
@@ -154,7 +154,7 @@
                         <color key="backgroundColor" red="0.24886399872448983" green="0.24886399872448983" blue="0.24886399872448983" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <navigationItem key="navigationItem" title="Edit Card" id="nx2-xd-It5">
-                        <barButtonItem key="backBarButtonItem" title="Cancel" id="jxS-Eu-712"/>
+                        <barButtonItem key="backBarButtonItem" title="All Scenes" id="jxS-Eu-712"/>
                     </navigationItem>
                     <connections>
                         <outlet property="cardTitle" destination="2pg-V9-ls1" id="0Gk-Iy-xOI"/>
@@ -225,7 +225,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="dkI-PZ-HEq" kind="relationship" relationship="rootViewController" id="nF0-KW-Qx3"/>
+                        <segue destination="dkI-PZ-HEq" kind="relationship" relationship="rootViewController" id="qXd-5a-5zj"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pzQ-f7-o9Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -261,7 +261,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="chj-8q-mZ3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1394" y="-189"/>
+            <point key="canvasLocation" x="1400" y="-110"/>
         </scene>
         <!--Select Layer-->
         <scene sceneID="vIm-ll-z4X">
@@ -300,7 +300,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="All Layers" id="Ksd-XY-9hE">
-                        <barButtonItem key="backBarButtonItem" title="Back" id="MON-xm-6mB"/>
+                        <barButtonItem key="backBarButtonItem" title="Cancel" id="Xa5-TI-mME"/>
                     </navigationItem>
                     <connections>
                         <segue destination="WFG-Ti-r2g" kind="push" identifier="SpritePickerModal" id="9bB-tB-ljz"/>
@@ -308,7 +308,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r4l-Hy-JgS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1822" y="-188"/>
+            <point key="canvasLocation" x="1812" y="-110"/>
         </scene>
         <!--Pick an Image-->
         <scene sceneID="8BH-J6-Kh6">
@@ -345,7 +345,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nDV-K0-iSv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2242" y="-189"/>
+            <point key="canvasLocation" x="2284" y="-514"/>
         </scene>
         <!--Edit Scene Toolbar View Controller-->
         <scene sceneID="9Nz-r9-Xh5">

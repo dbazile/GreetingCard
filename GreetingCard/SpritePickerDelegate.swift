@@ -10,5 +10,5 @@ import Foundation
 
 protocol SpritePickerDelegate
 {
-//	func spritePicker(picker:SpritePickerViewController, didSelectSprite:String)
+	func spritePicker(pickerController:SpritePickerViewController, didSelectSprite identifier:String)
 }

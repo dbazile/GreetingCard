@@ -33,11 +33,19 @@ class Layer : Printable {
 	}
 }
 
-struct Scene : Printable {
+class Scene : Printable {
 	var caption : String
 	var backgroundColor : String?
 	var foregroundColor : String?
 	var layers : [Layer]
+	
+	init(caption:String, backgroundColor:String?, foregroundColor:String?, layers:[Layer])
+	{
+		self.caption = caption
+		self.backgroundColor = backgroundColor
+		self.foregroundColor = foregroundColor
+		self.layers = layers
+	}
 	
 	var description : String {
 		return "<Scene '\(caption)'>"

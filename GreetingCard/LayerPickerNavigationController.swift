@@ -10,12 +10,12 @@ import UIKit
 
 class LayerPickerNavigationController: UINavigationController {
 
-	var pickerDelegate : LayerPickerDelegate?
+	var layerPickerDelegate : LayerPickerDelegate?
 	var layers : [Layer]?
 	
 	override func viewDidLoad() {
 		let controller = self.topViewController as LayerPickerViewController
 		controller.layers = layers!
-		controller.delegate = pickerDelegate!
+		controller.delegate = layerPickerDelegate!
 	}
 }
