@@ -16,6 +16,7 @@ class InboxTableViewController: UITableViewController,
 	private let EDIT_CARD_SEGUE  = "EditCardSegue"
 	private let TAG_TITLE_LABEL  = 1001
 	private let TAG_DETAIL_LABEL = 1002
+	private let agent = RenderingAgent()
 
 	var cards: [Card] = DataUtility.AllCards()
 
@@ -69,9 +70,16 @@ class InboxTableViewController: UITableViewController,
 	{
 		let cell = tableView.dequeueReusableCellWithIdentifier(CARD_CELL, forIndexPath:indexPath) as UITableViewCell
 		let card = cards[indexPath.item]
+		let H = CGFloat(500)
 
 		self.updateCell(cell, card:card)
-
+		let canvas = UIView(frame: CGRectMake(0, cell.frame.height - H/1.5, cell.frame.width, H))
+		canvas.alpha = 0.1
+		cell.bounds = cell.frame
+		cell.clipsToBounds = true
+		cell.addSubview(canvas)
+		agent.render(card.scenes.first!, onto:canvas)
+		
 		return cell
 	}
 

@@ -12,9 +12,16 @@ class EditCardViewController : UIViewController,
                                UICollectionViewDataSource,
                                UICollectionViewDelegate
 {
-	private let EDIT_SCENE_SEGUE = "EditSceneSegue"
-	private let SCENE_CELL       = "SceneCell"
-	private let TAG_SCENE_INDEX  = 100
+	private let EDIT_SCENE_SEGUE          = "EditSceneSegue"
+	private let SCENE_CELL                = "SceneCell"
+	private let TAG_LABEL                 = 1
+	private let TAG_ICON                  = 2
+	private let SCENE_CELL_ALPHA          = 1.0
+	private let SCENE_CELL_BGCOLOR        = UIColor(white: 1, alpha: 0.1)
+	private let SCENE_ICON_ALPHA          = 0.3
+	private let CREATE_SCENE_CELL_ALPHA   = 0.5
+	private let CREATE_SCENE_CELL_BGCOLOR = UIColor(white: 0, alpha: 0.5)
+	private let agent = RenderingAgent()
 
 	var card : Card?
 
@@ -24,8 +31,9 @@ class EditCardViewController : UIViewController,
 	override func viewWillAppear(animated: Bool)
 	{
 		super.viewWillAppear(animated)
+		collectionView.reloadData()
 
-		cardTitle.text = card?.title
+		inputTitle.text = card?.title
 	}
 
 	///
@@ -46,15 +54,15 @@ class EditCardViewController : UIViewController,
 
 	// MARK: INTERFACE BUILDER /////////////////////////////////////////////////
 
-	@IBOutlet weak var cardTitle : UITextField!
+	@IBOutlet weak var inputTitle : UITextField!
 	@IBOutlet weak var collectionView : UICollectionView!
 
 	///
 	/// EventHandler: Scene title was changed
 	///
-	@IBAction func titleDidChange(sender: UITextField)
+	@IBAction func didChangeTitle(sender: UITextField)
 	{
-		println("[editcardvc:titleDidChange: Scene title changed to '\(sender.text)']")
+		card?.title = sender.text
 	}
 
 
@@ -86,20 +94,27 @@ class EditCardViewController : UIViewController,
 		let index = indexPath.item
 
 		// Configure the cell
-		cell.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
-
-		let label = cell.viewWithTag(TAG_SCENE_INDEX)! as UILabel
-
+		let label = cell.viewWithTag(TAG_LABEL)! as UILabel
+		let canvas = cell.viewWithTag(TAG_ICON)! as UIView
+		
+		agent.purge(canvas)
+		
 		if (index < self.card!.scenes.count) {
-			label.text = "\(indexPath.item)"
+			label.text = "\(index + 1)"
+			
+			agent.render(card!.scenes[index], onto:canvas)
+			canvas.alpha = CGFloat(SCENE_ICON_ALPHA)
+			cell.backgroundColor = SCENE_CELL_BGCOLOR
+			cell.alpha = CGFloat(SCENE_CELL_ALPHA)
 		} else {
 			label.text = "+"
-			cell.alpha = 0.2
+			cell.backgroundColor = CREATE_SCENE_CELL_BGCOLOR
+			cell.alpha = CGFloat(CREATE_SCENE_CELL_ALPHA)
 		}
 
 		return cell
 	}
-
+	
 
 	// MARK: HELPER METHODS ////////////////////////////////////////////////////
 

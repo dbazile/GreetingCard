@@ -1,7 +1,9 @@
+ISSUES
 
-View scaling to larger resolutions probably doesn't work
+- View scaling to larger resolutions probably doesn't work
 
-Visibility flag not honored
+- Visibility flag not honored
 
-Edit Scene should select topmost layer on load
+# 'Edit Scene' should select topmost layer on load
 
+- Miniaturized rendered previews of scenes don't scale properly

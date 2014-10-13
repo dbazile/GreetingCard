@@ -5,9 +5,13 @@ Visuals
 
 View all Cards
 	# Create Inbox View
-		- Need to render a preview image
-	- Link to 'Create', 'Edit', 'Share', 'Delete'
-	- Generate a preview image for each Card tile
+		# Need to render a preview image
+	- Link to 'Create'
+	# Link to 'Edit'
+	- Link to 'Edit'
+	- Link to 'Share'
+	- Link to 'Delete'
+	# Generate a preview image for each Card tile
 
 
 View a single Card
@@ -19,11 +23,10 @@ View a single Card
 
 Edit a Card
 	# Create 'Card Overview' View
-		- Need to render a preview image
+		~ Need to render a preview image
 	# Create 'Scene Editor' View
 	# Create 'Layer List' View
 	# Create 'Sprite Picker' View
-	- Add 'Create' and 'Edit' shortcuts on the Inbox
 
 
 Share a Card

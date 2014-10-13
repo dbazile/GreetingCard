@@ -97,7 +97,7 @@
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="19"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="yes" spellCheckingType="yes" returnKeyType="done"/>
                                         <connections>
-                                            <action selector="titleDidChange:" destination="dkI-PZ-HEq" eventType="valueChanged" id="dJR-iw-rOW"/>
+                                            <action selector="didChangeTitle:" destination="dkI-PZ-HEq" eventType="editingChanged" id="LmS-fp-Sin"/>
                                         </connections>
                                     </textField>
                                 </subviews>
@@ -128,7 +128,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="100" height="150"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6k3-T9-WTq">
+                                                <view tag="2" contentMode="scaleToFill" id="SKo-VA-yFv">
+                                                    <rect key="frame" x="0.0" y="0.0" width="100" height="150"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="none" adjustsFontSizeToFit="NO" id="6k3-T9-WTq">
                                                     <rect key="frame" x="8" y="8" width="84" height="134"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="60"/>
@@ -157,8 +161,8 @@
                         <barButtonItem key="backBarButtonItem" title="All Scenes" id="jxS-Eu-712"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="cardTitle" destination="2pg-V9-ls1" id="0Gk-Iy-xOI"/>
                         <outlet property="collectionView" destination="wya-dB-StX" id="s0A-Z3-SD6"/>
+                        <outlet property="inputTitle" destination="2pg-V9-ls1" id="xJ2-Pb-MiW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fgh-E8-gmW" userLabel="First Responder" sceneMemberID="firstResponder"/>
