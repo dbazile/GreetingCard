@@ -10,6 +10,8 @@ import UIKit
 
 class EditSceneToolbarViewController : UIViewController
 {
+	private var _index = -1
+	
 	var delegate : EditSceneToolbarDelegate?
 
 	///
@@ -17,7 +19,6 @@ class EditSceneToolbarViewController : UIViewController
 	///   Allows for automatically synchronizing the toolbar as the underlying
 	///   data is changed externally
 	///
-	private var _index = -1
 	var layerIndex : Int {
 		get { return _index }
 		set {

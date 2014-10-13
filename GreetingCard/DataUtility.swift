@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 
 class DataUtility
 {
@@ -26,6 +27,11 @@ class DataUtility
 	{
 		var paths: [String] = []
 
+//		Alamofire.request(.GET, "http://andsoitcontinues.com")
+//			.response { (request, response, data, error) in
+//				println(response)
+//		}
+		
 		paths.append("backdrop-home-indoors")
 		paths.append("backdrop-road")
 		paths.append("backdrop-yellow")
