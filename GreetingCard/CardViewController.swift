@@ -14,9 +14,9 @@ class CardViewController : UIViewController,
 	private let SCENE_VIEW_CONTROLLER = "SceneViewController"
 	private let VERTICAL_OFFSET : CGFloat = 0
 	private var pageViewController : UIPageViewController?
-	
+
 	var card : Card?
-	
+
 	///
 	/// Configures the page view controller
 	///
@@ -25,7 +25,7 @@ class CardViewController : UIViewController,
         super.viewDidLoad()
 		self.initializePageViewController()
     }
-	
+
 	///
 	/// Hides the nav bar when viewing a card
 	///
@@ -35,7 +35,7 @@ class CardViewController : UIViewController,
 		self.navigationController?.hidesBarsOnTap = true
 		self.title = card?.title
 	}
-	
+
 	///
 	/// Restores the nav bar when leaving
 	///
@@ -44,10 +44,10 @@ class CardViewController : UIViewController,
 		self.navigationController?.navigationBarHidden = false
 		self.navigationController?.hidesBarsOnTap = false
 	}
-	
-	
-	// PAGE VIEW CONTROLLER DATASOURCE /////////////////////////////////////////
-	
+
+
+	// MARK: PAGE VIEW CONTROLLER DATASOURCE ///////////////////////////////////
+
 	///
 	/// Sets the total number of pages
 	///
@@ -55,7 +55,7 @@ class CardViewController : UIViewController,
 	{
 		return card!.scenes.count
 	}
-	
+
 	///
 	/// Sets the initial page index
 	///
@@ -63,7 +63,7 @@ class CardViewController : UIViewController,
 	{
 		return 0
 	}
-	
+
 	///
 	/// Returns the controller for the previous page
 	///
@@ -71,7 +71,7 @@ class CardViewController : UIViewController,
 		let index = indexOf(viewController) - 1
 		return sceneController(index)
 	}
-	
+
 	///
 	/// Returns the controller for the upcoming page
 	///
@@ -79,10 +79,10 @@ class CardViewController : UIViewController,
 		let index = indexOf(viewController) + 1
 		return sceneController(index)
 	}
-	
-	
-	// HELPER METHODS //////////////////////////////////////////////////////////
-	
+
+
+	// MARK: HELPER METHODS ////////////////////////////////////////////////////
+
 	///
 	/// Returns the index of a given page
 	///
@@ -90,7 +90,7 @@ class CardViewController : UIViewController,
 	{
 		return (controller as SceneViewController).index
 	}
-	
+
 	///
 	/// Initializes the PageViewController
 	///
@@ -98,35 +98,35 @@ class CardViewController : UIViewController,
 
 		// Create the PageViewController
 		let controller = UIPageViewController(transitionStyle:.Scroll, navigationOrientation:.Horizontal, options:nil)
-		
+
 		// Add pages
 		let firstPage = sceneController(0)!
 		controller.setViewControllers([firstPage], direction:.Forward, animated:false, completion:{done in})
 		controller.dataSource = self
-		
+
 		// Wire the PageViewController to this controller
 		self.addChildViewController(controller)
 		self.view.addSubview(controller.view)
-		
+
 		controller.view.frame = CGRectMake(0, VERTICAL_OFFSET, self.view.bounds.width, self.view.bounds.height-VERTICAL_OFFSET)
-		
+
 		// Trigger the PageViewController events
 		controller.didMoveToParentViewController(self)
-		
+
 		self.pageViewController = controller
 		self.view.gestureRecognizers = controller.gestureRecognizers
 	}
-	
+
 	///
 	/// Returns a controller for a given index
 	///
 	private func sceneController(index: Int) -> SceneViewController?
 	{
 		let scenes = card!.scenes
-		
+
 		if (index >= 0 && index < scenes.count) {
 			let scene = scenes[index]
-			
+
 			let controller = self.storyboard!.instantiateViewControllerWithIdentifier(SCENE_VIEW_CONTROLLER) as SceneViewController
 			controller.view.frame = CGRectMake(0, 0, self.view.frame.width, self.view.frame.height)
 			controller.scene = scene

@@ -18,12 +18,12 @@ class EditSceneViewController : UIViewController,
 	private var _index = 0
 	private var _originalHideNavigationOnActivity = false
 	private var _originalHideNavigationByDefault = false
-	
+
 	private let agent = RenderingAgent()
-	
+
 	private var toolbarController : EditSceneToolbarViewController?
 	var scene : Scene?
-	
+
 	///
 	/// Focused Layer Property
 	///   Returns the layer corresponding to the current focused layer index
@@ -48,33 +48,33 @@ class EditSceneViewController : UIViewController,
 			toolbarController!.layerIndex = _index
 		}
 	}
-	
+
 	///
 	/// Perform some one-time initialization for this controller
 	///
 	override func viewDidLoad()
 	{
 		super.viewDidLoad()
-		
+
 		// Set some defaults on the canvas
 		agent.normalize(canvas)
-		
+
 		// Select a starting layer
 		self.focusedLayerIndex = INITIAL_LAYER_INDEX
 	}
-	
+
 	///
 	/// Set some things up to facilitate working in the editor
 	///
 	override func viewWillAppear(animated: Bool)
 	{
 		super.viewWillAppear(animated)
-		
+
 		hideNavigationBar()
-		
+
 		render()
 	}
-	
+
 	///
 	/// Restores previous settings as the display shifts to a new view
 	/// controller
@@ -82,65 +82,65 @@ class EditSceneViewController : UIViewController,
 	override func viewWillDisappear(animated: Bool)
 	{
 		super.viewWillDisappear(animated)
-		
+
 		restoreNavigationBar()
-		
+
 		agent.purge(canvas)
 	}
-	
+
 	///
 	/// Intercepts the segue to configure the next view controllers
 	///
 	override func prepareForSegue(segue:UIStoryboardSegue, sender:AnyObject?)
 	{
 		super.prepareForSegue(segue, sender: sender)
-		
+
 		switch (segue.identifier) {
 			case TOOLBAR_SEGUE:
 				let controller = segue.destinationViewController as EditSceneToolbarViewController
 				controller.delegate = self
-				
+
 				// Keep a local reference to the toolbar controller
 				self.toolbarController = controller
 				break
-				
+
 			case LAYER_PICKER_SEGUE:
 				let controller = segue.destinationViewController as LayerPickerViewController
 				controller.delegate = self
 				controller.layers = scene!.layers
 				break
-				
+
 			default:
 				break
 		}
 	}
-	
 
-	// INTERFACE BUILDER ///////////////////////////////////////////////////////
-	
+
+	// MARK: INTERFACE BUILDER /////////////////////////////////////////////////
+
 	@IBOutlet weak var canvas: UIView!
-	
-	
-	// LAYER PICKER DATASOURCE/DELEGATE ////////////////////////////////////////
-	
+
+
+	// MARK: LAYER PICKER DATASOURCE/DELEGATE //////////////////////////////////
+
 	///
 	/// EventHandler: A new layer was created
 	///
 	func layerPicker(pickerController:LayerPickerViewController, didCreateLayer newLayer:Layer)
 	{
-		
+
 		// Add the new layer to the scene
 		let scene = self.scene!
 		scene.layers.append(newLayer)
-		
+
 		// Select the new layer
 		focusedLayerIndex = scene.layers.count - 1
-		
+
 		// Rerender and return to scene editor
 		render()
 		navigationController!.popToViewController(self, animated: true)
 	}
-	
+
 	///
 	/// EventHandler: A layer was reordered
 	///
@@ -148,7 +148,7 @@ class EditSceneViewController : UIViewController,
 	{
 		println("triggered layer-moved event")
 	}
-	
+
 	///
 	/// EventHandler: A layer was selected
 	///
@@ -157,10 +157,10 @@ class EditSceneViewController : UIViewController,
 		focusedLayerIndex = index
 		navigationController!.popToViewController(self, animated: true)
 	}
-	
-	
-	// TOOLBAR DATASOURCE/DELEGATE /////////////////////////////////////////////
-	
+
+
+	// MARK: TOOLBAR DATASOURCE/DELEGATE ///////////////////////////////////////
+
 	///
 	/// EventHandler: The scene caption was changed
 	///
@@ -169,7 +169,7 @@ class EditSceneViewController : UIViewController,
 		scene?.caption = caption
 		render()
 	}
-	
+
 	///
 	/// EventHandler: The X value was changed
 	///
@@ -178,7 +178,7 @@ class EditSceneViewController : UIViewController,
 		focusedLayer?.left = left
 		render()
 	}
-	
+
 	///
 	/// EventHandler: The opacity value was changed
 	///
@@ -187,7 +187,7 @@ class EditSceneViewController : UIViewController,
 		focusedLayer?.opacity = opacity
 		render()
 	}
-	
+
 	///
 	/// EventHandler: The rotation value was changed
 	///
@@ -196,7 +196,7 @@ class EditSceneViewController : UIViewController,
 		focusedLayer?.rotation = rotation
 		render()
 	}
-	
+
 	///
 	/// EventHandler: The scale value was changed
 	///
@@ -205,7 +205,7 @@ class EditSceneViewController : UIViewController,
 		focusedLayer?.scale = scale
 		render()
 	}
-	
+
 	///
 	/// EventHandler: The Y value was changed
 	///
@@ -214,7 +214,7 @@ class EditSceneViewController : UIViewController,
 		focusedLayer?.top = top
 		render()
 	}
-	
+
 	///
 	/// EventHandler: The 'pick layer' button was clicked
 	///
@@ -222,7 +222,7 @@ class EditSceneViewController : UIViewController,
 	{
 		self.performSegueWithIdentifier(LAYER_PICKER_SEGUE, sender:self)
 	}
-	
+
 	///
 	/// EventHandler: The 'move layer up' button was clicked
 	///
@@ -233,13 +233,13 @@ class EditSceneViewController : UIViewController,
 			let upperLayer = scene!.layers[focusedLayerIndex + 1]
 			scene!.layers[focusedLayerIndex] = upperLayer
 			scene!.layers[focusedLayerIndex + 1] = layer
-			
+
 			focusedLayerIndex += 1
-			
+
 			render()
 		}
 	}
-	
+
 	///
 	/// EventHandler: The 'move layer down' button was clicked
 	///
@@ -251,40 +251,40 @@ class EditSceneViewController : UIViewController,
 				let lowerLayer = scene!.layers[focusedLayerIndex - 1]
 				scene!.layers[focusedLayerIndex] = lowerLayer
 				scene!.layers[focusedLayerIndex - 1] = layer
-				
+
 				focusedLayerIndex -= 1
-				
+
 				render()
 			}
 		}
 	}
-	
+
 	///
 	/// EventHandler: The 'delete layer" button was clicked
 	///
 	func toolbar(toolbar:UIViewController, didClickLayerDeleteButton:Bool)
 	{
 		let layers = scene!.layers
-		
+
 		if (layers.count > 0) {
 			scene?.layers.removeAtIndex(focusedLayerIndex)
-			
+
 			if (focusedLayerIndex > 0) {
 				focusedLayerIndex -= 1
 			}
-			
+
 			render()
 		}
 	}
-	
+
 	///
-	/// Informs the toolbar what the initial value is for 
+	/// Informs the toolbar what the initial value is for
 	///
 	func toolbar(toolbar:UIViewController, initialCaptionValue defaultValue:String) -> String
 	{
 		return scene?.caption ?? ""
 	}
-	
+
 	///
 	/// Informs the toolbar what the initial value is for rotation
 	///
@@ -292,7 +292,7 @@ class EditSceneViewController : UIViewController,
 	{
 		return focusedLayer?.rotation ?? 0
 	}
-	
+
 	///
 	/// Informs the toolbar what the initial value is for opacity
 	///
@@ -300,7 +300,7 @@ class EditSceneViewController : UIViewController,
 	{
 		return focusedLayer?.opacity ?? 1.0
 	}
-	
+
 	///
 	/// Informs the toolbar what the initial value is for scale
 	///
@@ -308,7 +308,7 @@ class EditSceneViewController : UIViewController,
 	{
 		return focusedLayer?.scale ?? 0.5
 	}
-	
+
 	///
 	/// Informs the toolbar what the initial value is for Y
 	///
@@ -316,7 +316,7 @@ class EditSceneViewController : UIViewController,
 	{
 		return focusedLayer?.top ?? 0
 	}
-	
+
 	///
 	/// Informs the toolbar what the initial value is for X
 	///
@@ -324,10 +324,10 @@ class EditSceneViewController : UIViewController,
 	{
 		return focusedLayer?.left ?? 0
 	}
-	
-	
-	// HELPER METHODS //////////////////////////////////////////////////////////
-	
+
+
+	// MARK: HELPER METHODS ////////////////////////////////////////////////////
+
 	///
 	/// Renders the scene onto the canvas
 	///
@@ -335,7 +335,7 @@ class EditSceneViewController : UIViewController,
 	{
 		agent.render(scene!, onto:canvas, highlighting:focusedLayerIndex)
 	}
-	
+
 	///
 	/// Sets the navigation bar's visibility to hideable
 	///
@@ -346,7 +346,7 @@ class EditSceneViewController : UIViewController,
 		navigationController?.hidesBarsOnTap = true
 		navigationController?.navigationBarHidden = true
 	}
-	
+
 	///
 	/// Resets the navigation bar visibility to its initial settings
 	///

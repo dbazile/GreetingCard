@@ -10,27 +10,27 @@ import Foundation
 
 class DataUtility
 {
-	
+
 	///
 	/// Returns a list of all cards stored locally
 	///
 	class func AllCards() -> [Card]
 	{
 		//var cards: [Card] = []
-		
+
 		// Load some things from file, http, wherever
-		
+
 		//return cards
 		return GenerateCards()
 	}
-	
+
 	///
 	/// Returns a list of identifiers for all local sprites
 	///
 	class func AllLocalSprites() -> [String]
 	{
 		var paths: [String] = []
-		
+
 		paths.append("backdrop-home-indoors")
 		paths.append("backdrop-road")
 		paths.append("backdrop-yellow")
@@ -40,10 +40,10 @@ class DataUtility
 		paths.append("home-table")
 		paths.append("person")
 		paths.append("road-car-front")
-		
+
 		return paths
 	}
-	
+
 	///
 	/// Factory method for layers
 	///
@@ -51,7 +51,7 @@ class DataUtility
 	{
 		return Layer(image:image, visible:true, scale:0.5, rotation:0, opacity:1.0, top:0, left:0)
 	}
-	
+
 	///
 	/// Factory method for scenes
 	///
@@ -59,7 +59,7 @@ class DataUtility
 	{
 		return Scene(caption:"", backgroundColor:nil, foregroundColor:nil, layers:[])
 	}
-	
+
 	///
 	/// Resolves an image identifier to its absolute file path
 	///
@@ -67,16 +67,16 @@ class DataUtility
 	{
 		return png(identifier)!
 	}
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
 	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
 	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-	
+
 	class func GenerateCards() -> [Card]
 	{
 		var cards: [Card] = []
@@ -134,23 +134,23 @@ class DataUtility
 
 		return Card(title: title, isNew: true, scenes: scenes)
 	}
-	
+
 	class func GenerateScene(caption: String) -> Scene
 	{
 		return Scene(caption: caption, backgroundColor: nil, foregroundColor: nil, layers: [])
 	}
-	
+
 	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
 	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
 	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
 
-	
-	
-	
 
-	
-	// HELPER METHODS //////////////////////////////////////////////////////////
-	
+
+
+
+
+	// MARK: HELPER METHODS ////////////////////////////////////////////////////
+
 	///
 	/// Resolves the full path to a given .PNG file
 	///

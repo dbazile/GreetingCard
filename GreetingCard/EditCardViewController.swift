@@ -15,19 +15,19 @@ class EditCardViewController : UIViewController,
 	private let EDIT_SCENE_SEGUE = "EditSceneSegue"
 	private let SCENE_CELL       = "SceneCell"
 	private let TAG_SCENE_INDEX  = 100
-	
+
 	var card : Card?
-	
+
 	///
 	/// Sets the card title
 	///
 	override func viewWillAppear(animated: Bool)
 	{
 		super.viewWillAppear(animated)
-		
+
 		cardTitle.text = card?.title
 	}
-	
+
 	///
 	/// Intercepts the segue to configure the next view controller
 	///
@@ -42,13 +42,13 @@ class EditCardViewController : UIViewController,
 			destinationController.scene = generateScene()
 		}
 	}
-	
-	
-	// INTERFACE BUILDER ///////////////////////////////////////////////////////
-	
+
+
+	// MARK: INTERFACE BUILDER /////////////////////////////////////////////////
+
 	@IBOutlet weak var cardTitle : UITextField!
 	@IBOutlet weak var collectionView : UICollectionView!
-	
+
 	///
 	/// EventHandler: Scene title was changed
 	///
@@ -57,9 +57,9 @@ class EditCardViewController : UIViewController,
 		println("[editcardvc:titleDidChange: Scene title changed to '\(sender.text)']")
 	}
 
-	
-	// COLLECTIONVIEW DATASOURCE/DELEGATE //////////////////////////////////////
-	
+
+	// MARK: COLLECTIONVIEW DATASOURCE/DELEGATE ////////////////////////////////
+
 	///
 	/// Sets the number of sections
 	///
@@ -67,7 +67,7 @@ class EditCardViewController : UIViewController,
 	{
 		return 1
 	}
-	
+
 	///
 	/// Sets the number of scenes
 	///
@@ -76,7 +76,7 @@ class EditCardViewController : UIViewController,
 		// Return an extra cell to account for the 'New Scene' button
 		return card!.scenes.count + 1
 	}
-	
+
 	///
 	/// Configures a specific scene cell
 	///
@@ -84,25 +84,25 @@ class EditCardViewController : UIViewController,
 	{
 		let cell = collectionView.dequeueReusableCellWithReuseIdentifier(SCENE_CELL, forIndexPath: indexPath) as UICollectionViewCell
 		let index = indexPath.item
-		
+
 		// Configure the cell
 		cell.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
-		
+
 		let label = cell.viewWithTag(TAG_SCENE_INDEX)! as UILabel
-		
+
 		if (index < self.card!.scenes.count) {
 			label.text = "\(indexPath.item)"
 		} else {
 			label.text = "+"
 			cell.alpha = 0.2
 		}
-		
+
 		return cell
 	}
 
-	
-	// HELPER METHODS //////////////////////////////////////////////////////////
-	
+
+	// MARK: HELPER METHODS ////////////////////////////////////////////////////
+
 	///
 	/// Creates a new Scene to be edited
 	///

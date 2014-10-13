@@ -11,10 +11,10 @@ import UIKit
 class SceneViewController : UIViewController
 {
 	private let agent = RenderingAgent()
-	
+
 	var scene : Scene?
 	var index : Int = -1
-	
+
 	///
 	/// One-time setup for the canvas
 	///
@@ -23,7 +23,7 @@ class SceneViewController : UIViewController
         super.viewDidLoad()
 		agent.normalize(canvas)
     }
-	
+
 	///
 	/// Renders the scene whenever the view becomes active
 	///
@@ -33,10 +33,10 @@ class SceneViewController : UIViewController
 		agent.render(scene!, onto: canvas)
 		caption.text = scene?.caption
 	}
-	
-	
-	// INTERFACE BUILDER ///////////////////////////////////////////////////////
-	
+
+
+	// MARK: INTERFACE BUILDER /////////////////////////////////////////////////
+
 	@IBOutlet weak var canvas : UIView!
 	@IBOutlet weak var caption : UILabel!
 }

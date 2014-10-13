@@ -16,9 +16,9 @@ class InboxTableViewController: UITableViewController,
 	private let EDIT_CARD_SEGUE  = "EditCardSegue"
 	private let TAG_TITLE_LABEL  = 1001
 	private let TAG_DETAIL_LABEL = 1002
-	
+
 	var cards: [Card] = DataUtility.AllCards()
-	
+
 	///
 	/// Post-initialization hook
 	///
@@ -26,34 +26,34 @@ class InboxTableViewController: UITableViewController,
 	{
 		super.viewDidLoad()
 	}
-	
+
 	///
 	/// Intercept segue to configure destination controllers
 	///
 	override func prepareForSegue(segue:UIStoryboardSegue, sender:AnyObject?)
 	{
 		let index = self.tableView.indexPathForCell(sender as UITableViewCell)!.item
-		
+
 		switch(segue.identifier) {
-			
+
 		case VIEW_CARD_SEGUE:
 			let controller = segue.destinationViewController as CardViewController
 			controller.card = self.cards[index]
 			break
-			
+
 		case EDIT_CARD_SEGUE:
 			let controller = segue.destinationViewController as EditCardViewController
 			controller.card = self.cards[index]
 			break
-			
+
 		default:
 			break
 		}
 	}
-	
-	
-	// TABLEVIEW DATASOURCE ////////////////////////////////////////////////////
-	
+
+
+	// MARK: TABLEVIEW DATASOURCE //////////////////////////////////////////////
+
 	///
 	/// Returns the total number of table rows
 	///
@@ -69,15 +69,15 @@ class InboxTableViewController: UITableViewController,
 	{
 		let cell = tableView.dequeueReusableCellWithIdentifier(CARD_CELL, forIndexPath:indexPath) as UITableViewCell
 		let card = cards[indexPath.item]
-		
+
 		self.updateCell(cell, card:card)
-		
+
 		return cell
 	}
-	
-	
-	// HELPER METHODS //////////////////////////////////////////////////////////
-	
+
+
+	// MARK: HELPER METHODS ////////////////////////////////////////////////////
+
 	///
 	/// Updates a cell with the card data
 	///
@@ -85,7 +85,7 @@ class InboxTableViewController: UITableViewController,
 	{
 		let title = cell.viewWithTag(TAG_TITLE_LABEL) as UILabel
 		let details = cell.viewWithTag(TAG_DETAIL_LABEL) as UILabel
-		
+
 		title.text = card.title
 		details.text = "(1 / \(card.scenes.count))"
 	}
