@@ -1,0 +1,183 @@
+{
+	"$origin" : "deployment",
+	"$version" : "1.0.0",
+	"cards" : [
+		{
+			"title" : "Another Day in the Life",
+			"isNew" : true,
+			"scenes" : [
+				{
+					"caption" : "It's time to wake up, Dave.",
+					"layers" : [
+						{
+							"rotation" : 0,
+							"visible" : true,
+							"image" : "backdrop-home-indoors",
+							"left" : 0,
+							"top" : 0,
+							"opacity" : 1,
+							"scale" : 0.43
+						},
+						{
+							"rotation" : 0,
+							"visible" : true,
+							"image" : "home-bed",
+							"left" : 70,
+							"top" : 300,
+							"opacity" : 1,
+							"scale" : 0.3
+						},
+						{
+							"rotation" : 0,
+							"visible" : true,
+							"image" : "person",
+							"left" : 150,
+							"top" : 230,
+							"opacity" : 1,
+							"scale" : 0.3
+						}
+					]
+				},
+				{
+					"caption" : "Brush your teeth so you don't have the dragon breath!",
+					"layers" : [
+						{
+							"rotation" : 0,
+							"visible" : true,
+							"image" : "backdrop-home-indoors",
+							"left" : 0,
+							"top" : 0,
+							"opacity" : 1,
+							"scale" : 0.43
+						},
+						{
+							"rotation" : 0,
+							"visible" : true,
+							"image" : "home-sink",
+							"left" : 120,
+							"top" : 350,
+							"opacity" : 1,
+							"scale" : 0.3
+						},
+						{
+							"rotation" : 0,
+							"visible" : true,
+							"image" : "person",
+							"left" : 190,
+							"top" : 350,
+							"opacity" : 1,
+							"scale" : 0.3
+						}
+					]
+				},
+				{
+					"caption" : "They say breakfast is the most important meal of the day.",
+					"layers" : [
+						{
+							"rotation" : 0,
+							"visible" : true,
+							"image" : "backdrop-home-indoors",
+							"left" : 0,
+							"top" : 0,
+							"opacity" : 1,
+							"scale" : 0.43
+						},
+						{
+							"rotation" : 0,
+							"visible" : true,
+							"image" : "home-table",
+							"left" : 80,
+							"top" : 310,
+							"opacity" : 1,
+							"scale" : 0.3
+						},
+						{
+							"rotation" : 0,
+							"visible" : true,
+							"image" : "person",
+							"left" : 110,
+							"top" : 157,
+							"opacity" : 1,
+							"scale" : 0.3
+						}
+					]
+				},
+				{
+					"caption" : "And then he drives to work for a new day of fun and excitement!",
+					"layers" : [
+						{
+							"rotation" : 0,
+							"visible" : true,
+							"image" : "backdrop-road",
+							"left" : 0,
+							"top" : 0,
+							"opacity" : 1,
+							"scale" : 0.43
+						},
+						{
+							"rotation" : 0,
+							"visible" : true,
+							"image" : "person",
+							"left" : 41,
+							"top" : 152,
+							"opacity" : 0.7,
+							"scale" : 0.09
+						},
+						{
+							"rotation" : 0,
+							"visible" : true,
+							"image" : "road-car-front",
+							"left" : 0,
+							"top" : 140,
+							"opacity" : 1,
+							"scale" : 0.13
+						}
+					]
+				}
+			]
+		},
+		{
+			"title" : "Happy Birthday",
+			"isNew" : true,
+			"scenes" : [
+				{
+					"caption" : "It is your birthday.",
+					"layers" : [
+						{
+							"rotation" : 0,
+							"visible" : true,
+							"image" : "backdrop-yellow",
+							"left" : 0,
+							"top" : 0,
+							"opacity" : 1,
+							"scale" : 0.43
+						},
+						{
+							"rotation" : 0,
+							"visible" : true,
+							"image" : "cake",
+							"left" : 0,
+							"top" : 0,
+							"opacity" : 1,
+							"scale" : 0.5
+						}
+					]
+				},
+				{
+					"caption" : "Now get back to work.",
+					"layers" : [
+						{
+							"rotation" : 0,
+							"visible" : true,
+							"image" : "person",
+							"left" : 0,
+							"top" : 0,
+							"opacity" : 1,
+							"scale" : 0.43
+						}
+					]
+				}
+			]
+		}
+	]
+}
