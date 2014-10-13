@@ -21,12 +21,13 @@ class EditCardViewController : UIViewController,
 	private let SCENE_ICON_ALPHA          = 0.3
 	private let CREATE_SCENE_CELL_ALPHA   = 0.5
 	private let CREATE_SCENE_CELL_BGCOLOR = UIColor(white: 0, alpha: 0.5)
+	
 	private let agent = RenderingAgent()
 
 	var card : Card?
 
 	///
-	/// Sets the card title
+	/// Refreshes all fields before coming into focus
 	///
 	override func viewWillAppear(animated: Bool)
 	{
@@ -45,7 +46,7 @@ class EditCardViewController : UIViewController,
 		let index = collectionView.indexPathForCell(sender as UICollectionViewCell)!.item
 
 		if (index < card?.scenes.count) {
-			destinationController.scene = self.card!.scenes[index]
+			destinationController.scene = card!.scenes[index]
 		} else {
 			destinationController.scene = generateScene()
 		}
@@ -62,7 +63,7 @@ class EditCardViewController : UIViewController,
 	///
 	@IBAction func didChangeTitle(sender: UITextField)
 	{
-		card?.title = sender.text
+		card!.title = sender.text
 	}
 
 

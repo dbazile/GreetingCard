@@ -97,7 +97,7 @@
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="19"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="words" autocorrectionType="yes" spellCheckingType="yes" returnKeyType="done"/>
                                         <connections>
-                                            <action selector="didChangeTitle:" destination="dkI-PZ-HEq" eventType="editingChanged" id="LmS-fp-Sin"/>
+                                            <action selector="didChangeTitle:" destination="dkI-PZ-HEq" eventType="editingDidEnd" id="SCY-2r-d4Q"/>
                                         </connections>
                                     </textField>
                                 </subviews>
@@ -178,30 +178,35 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="center" selectionStyle="default" accessoryType="detailButton" indentationWidth="0.0" reuseIdentifier="CardCell" rowHeight="115" id="7Y0-LE-BTq">
+                            <tableViewCell clipsSubviews="YES" contentMode="center" selectionStyle="default" accessoryType="detailButton" indentationWidth="0.0" reuseIdentifier="CardCell" rowHeight="115" id="7Y0-LE-BTq">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7Y0-LE-BTq" id="ei2-3g-r5x">
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="1001" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="{{title}}" lineBreakMode="wordWrap" numberOfLines="2" adjustsFontSizeToFit="NO" id="iEk-mf-EiE">
-                                            <rect key="frame" x="8" y="84" width="236" height="24"/>
+                                        <view opaque="NO" clipsSubviews="YES" alpha="0.10000000000000001" tag="3" contentMode="scaleToFill" id="qob-XT-DPs">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="115"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <view contentMode="scaleToFill" id="uWJ-Z3-orW">
-                                            <rect key="frame" x="0.0" y="114" width="320" height="1"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <color key="backgroundColor" red="0.93955277423469385" green="0.93955277423469385" blue="0.93955277423469385" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </view>
-                                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.25" tag="1002" contentMode="bottomRight" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="{{progress}}" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WK2-Je-X29">
+                                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.25" tag="2" contentMode="bottomRight" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="{{progress}}" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="WK2-Je-X29">
                                             <rect key="frame" x="252" y="87" width="60" height="21"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="11"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="{{title}}" lineBreakMode="wordWrap" numberOfLines="2" adjustsFontSizeToFit="NO" id="iEk-mf-EiE">
+                                            <rect key="frame" x="8" y="84" width="236" height="24"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view contentMode="scaleToFill" id="uWJ-Z3-orW" userLabel="Border">
+                                            <rect key="frame" x="0.0" y="114" width="320" height="1"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="backgroundColor" red="0.8967164158821106" green="0.89668953418731689" blue="0.89670479297637939" alpha="1" colorSpace="calibratedRGB"/>
+                                        </view>
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>

@@ -16,11 +16,6 @@ class DataUtility
 	///
 	class func AllCards() -> [Card]
 	{
-		//var cards: [Card] = []
-
-		// Load some things from file, http, wherever
-
-		//return cards
 		return GenerateCards()
 	}
 
@@ -43,7 +38,7 @@ class DataUtility
 
 		return paths
 	}
-
+	
 	///
 	/// Factory method for layers
 	///
@@ -57,7 +52,7 @@ class DataUtility
 	///
 	class func createScene() -> Scene
 	{
-		return Scene(caption:"", backgroundColor:nil, foregroundColor:nil, layers:[])
+		return Scene(caption:nil, layers:nil)
 	}
 
 	///
@@ -83,22 +78,22 @@ class DataUtility
 
 		cards.append(
 			Card(title: "Another Day in the Life", isNew: true, scenes: [
-				Scene(caption: "It's time to wake up, Dave.", backgroundColor: nil, foregroundColor: nil, layers: [
+				Scene(caption: "It's time to wake up, Dave.", layers: [
 					Layer(image: "backdrop-home-indoors", visible: true, scale: 0.43, rotation: 0, opacity: 1.0, top: 0, left: 0),
 					Layer(image: "home-bed", visible: true, scale: 0.3, rotation: 0, opacity: 1.0, top: 300, left: 70),
 					Layer(image: "person", visible: true, scale: 0.3, rotation: 0, opacity: 1.0, top: 230, left: 150)
 				]),
-				Scene(caption: "Brush your teeth so you don't have the dragon breath!", backgroundColor: nil, foregroundColor: nil, layers: [
+				Scene(caption: "Brush your teeth so you don't have the dragon breath!", layers: [
 					Layer(image: "backdrop-home-indoors", visible: true, scale: 0.43, rotation: 0, opacity: 1.0, top: 0, left: 0),
 					Layer(image: "home-sink", visible: true, scale: 0.3, rotation: 0, opacity: 1.0, top: 350, left: 120),
 					Layer(image: "person", visible: true, scale: 0.3, rotation: 0, opacity: 1.0, top: 350, left: 190)
 				]),
-				Scene(caption: "They say breakfast is the most important meal of the day.", backgroundColor: nil, foregroundColor: nil, layers: [
+				Scene(caption: "They say breakfast is the most important meal of the day.", layers: [
 					Layer(image: "backdrop-home-indoors", visible: true, scale: 0.43, rotation: 0, opacity: 1.0, top: 0, left: 0),
 					Layer(image: "home-table", visible: true, scale: 0.3, rotation: 0, opacity: 1.0, top: 310, left: 80),
 					Layer(image: "person", visible: true, scale: 0.3, rotation: 0, opacity: 1.0, top: 157, left: 110)
 				]),
-				Scene(caption: "And then he drives to work for a new day of fun and excitement!", backgroundColor: nil, foregroundColor: nil, layers: [
+				Scene(caption: "And then he drives to work for a new day of fun and excitement!", layers: [
 					Layer(image: "backdrop-road", visible: true, scale: 0.43, rotation: 0, opacity: 1.0, top: 0, left: 0),
 					Layer(image: "person", visible: true, scale: 0.09, rotation: 0, opacity: 0.7, top: 152, left: 41),
 					Layer(image: "road-car-front", visible: true, scale: 0.13, rotation: 0, opacity: 1.0, top: 140, left: 0)
@@ -108,11 +103,11 @@ class DataUtility
 
 		cards.append(
 			Card(title: "Happy Birthday", isNew: true, scenes: [
-				Scene(caption: "It is your birthday.", backgroundColor: nil, foregroundColor: nil, layers: [
+				Scene(caption: "It is your birthday.", layers: [
 					Layer(image: "backdrop-yellow", visible: true, scale: 0.43, rotation: 0, opacity: 1.0, top: 0, left: 0),
 					Layer(image: "cake", visible: true, scale: 0.5, rotation: 0, opacity: 1.0, top: 0, left: 0)
 					]),
-				Scene(caption: "Now get back to work.", backgroundColor: nil, foregroundColor: nil, layers: [
+				Scene(caption: "Now get back to work.", layers: [
 					Layer(image: "person", visible: true, scale: 0.43, rotation: 0, opacity: 1.0, top: 0, left: 0)
 					])
 				])
@@ -137,7 +132,7 @@ class DataUtility
 
 	class func GenerateScene(caption: String) -> Scene
 	{
-		return Scene(caption: caption, backgroundColor: nil, foregroundColor: nil, layers: [])
+		return Scene(caption: caption, layers: [])
 	}
 
 	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG

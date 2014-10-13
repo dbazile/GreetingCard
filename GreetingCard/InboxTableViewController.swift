@@ -14,18 +14,21 @@ class InboxTableViewController: UITableViewController,
 	private let CARD_CELL        = "CardCell"
 	private let VIEW_CARD_SEGUE  = "ViewCardSegue"
 	private let EDIT_CARD_SEGUE  = "EditCardSegue"
-	private let TAG_TITLE_LABEL  = 1001
-	private let TAG_DETAIL_LABEL = 1002
+	private let TAG_TITLE_LABEL  = 1
+	private let TAG_DETAIL_LABEL = 2
+	private let TAG_CANVAS       = 3
+	
 	private let agent = RenderingAgent()
-
+	
 	var cards: [Card] = DataUtility.AllCards()
-
+	
 	///
-	/// Post-initialization hook
+	/// Reloads the cells when the view regains focus
 	///
-	override func viewDidLoad()
+	override func viewWillAppear(animated: Bool)
 	{
-		super.viewDidLoad()
+		super.viewWillAppear(animated)
+		tableView.reloadData()
 	}
 
 	///
@@ -70,15 +73,8 @@ class InboxTableViewController: UITableViewController,
 	{
 		let cell = tableView.dequeueReusableCellWithIdentifier(CARD_CELL, forIndexPath:indexPath) as UITableViewCell
 		let card = cards[indexPath.item]
-		let H = CGFloat(500)
 
-		self.updateCell(cell, card:card)
-		let canvas = UIView(frame: CGRectMake(0, cell.frame.height - H/1.5, cell.frame.width, H))
-		canvas.alpha = 0.1
-		cell.bounds = cell.frame
-		cell.clipsToBounds = true
-		cell.addSubview(canvas)
-		agent.render(card.scenes.first!, onto:canvas)
+		updateCell(cell, card:card)
 		
 		return cell
 	}
@@ -93,8 +89,15 @@ class InboxTableViewController: UITableViewController,
 	{
 		let title = cell.viewWithTag(TAG_TITLE_LABEL) as UILabel
 		let details = cell.viewWithTag(TAG_DETAIL_LABEL) as UILabel
-
+		let canvas = cell.viewWithTag(TAG_CANVAS)!
+	
+		// Set the text
 		title.text = card.title
 		details.text = "(1 / \(card.scenes.count))"
+
+		// Render the preview with a vertical offset
+		let H = CGFloat(500)
+		canvas.frame = CGRectMake(0, cell.frame.height - H/1.5, cell.frame.width, H)
+		agent.render(card.scenes.first!, onto:canvas)
 	}
 }
