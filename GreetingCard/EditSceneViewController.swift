@@ -29,7 +29,11 @@ class EditSceneViewController : UIViewController,
 	///   Returns the layer corresponding to the current focused layer index
 	///
 	var focusedLayer : Layer? {
-		get { return scene?.layers[focusedLayerIndex] }
+		get {
+			return (focusedLayerIndex < scene?.layers.count)
+				? scene?.layers[focusedLayerIndex]
+				: nil
+		}
 	}
 
 	///
@@ -214,33 +218,63 @@ class EditSceneViewController : UIViewController,
 	///
 	/// EventHandler: The 'pick layer' button was clicked
 	///
-	func toolbar(toolbar:UIViewController, didClickLayerPickerButton: Bool)
+	func toolbar(toolbar:UIViewController, didClickLayerPickerButton:Bool)
 	{
-		self.performSegueWithIdentifier(LAYER_PICKER_SEGUE, sender: self)
+		self.performSegueWithIdentifier(LAYER_PICKER_SEGUE, sender:self)
 	}
 	
 	///
 	/// EventHandler: The 'move layer up' button was clicked
 	///
-	func toolbar(toolbar:UIViewController, didClickLayerUpButton: Bool)
+	func toolbar(toolbar:UIViewController, didClickLayerUpButton:Bool)
 	{
-		println("[editscenevc : clicked 'layer-up' button]")
+		if (focusedLayerIndex + 1 < scene!.layers.count) {
+			let layer = scene!.layers[focusedLayerIndex]
+			let upperLayer = scene!.layers[focusedLayerIndex + 1]
+			scene!.layers[focusedLayerIndex] = upperLayer
+			scene!.layers[focusedLayerIndex + 1] = layer
+			
+			focusedLayerIndex += 1
+			
+			render()
+		}
 	}
 	
 	///
 	/// EventHandler: The 'move layer down' button was clicked
 	///
-	func toolbar(toolbar:UIViewController, didClickLayerDownButton: Bool)
+	func toolbar(toolbar:UIViewController, didClickLayerDownButton:Bool)
 	{
-		println("[editscenevc : clicked 'layer-down' button]")
+		if (scene!.layers.count > 1) {
+			if (focusedLayerIndex > 0) {
+				let layer = scene!.layers[focusedLayerIndex]
+				let lowerLayer = scene!.layers[focusedLayerIndex - 1]
+				scene!.layers[focusedLayerIndex] = lowerLayer
+				scene!.layers[focusedLayerIndex - 1] = layer
+				
+				focusedLayerIndex -= 1
+				
+				render()
+			}
+		}
 	}
 	
 	///
 	/// EventHandler: The 'delete layer" button was clicked
 	///
-	func toolbar(toolbar:UIViewController, didClickLayerDeleteButton: Bool)
+	func toolbar(toolbar:UIViewController, didClickLayerDeleteButton:Bool)
 	{
-		println("[editscenevc : clicked 'delete layer' button]")
+		let layers = scene!.layers
+		
+		if (layers.count > 0) {
+			scene?.layers.removeAtIndex(focusedLayerIndex)
+			
+			if (focusedLayerIndex > 0) {
+				focusedLayerIndex -= 1
+			}
+			
+			render()
+		}
 	}
 	
 	///
@@ -309,7 +343,7 @@ class EditSceneViewController : UIViewController,
 	{
 		_originalHideNavigationOnActivity = navigationController?.hidesBarsOnTap ?? false
 		_originalHideNavigationByDefault = navigationController?.navigationBarHidden ?? false
-		navigationController?.hidesBarsOnTap = true
+		navigationController?.hidesBarsOnTap = false
 		navigationController?.navigationBarHidden = true
 	}
 	
