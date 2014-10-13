@@ -8,34 +8,53 @@
 
 import UIKit
 
-class SpritePickerViewController: UICollectionViewController {
+class SpritePickerViewController : UICollectionViewController
+{
+	private let SPRITE_CELL = "SpriteCell"
 	
-	var agent = RenderingAgent()
-	var sprites = DataUtility.LoadLocalSprites()
+	private let agent = RenderingAgent()
+	private let sprites = DataUtility.LoadLocalSprites()
+	
 	var delegate : SpritePickerDelegate?
 	
-	override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+	
+	// COLLECTIONVIEW SOURCE/DELEGATION ////////////////////////////////////////
+	
+	///
+	/// Returns the number of sprites available
+	///
+	override func collectionView(collectionView:UICollectionView, numberOfItemsInSection section:Int) -> Int
+	{
 		return sprites.count
 	}
 	
-	let SPRITE_CELL = "SpriteCell"
-	
-	override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+	///
+	/// Returns the data for a given cell
+	///
+	override func collectionView(collectionView:UICollectionView, cellForItemAtIndexPath indexPath:NSIndexPath) -> UICollectionViewCell
+	{
 		let cell = collectionView.dequeueReusableCellWithReuseIdentifier(SPRITE_CELL, forIndexPath: indexPath) as UICollectionViewCell
 		
-		let path = sprites[indexPath.item]
+		let sprite = sprites[indexPath.item]
 		
-		agent.render(fromPath: path, onto: cell)
+		// Render the icon
+		agent.render(fromPath: sprite, onto: cell)
+		
+		// Add a border around the icon
 		agent.decorate(cell, borderSize:1, borderColor:UIColor(white:1, alpha:1), dashed:false)
+
 		cell.layer.shadowOffset = CGSize(width: 2, height: 2)
 		cell.layer.shadowColor = UIColor.blackColor().CGColor
 		cell.layer.shadowOpacity = 1
 		
-		
 		return cell
 	}
 	
-	override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+	///
+	/// EventHandler: Executes when a sprite is tapped
+	///
+	override func collectionView(collectionView:UICollectionView, didSelectItemAtIndexPath indexPath:NSIndexPath)
+	{
 		let sprite = sprites[indexPath.item]
 		delegate?.spritePicker(self, didSelectSprite:sprite)
 	}

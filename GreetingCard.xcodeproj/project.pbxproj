@@ -17,7 +17,6 @@
 		637C09B119E0953100E93BB0 /* RenderingAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637C09B019E0953100E93BB0 /* RenderingAgent.swift */; };
 		637C09B519E1135300E93BB0 /* LayerPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637C09B419E1135300E93BB0 /* LayerPickerViewController.swift */; };
 		637C09B719E11BD200E93BB0 /* LayerPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637C09B619E11BD200E93BB0 /* LayerPickerDelegate.swift */; };
-		637C09B919E19BF700E93BB0 /* LayerPickerNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637C09B819E19BF700E93BB0 /* LayerPickerNavigationController.swift */; };
 		63AA5CD219D7E31C009E15E7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AA5CD119D7E31C009E15E7 /* AppDelegate.swift */; };
 		63AA5CDB19D7E31C009E15E7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63AA5CD919D7E31C009E15E7 /* Main.storyboard */; };
 		63AA5CDD19D7E31C009E15E7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63AA5CDC19D7E31C009E15E7 /* Images.xcassets */; };
@@ -51,7 +50,6 @@
 		637C09B019E0953100E93BB0 /* RenderingAgent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RenderingAgent.swift; sourceTree = "<group>"; };
 		637C09B419E1135300E93BB0 /* LayerPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayerPickerViewController.swift; sourceTree = "<group>"; };
 		637C09B619E11BD200E93BB0 /* LayerPickerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayerPickerDelegate.swift; sourceTree = "<group>"; };
-		637C09B819E19BF700E93BB0 /* LayerPickerNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayerPickerNavigationController.swift; sourceTree = "<group>"; };
 		63AA5CCC19D7E31C009E15E7 /* GreetingCard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GreetingCard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63AA5CD019D7E31C009E15E7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63AA5CD119D7E31C009E15E7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -104,7 +102,6 @@
 				637C09AC19DFB48700E93BB0 /* EditSceneToolbarViewController.swift */,
 				637C09B419E1135300E93BB0 /* LayerPickerViewController.swift */,
 				636A6A4C19E1D8A8001B4B6D /* SpritePickerViewController.swift */,
-				637C09B819E19BF700E93BB0 /* LayerPickerNavigationController.swift */,
 				637C09AE19DFCA9600E93BB0 /* EditSceneToolbarDelegate.swift */,
 				637C09B619E11BD200E93BB0 /* LayerPickerDelegate.swift */,
 				636A6A4A19E1D7EF001B4B6D /* SpritePickerDelegate.swift */,
@@ -295,7 +292,6 @@
 				633FC91A19DF6ABD0033F742 /* EditSceneViewController.swift in Sources */,
 				63AA5CFD19D7E37E009E15E7 /* CardViewController.swift in Sources */,
 				63AA5CFE19D7E37E009E15E7 /* DataUtility.swift in Sources */,
-				637C09B919E19BF700E93BB0 /* LayerPickerNavigationController.swift in Sources */,
 				636A6A4D19E1D8A8001B4B6D /* SpritePickerViewController.swift in Sources */,
 				63AA5CD219D7E31C009E15E7 /* AppDelegate.swift in Sources */,
 			);

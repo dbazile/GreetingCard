@@ -35,6 +35,10 @@ class DataUtility {
 	
 	
 	
+	class func createScene() -> Scene
+	{
+		return Scene(caption:"", backgroundColor:nil, foregroundColor:nil, layers:[])
+	}
 	
 	class func createLayer(image:String) -> Layer
 	{

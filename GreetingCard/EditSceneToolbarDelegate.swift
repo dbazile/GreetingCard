@@ -6,49 +6,24 @@
 //  Copyright (c) 2014 David Bazile. All rights reserved.
 //
 
+import UIKit
+
 protocol EditSceneToolbarDelegate
 {
-	
-	/// Handler for changes to the 'caption' textfield
-	func toolbarEvent(changed:Bool, caption:String)
-	
-	/// Handler for changes to the 'opacity' slider
-	func toolbarEvent(changed:Bool, opacity:Float)
-	
-	/// Handler for changes to the 'rotation' slider
-	func toolbarEvent(changed:Bool, rotation:Int)
-	
-	/// Handler for changes to the 'scale' slider
-	func toolbarEvent(changed:Bool, scale:Float)
-	
-	/// Handler for changes to the 'top' slider
-	func toolbarEvent(changed:Bool, top:Int)
-	
-	/// Handler for changes to the 'left' slider
-	func toolbarEvent(changed:Bool, left:Int)
-
-	/// Handler for when the user clicks the 'Layer Picker' button
-	func toolbarEvent(clickedButton: Bool, layerPicker: Bool)
-
-	//
-	// Initial values for the sliders
-	//
-	
-	/// Returns the initial value for the scene's 'caption' property
-	func initialCaption() -> String
-	
-	/// Returns the initial value for the 'rotation' property
-	func initialRotation() -> Int
-	
-	/// Returns the initial value for the 'opacity' property
-	func initialOpacity() -> Float
-	
-	/// Returns the initial value for the 'scale' property
-	func initialScale() -> Float
-	
-	/// Returns the initial value for the 'top' property
-	func initialTop() -> Int
-	
-	/// Returns the initial value for the 'left' property
-	func initialLeft() -> Int
+	func toolbar(toolbar:UIViewController, didChangeCaption caption:String)
+	func toolbar(toolbar:UIViewController, didChangeLeft left:Int)
+	func toolbar(toolbar:UIViewController, didChangeOpacity opacity:Float)
+	func toolbar(toolbar:UIViewController, didChangeRotation rotation:Int)
+	func toolbar(toolbar:UIViewController, didChangeScale scale:Float)
+	func toolbar(toolbar:UIViewController, didChangeTop top:Int)
+	func toolbar(toolbar:UIViewController, didClickLayerDeleteButton: Bool)
+	func toolbar(toolbar:UIViewController, didClickLayerDownButton: Bool)
+	func toolbar(toolbar:UIViewController, didClickLayerPickerButton: Bool)
+	func toolbar(toolbar:UIViewController, didClickLayerUpButton: Bool)
+	func toolbar(toolbar:UIViewController, initialCaptionValue defaultValue:String) -> String
+	func toolbar(toolbar:UIViewController, initialLeftValue defaultValue:Int) -> Int
+	func toolbar(toolbar:UIViewController, initialOpacityValue defaultValue:Float) -> Float
+	func toolbar(toolbar:UIViewController, initialRotationValue defaultValue:Int) -> Int
+	func toolbar(toolbar:UIViewController, initialScaleValue defaultValue:Float) -> Float
+	func toolbar(toolbar:UIViewController, initialTopValue defaultValue:Int) -> Int
 }

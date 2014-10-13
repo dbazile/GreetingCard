@@ -8,100 +8,116 @@
 
 import UIKit
 
-class LayerPickerViewController: UITableViewController,
-	                             UITableViewDataSource,
-	                             SpritePickerDelegate
+class LayerPickerViewController : UITableViewController,
+	                              UITableViewDataSource,
+	                              SpritePickerDelegate
 {
-	let SPRITE_PICKER_MODAL = "SpritePickerModal"
-	let CAPTION_ADD_NEW_LAYER = "Add New Layer"
-	let LAYER_CELL = "LayerCell"
-	let INDEX_NEW_LAYER = 0
-	let TAG_LABE_LAYERINDEX = 1
-	let TAG_ICON_PREVIEW = 2
+	private let SPRITE_PICKER_SEGUE = "SpritePickerSegue"
+	private let LAYER_CELL          = "LayerCell"
+	private let ADD_NEW_LAYER       = "Add New Layer"
+	private let NEW_LAYER_INDEX     = 0
+	private let TAG_LABEL           = 1
+	private let TAG_ICON            = 2
 	
-	var agent = RenderingAgent()
+	private let agent = RenderingAgent()
+	
 	var delegate : LayerPickerDelegate?
 	var layers : [Layer]?
 	
-	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return layers!.count + 1
-	}
-	
-	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = tableView.dequeueReusableCellWithIdentifier(LAYER_CELL, forIndexPath: indexPath) as UITableViewCell
-		
-		let label = cell.viewWithTag(TAG_LABE_LAYERINDEX) as UILabel!
-		let canvas = cell.viewWithTag(TAG_ICON_PREVIEW)!
-		
-		if (INDEX_NEW_LAYER == indexPath.item) {
-			label.text = CAPTION_ADD_NEW_LAYER
-			label.textColor = UIColor.blackColor()
-			
-			canvas.backgroundColor = UIColor(white: 0, alpha: 0.15)
-			
-			let glyph = UILabel()
-			glyph.frame = canvas.bounds.rectByOffsetting(dx: 0, dy: -5)
-			glyph.text = "+"
-			glyph.font = UIFont.boldSystemFontOfSize(60)
-			glyph.textColor = UIColor(white: 1, alpha: 1)
-			glyph.textAlignment = NSTextAlignment.Center
-			glyph.baselineAdjustment = UIBaselineAdjustment.AlignCenters
-			canvas.addSubview(glyph)
-			
-		} else {
-			let i = index(indexPath)
-			
-			label.text = String(i + 1)
-			agent.render(layerAsIcon:layers![i], onto:canvas)
-		}
-		
-		return cell
-	}
-	
-	
-	
-	
-	
-	
-	
-	func spritePicker(picker: SpritePickerViewController, didSelectSprite identifier: String) {
-		let layer = DataUtility.createLayer(identifier)
-		self.delegate?.layerPicker(self, didCreateLayer:layer)
-	}
-	
-	
-	
-	
-	
-	
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+	///
+	/// Intercepts the segue to configure the next view controller
+	///
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+	{
 		super.prepareForSegue(segue, sender:sender)
 		
+		// Register as the SpritePicker's delegate
 		let controller = segue.destinationViewController as SpritePickerViewController
 		controller.delegate = self
 	}
 	
 	
+	// SPRITEPICKER DELEGATION /////////////////////////////////////////////////
 	
-	
-	
-	
-	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		if (INDEX_NEW_LAYER == indexPath.item) {
-			
-			//delegate?.layerPicker(self, didRequestNewLayer: true)
-			
-			self.performSegueWithIdentifier(SPRITE_PICKER_MODAL, sender:nil)
-			
-		} else {
-			delegate?.layerPicker(self, didSelectLayer:index(indexPath))
-		}
+	///
+	/// EventHandler: Executes when a sprite is picked from the sprite picker
+	///
+	func spritePicker(picker: SpritePickerViewController, didSelectSprite identifier: String)
+	{
+		let layer = DataUtility.createLayer(identifier)
+		
+		// Send the new layer to the delegate
+		self.delegate?.layerPicker(self, didCreateLayer:layer)
 	}
 	
+
+	// TABLEVIEW SOURCE/DELEGATION /////////////////////////////////////////////
+	
+	///
+	/// Returns the number of table cells
+	///
+	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+	{
+		return layers!.count + 1
+	}
+	
+	///
+	/// Returns the data for a given table cell
+	///
+	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+	{
+		let cell = tableView.dequeueReusableCellWithIdentifier(LAYER_CELL, forIndexPath: indexPath) as UITableViewCell
+		
+		let label = cell.viewWithTag(TAG_LABEL) as UILabel!
+		let canvas = cell.viewWithTag(TAG_ICON)!
+		
+		if (NEW_LAYER_INDEX == indexPath.item) {
+			
+			// Format the 'new layer' cell
+			label.text = ADD_NEW_LAYER
+			label.textColor = UIColor.blackColor()
+			agent.render(glyph:"+", onto:canvas)
+			
+		} else {
+			
+			// Format the 'current layer' cell
+			let i = index(indexPath)
+			label.text = String(i + 1)
+			agent.render(layerAsIcon:layers![i], onto:canvas)
+			
+		}
+		
+		return cell
+	}
+	
+	///
+	/// EventHandler: Executes whenever a cell is tapped
+	///
+	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+	{
+		if (NEW_LAYER_INDEX == indexPath.item) {
+			
+			// Selected a new layer
+			self.performSegueWithIdentifier(SPRITE_PICKER_SEGUE, sender:nil)
+			
+		} else {
+			
+			// Selected an existing layer
+			delegate?.layerPicker(self, didSelectLayer:index(indexPath))
+			
+		}
+	}
+
+	
+	// HELPER METHODS //////////////////////////////////////////////////////////
+	
+	///
+	/// Translates the array index into one that makes more semantic sense from
+	/// a user's perspective
+	///
 	private func index(indexPath: NSIndexPath) -> Int
 	{
-		// Reverse the index
-		// Not subtracting 1 from the array length to account for the "NEW LAYER" index
+		// Not subtracting 1 to account for the "NEW LAYER" index
 		return (self.layers!.count) - indexPath.item
 	}
 }

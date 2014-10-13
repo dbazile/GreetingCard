@@ -8,24 +8,35 @@
 
 import UIKit
 
-class SceneViewController: UIViewController
+class SceneViewController : UIViewController
 {
-	@IBOutlet weak var canvas: UIView!
-	@IBOutlet weak var caption: UILabel!
+	private let agent = RenderingAgent()
 	
-	let agent = RenderingAgent()
+	var scene : Scene?
+	var index : Int = -1
 	
-	var scene: Scene?
-	var index: Int = -1
-	
-    override func viewDidLoad() {
+	///
+	/// One-time setup for the canvas
+	///
+    override func viewDidLoad()
+	{
         super.viewDidLoad()
 		agent.normalize(canvas)
     }
 	
-	override func viewWillAppear(animated: Bool) {
+	///
+	/// Renders the scene whenever the view becomes active
+	///
+	override func viewWillAppear(animated: Bool)
+	{
 		super.viewWillAppear(animated)
 		agent.render(scene!, onto: canvas)
 		caption.text = scene?.caption
 	}
+	
+	
+	// INTERFACE BUILDER ///////////////////////////////////////////////////////
+	
+	@IBOutlet weak var canvas : UIView!
+	@IBOutlet weak var caption : UILabel!
 }

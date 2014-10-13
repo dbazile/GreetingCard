@@ -107,7 +107,20 @@ class RenderingAgent
 		return self
 	}
 	
-
+	func render(glyph text:String, onto canvas:UIView) -> RenderingAgent
+	{
+		let glyph = UILabel()
+		glyph.frame = canvas.bounds.rectByOffsetting(dx: 0, dy: -5)
+		glyph.text = text
+		glyph.font = UIFont.boldSystemFontOfSize(60)
+		glyph.textColor = UIColor(white: 1, alpha: 1)
+		glyph.textAlignment = NSTextAlignment.Center
+		glyph.baselineAdjustment = UIBaselineAdjustment.AlignCenters
+		canvas.addSubview(glyph)
+		canvas.backgroundColor = UIColor(white: 0, alpha: 0.15)
+		
+		return self
+	}
 	
 	
 	

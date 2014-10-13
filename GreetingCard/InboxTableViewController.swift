@@ -8,12 +8,13 @@
 
 import UIKit
 
-class InboxTableViewController: UITableViewController, UITableViewDataSource
+class InboxTableViewController: UITableViewController,
+                                UITableViewDataSource
 {
-	let IDENTIFIER_CARD_CELL = "CardCell"
-	let IDENTIFIER_VIEWCARD_SEGUE = "ViewCard"
-	let TAG_TITLE_LABEL = 1001
-	let TAG_DETAIL_LABEL = 1002
+	private let CARD_CELL        = "CardCell"
+	private let VIEW_CARD_SEGUE  = "ViewCardSegue"
+	private let TAG_TITLE_LABEL  = 1001
+	private let TAG_DETAIL_LABEL = 1002
 	
 	var cards: [Card] = DataUtility.LoadCards()
 	
@@ -26,21 +27,25 @@ class InboxTableViewController: UITableViewController, UITableViewDataSource
 	}
 	
 	///
-	/// All segues pass through here
+	/// Intercept segue to configure destination controllers
 	///
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+	override func prepareForSegue(segue:UIStoryboardSegue, sender:AnyObject?)
+	{
 		let index = self.tableView.indexPathForCell(sender as UITableViewCell)!.item
 		
-		if (IDENTIFIER_VIEWCARD_SEGUE == segue.identifier) {
+		if (VIEW_CARD_SEGUE == segue.identifier) {
 			let controller = segue.destinationViewController as CardViewController
 			controller.card = self.cards[index]
 		}
 	}
 	
+	
+	// TABLEVIEW DATASOURCE ////////////////////////////////////////////////////
+	
 	///
 	/// Returns the total number of table rows
 	///
-	override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+	override func tableView(tableView:UITableView, numberOfRowsInSection section:Int) -> Int
 	{
 		return cards.count
 	}
@@ -48,9 +53,9 @@ class InboxTableViewController: UITableViewController, UITableViewDataSource
 	///
 	/// Handles drawing cells
 	///
-	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+	override func tableView(tableView:UITableView, cellForRowAtIndexPath indexPath:NSIndexPath) -> UITableViewCell
 	{
-		let cell = tableView.dequeueReusableCellWithIdentifier(IDENTIFIER_CARD_CELL, forIndexPath:indexPath) as UITableViewCell
+		let cell = tableView.dequeueReusableCellWithIdentifier(CARD_CELL, forIndexPath:indexPath) as UITableViewCell
 		let card = cards[indexPath.item]
 		
 		self.updateCell(cell, card:card)
@@ -58,7 +63,13 @@ class InboxTableViewController: UITableViewController, UITableViewDataSource
 		return cell
 	}
 	
-	private func updateCell(cell: UITableViewCell, card: Card)
+	
+	// HELPER METHODS //////////////////////////////////////////////////////////
+	
+	///
+	/// Updates a cell with the card data
+	///
+	private func updateCell(cell:UITableViewCell, card:Card)
 	{
 		let title = cell.viewWithTag(TAG_TITLE_LABEL) as UILabel
 		let details = cell.viewWithTag(TAG_DETAIL_LABEL) as UILabel

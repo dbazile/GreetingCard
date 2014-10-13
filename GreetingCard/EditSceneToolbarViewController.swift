@@ -8,125 +8,170 @@
 
 import UIKit
 
-class EditSceneToolbarViewController : UIViewController {
-	let WIDTH = 320
-	let HEIGHT = 265
-	
+class EditSceneToolbarViewController : UIViewController
+{
 	var delegate : EditSceneToolbarDelegate?
 	
-	// Property for index
+	///
+	/// Layer Index Property
+	///   Allows for automatically synchronizing the toolbar as the underlying
+	///   data is changed externally
+	///
 	private var _index = -1
 	var layerIndex : Int {
-		get {
-			return _index
-		}
+		get { return _index }
 		set {
 			_index = newValue
-			refresh()
+			synchronize()
 		}
 	}
 	
-	@IBOutlet weak var caption: UITextField!
-	@IBOutlet weak var left: UISlider!
-	@IBOutlet weak var opacity: UISlider!
-	@IBOutlet weak var rotation: UISlider!
-	@IBOutlet weak var scale: UISlider!
-	@IBOutlet weak var top: UISlider!
-	@IBOutlet weak var labelLayerIndex: UILabel!
-	@IBOutlet weak var labelLeft: UILabel!
-	@IBOutlet weak var labelOpacity : UILabel!
-	@IBOutlet weak var labelRotation: UILabel!
-	@IBOutlet weak var labelScale: UILabel!
-	@IBOutlet weak var labelTop: UILabel!
-	
-	override func viewWillAppear(animated: Bool) {
+	///
+	/// Synchronize all input fields and labels before showing the view
+	///
+	override func viewWillAppear(animated: Bool)
+	{
 		super.viewWillAppear(animated)
-		refresh()
+		synchronize()
 	}
 	
-	@IBAction func rotationDidChange(sender: UISlider) {
-		degreeUpdate(sender, label: labelRotation)
-		delegate?.toolbarEvent(true, rotation: Int(sender.value))
-	}
 	
-	@IBAction func scaleDidChange(sender: UISlider) {
-		percentageUpdate(sender, label: labelScale)
-		delegate?.toolbarEvent(true, scale: Float(sender.value))
-	}
+	// INTERFACE BUILDER ///////////////////////////////////////////////////////
 	
-	@IBAction func topDidChange(sender: UISlider) {
-		integerUpdate(sender, label: labelTop)
-		delegate?.toolbarEvent(true, top: Int(sender.value))
-	}
+	@IBOutlet weak var inputCaption    : UITextField!
+	@IBOutlet weak var inputLeft       : UISlider!
+	@IBOutlet weak var inputOpacity    : UISlider!
+	@IBOutlet weak var inputRotation   : UISlider!
+	@IBOutlet weak var inputScale      : UISlider!
+	@IBOutlet weak var inputTop        : UISlider!
+	@IBOutlet weak var labelLayerIndex : UILabel!
+	@IBOutlet weak var labelLeft       : UILabel!
+	@IBOutlet weak var labelOpacity    : UILabel!
+	@IBOutlet weak var labelRotation   : UILabel!
+	@IBOutlet weak var labelScale      : UILabel!
+	@IBOutlet weak var labelTop        : UILabel!
 	
-	@IBAction func leftDidChange(sender: UISlider) {
-		integerUpdate(sender, label: labelLeft)
-		delegate?.toolbarEvent(true, left: Int(sender.value))
-	}
-	
-	@IBAction func opacityDidChange(sender: UISlider)
+	/// EventHandler: Executes when the caption was changed
+	@IBAction func didChangeCaption(sender:UITextField)
 	{
-		percentageUpdate(sender, label: labelOpacity)
-		delegate?.toolbarEvent(true, opacity: Float(sender.value))
+		delegate?.toolbar(self, didChangeCaption:sender.text)
 	}
 	
-	@IBAction func layerButtonClicked()
+	/// EventHandler: Executes when the X value changes
+	@IBAction func didChangeLeft(sender:UISlider)
 	{
-		delegate?.toolbarEvent(true, layerPicker: true)
+		delegate?.toolbar(self, didChangeLeft:Int(sender.value))
+		format(integer:sender, onto:labelLeft)
 	}
 	
-	@IBAction func layerForwardClicked()
+	/// EventHandler: Executes when the opacity value changes
+	@IBAction func didChangeOpacity(sender:UISlider)
 	{
-		println("clicked layer-forward button")
+		delegate?.toolbar(self, didChangeOpacity:Float(sender.value))
+		format(percentage:sender, onto:labelOpacity)
 	}
 	
-	@IBAction func layerBackwardClicked()
+	/// EventHandler: Executes when the rotation value changes
+	@IBAction func didChangeRotation(sender:UISlider)
 	{
-		println("clicked layer-backward button")
+		delegate?.toolbar(self, didChangeRotation:Int(sender.value))
+		format(degrees:sender, onto:labelRotation)
 	}
 	
-	@IBAction func deleteLayerClicked()
+	/// EventHandler: Executes when the scale value changes
+	@IBAction func didChangeScale(sender:UISlider)
 	{
-		println("clicked delete-layer button")
+		delegate?.toolbar(self, didChangeScale:Float(sender.value))
+		format(percentage:sender, onto:labelScale)
 	}
 	
-	private func refresh()
+	/// EventHandler: Executes when the Y value changes
+	@IBAction func didChangeTop(sender:UISlider)
 	{
-		if (nil != delegate) {
-			self.rotation.value = Float(delegate!.initialRotation())
-			self.opacity.value = Float(delegate!.initialOpacity())
-			self.scale.value = Float(delegate!.initialScale())
-			self.top.value = Float(delegate!.initialTop())
-			self.left.value = Float(delegate!.initialLeft())
-			self.caption.text = delegate!.initialCaption()
-		}
-		
-		// Set the layer index caption
-		self.labelLayerIndex.text = String(self.layerIndex + 1)
-		
-		// Trigger all of the change event handlers
-		rotationDidChange(rotation)
-		opacityDidChange(opacity)
-		scaleDidChange(scale)
-		topDidChange(top)
-		leftDidChange(left)
+		delegate?.toolbar(self, didChangeTop:Int(sender.value))
+		format(integer:sender, onto:labelTop)
 	}
 	
-	private func integerUpdate(field: UISlider, label: UILabel)
+	/// EventHandler: Executes when the 'layer delete' button is clicked
+	@IBAction func didClickLayerDeleteButton()
 	{
-		let result = Int(ceil(field.value))
-		label.text = String(result)
+		delegate?.toolbar(self, didClickLayerDeleteButton:true)
 	}
 	
-	private func degreeUpdate(field: UISlider, label: UILabel)
+	/// EventHandler: Executes when the 'layer down' button is clicked
+	@IBAction func didClickLayerDownButton()
+	{
+		delegate?.toolbar(self, didClickLayerDownButton:true)
+	}
+	
+	/// EventHandler: Executes when the 'layer picker' button is clicked
+	@IBAction func didClickLayerPickerButton()
+	{
+		delegate?.toolbar(self, didClickLayerPickerButton:true)
+	}
+	
+	/// EventHandler: Executes when the 'layer up' button is clicked
+	@IBAction func didClickLayerUpButton()
+	{
+		delegate?.toolbar(self, didClickLayerUpButton:true)
+	}
+	
+	
+	// HELPER METHODS //////////////////////////////////////////////////////////
+	
+	///
+	/// Sets an degree-formatted value to the given label
+	///
+	private func format(degrees field:UISlider, onto label:UILabel)
 	{
 		let result = Int(ceil(field.value))
 		label.text = "\(result)º"
 	}
 	
-	private func percentageUpdate(field: UISlider, label: UILabel)
+	///
+	/// Sets an integer-formatted value to the given label
+	///
+	private func format(integer field:UISlider, onto label:UILabel)
+	{
+		let result = Int(ceil(field.value))
+		label.text = String(result)
+	}
+	
+	///
+	/// Sets an percentage-formatted value to the given label
+	///
+	private func format(percentage field:UISlider, onto label:UILabel)
 	{
 		let result = Int(ceil(field.value * 100))
 		label.text = "\(result)%"
+	}
+	
+	///
+	/// Syncs each label and field to its corresponding value according to the
+	/// delegate/datasource.
+	///
+	private func synchronize()
+	{
+		// Read the initial data values from the delegate/datasource
+		if (nil != self.delegate) {
+			let delegate = self.delegate!
+			
+			inputCaption.text   = String(delegate.toolbar(self, initialCaptionValue:String(inputCaption.text)))
+			inputRotation.value = Float(delegate.toolbar(self, initialRotationValue:Int(inputRotation.value)))
+			inputOpacity.value  = Float(delegate.toolbar(self, initialOpacityValue:Float(inputOpacity.value)))
+			inputScale.value    = Float(delegate.toolbar(self, initialScaleValue:Float(inputScale.value)))
+			inputTop.value      = Float(delegate.toolbar(self, initialTopValue:Int(inputTop.value)))
+			inputLeft.value     = Float(delegate.toolbar(self, initialLeftValue:Int(inputLeft.value)))
+		}
+		
+		// Set the layer index caption
+		labelLayerIndex.text = String(layerIndex + 1)
+		
+		// Trigger all of the 'didChange' event handlers
+		didChangeRotation(inputRotation)
+		didChangeOpacity(inputOpacity)
+		didChangeScale(inputScale)
+		didChangeTop(inputTop)
+		didChangeLeft(inputLeft)
 	}
 }

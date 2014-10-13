@@ -8,23 +8,31 @@
 
 import UIKit
 
-class EditCardViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
-	let SEGUE_EDIT_SCENE = "EditScene"
-	let REUSE_IDENTIFIER = "SceneCell"
-	let TAG_SCENE_INDEX = 100
+class EditCardViewController : UIViewController,
+                               UICollectionViewDataSource,
+                               UICollectionViewDelegate
+{
+	private let EDIT_SCENE_SEGUE = "EditSceneSegue"
+	private let SCENE_CELL       = "SceneCell"
+	private let TAG_SCENE_INDEX  = 100
 	
 	var card : Card? = DataUtility.LoadCards()[0]
 	
-	@IBOutlet weak var cardTitle: UITextField!
-	@IBOutlet weak var collectionView: UICollectionView!
-	
-	override func viewWillAppear(animated: Bool) {
+	///
+	/// Sets the card title
+	///
+	override func viewWillAppear(animated: Bool)
+	{
 		super.viewWillAppear(animated)
 		
 		cardTitle.text = card?.title
 	}
 	
-	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+	///
+	/// Intercepts the segue to configure the next view controller
+	///
+	override func prepareForSegue(segue:UIStoryboardSegue, sender:AnyObject?)
+	{
 		let destinationController = segue.destinationViewController as EditSceneViewController
 		let index = collectionView.indexPathForCell(sender as UICollectionViewCell)!.item
 
@@ -35,19 +43,46 @@ class EditCardViewController: UIViewController, UICollectionViewDataSource, UICo
 		}
 	}
 	
-	// MARK: UICollectionViewDataSource
 	
-	func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+	// INTERFACE BUILDER ///////////////////////////////////////////////////////
+	
+	@IBOutlet weak var cardTitle : UITextField!
+	@IBOutlet weak var collectionView : UICollectionView!
+	
+	///
+	/// EventHandler: Scene title was changed
+	///
+	@IBAction func titleDidChange(sender: UITextField)
+	{
+		println("[editcardvc:titleDidChange: Scene title changed to '\(sender.text)']")
+	}
+
+	
+	// COLLECTIONVIEW DATASOURCE/DELEGATE //////////////////////////////////////
+	
+	///
+	/// Sets the number of sections
+	///
+	func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int
+	{
 		return 1
 	}
 	
-	func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+	///
+	/// Sets the number of scenes
+	///
+	func collectionView(collectionView:UICollectionView, numberOfItemsInSection section:Int) -> Int
+	{
 		// Return an extra cell to account for the 'New Scene' button
 		return card!.scenes.count + 1
 	}
 	
-	func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-		let cell = collectionView.dequeueReusableCellWithReuseIdentifier(REUSE_IDENTIFIER, forIndexPath: indexPath) as UICollectionViewCell
+	///
+	/// Configures a specific scene cell
+	///
+	func collectionView(collectionView:UICollectionView, cellForItemAtIndexPath indexPath:NSIndexPath) -> UICollectionViewCell
+	{
+		let cell = collectionView.dequeueReusableCellWithReuseIdentifier(SCENE_CELL, forIndexPath: indexPath) as UICollectionViewCell
 		let index = indexPath.item
 		
 		// Configure the cell
@@ -65,12 +100,16 @@ class EditCardViewController: UIViewController, UICollectionViewDataSource, UICo
 		return cell
 	}
 
+	
+	// HELPER METHODS //////////////////////////////////////////////////////////
+	
+	///
+	/// Creates a new Scene to be edited
+	///
 	private func generateScene() -> Scene
 	{
-		return Scene(caption: "", backgroundColor: nil, foregroundColor: nil, layers: [])
-	}
-	
-	@IBAction func titleDidChange(sender: UITextField) {
-		println("Title changed to '\(sender.text)'")
+		let scene = DataUtility.createScene()
+		card!.scenes.append(scene)
+		return scene
 	}
 }
