@@ -16,7 +16,7 @@ class EditCardViewController : UIViewController,
 	private let SCENE_CELL       = "SceneCell"
 	private let TAG_SCENE_INDEX  = 100
 	
-	var card : Card? = DataUtility.LoadCards()[0]
+	var card : Card?
 	
 	///
 	/// Sets the card title

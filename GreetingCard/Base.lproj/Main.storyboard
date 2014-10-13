@@ -174,7 +174,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="center" selectionStyle="default" indentationWidth="0.0" reuseIdentifier="CardCell" rowHeight="115" id="7Y0-LE-BTq">
+                            <tableViewCell contentMode="center" selectionStyle="default" accessoryType="detailButton" indentationWidth="0.0" reuseIdentifier="CardCell" rowHeight="115" id="7Y0-LE-BTq">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7Y0-LE-BTq" id="ei2-3g-r5x">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -202,6 +202,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <segue destination="PxF-Ax-wPy" kind="push" identifier="ViewCardSegue" id="a7y-fX-m8P"/>
+                                    <segue destination="dkI-PZ-HEq" kind="push" identifier="EditCardSegue" trigger="accessoryAction" id="XuB-xQ-imP"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -225,7 +226,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="dkI-PZ-HEq" kind="relationship" relationship="rootViewController" id="UCz-uJ-qhW"/>
+                        <segue destination="vnB-5X-Gfh" kind="relationship" relationship="rootViewController" id="oIU-4f-dKl"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pzQ-f7-o9Z" userLabel="First Responder" sceneMemberID="firstResponder"/>

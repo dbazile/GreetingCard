@@ -13,7 +13,7 @@ class SpritePickerViewController : UICollectionViewController
 	private let SPRITE_CELL = "SpriteCell"
 	
 	private let agent = RenderingAgent()
-	private let sprites = DataUtility.LoadLocalSprites()
+	private let sprites = DataUtility.AllLocalSprites()
 	
 	var delegate : SpritePickerDelegate?
 	
@@ -38,7 +38,7 @@ class SpritePickerViewController : UICollectionViewController
 		let sprite = sprites[indexPath.item]
 		
 		// Render the icon
-		agent.render(fromPath: sprite, onto: cell)
+		agent.render(fromIdentifier:sprite, onto: cell)
 		
 		// Add a border around the icon
 		agent.decorate(cell, borderSize:1, borderColor:UIColor(white:1, alpha:1), dashed:false)

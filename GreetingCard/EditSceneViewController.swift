@@ -343,7 +343,7 @@ class EditSceneViewController : UIViewController,
 	{
 		_originalHideNavigationOnActivity = navigationController?.hidesBarsOnTap ?? false
 		_originalHideNavigationByDefault = navigationController?.navigationBarHidden ?? false
-		navigationController?.hidesBarsOnTap = false
+		navigationController?.hidesBarsOnTap = true
 		navigationController?.navigationBarHidden = true
 	}
 	

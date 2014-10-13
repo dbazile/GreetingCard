@@ -57,7 +57,7 @@ class RenderingAgent
 		
 		var currentIndex = 0
 		for layer in scene.layers {
-			let image = UIImage(contentsOfFile: layer.image)
+			let image = png(layer.image)
 			
 			let renderedLayer = UIImageView()
 			
@@ -90,7 +90,7 @@ class RenderingAgent
 		// Always start with a blank slate
 		purge(canvas)
 		
-		let image = UIImage(contentsOfFile:layer.image)
+		let image = png(layer.image)
 		let renderedLayer = UIImageView()
 		
 		renderedLayer.image = image
@@ -125,14 +125,27 @@ class RenderingAgent
 	
 	
 	
+	
+	
+	
+	
+	
+	
+	
+	private func png(identifier:String) -> UIImage
+	{
+		let path = DataUtility.resolve(identifier)
+		
+		return UIImage(contentsOfFile:path)
+	}
 
 	
-	func render(fromPath path:String, onto canvas:UIView) -> RenderingAgent
+	func render(fromIdentifier identifier:String, onto canvas:UIView) -> RenderingAgent
 	{
 		// Always start with a blank slate
 		purge(canvas)
 		
-		let image = UIImage(contentsOfFile:path)
+		let image = png(identifier)
 		let renderedLayer = UIImageView()
 		
 		renderedLayer.image = image

@@ -8,48 +8,64 @@
 
 import Foundation
 
-private let INITIAL_SCALE    = Float(0.5)
-private let INITIAL_ROTATION = 0
-private let INITIAL_OPACITY  = Float(1.0)
-private let INITIAL_TOP      = 0
-private let INITIAL_LEFT     = 0
-
-class DataUtility {
+class DataUtility
+{
 	
-	class func LoadLocalSprites() -> [String]
+	///
+	/// Returns a list of all cards stored locally
+	///
+	class func AllCards() -> [Card]
+	{
+		//var cards: [Card] = []
+		
+		// Load some things from file, http, wherever
+		
+		//return cards
+		return GenerateCards()
+	}
+	
+	///
+	/// Returns a list of identifiers for all local sprites
+	///
+	class func AllLocalSprites() -> [String]
 	{
 		var paths: [String] = []
 		
-		paths.append(png("backdrop-home-indoors")!)
-		paths.append(png("backdrop-road")!)
-		paths.append(png("backdrop-yellow")!)
-		paths.append(png("cake")!)
-		paths.append(png("home-bed")!)
-		paths.append(png("home-sink")!)
-		paths.append(png("home-table")!)
-		paths.append(png("person")!)
-		paths.append(png("road-car-front")!)
+		paths.append("backdrop-home-indoors")
+		paths.append("backdrop-road")
+		paths.append("backdrop-yellow")
+		paths.append("cake")
+		paths.append("home-bed")
+		paths.append("home-sink")
+		paths.append("home-table")
+		paths.append("person")
+		paths.append("road-car-front")
 		
 		return paths
 	}
 	
+	///
+	/// Factory method for layers
+	///
+	class func createLayer(image:String) -> Layer
+	{
+		return Layer(image:image, visible:true, scale:0.5, rotation:0, opacity:1.0, top:0, left:0)
+	}
 	
-	
+	///
+	/// Factory method for scenes
+	///
 	class func createScene() -> Scene
 	{
 		return Scene(caption:"", backgroundColor:nil, foregroundColor:nil, layers:[])
 	}
 	
-	class func createLayer(image:String) -> Layer
+	///
+	/// Resolves an image identifier to its absolute file path
+	///
+	class func resolve(identifier:String) -> String
 	{
-		
-		return Layer(image: image,
-			       visible: true,
-			         scale: INITIAL_SCALE,
-			      rotation: INITIAL_ROTATION,
-			       opacity: INITIAL_OPACITY,
-			           top: INITIAL_TOP,
-			          left: INITIAL_LEFT)
+		return png(identifier)!
 	}
 	
 	
@@ -57,19 +73,10 @@ class DataUtility {
 	
 	
 	
-	class func LoadCards() -> [Card]
-	{
-		//var cards: [Card] = []
-
-		// Load some things from file, http, wherever
-
-		//return cards
-		return GenerateCards()
-	}
-
-	///
-	/// Yields a prebuilt collection of cards
-	///
+	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
+	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
+	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
+	
 	class func GenerateCards() -> [Card]
 	{
 		var cards: [Card] = []
@@ -77,24 +84,24 @@ class DataUtility {
 		cards.append(
 			Card(title: "Another Day in the Life", isNew: true, scenes: [
 				Scene(caption: "It's time to wake up, Dave.", backgroundColor: nil, foregroundColor: nil, layers: [
-					Layer(image: png("backdrop-home-indoors")!, visible: true, scale: 0.45, rotation: 0, opacity: 1.0, top: 0, left: 0),
-					Layer(image: png("home-bed")!, visible: true, scale: 0.3, rotation: 0, opacity: 1.0, top: 300, left: 70),
-					Layer(image: png("person")!, visible: true, scale: 0.3, rotation: 0, opacity: 1.0, top: 230, left: 150)
+					Layer(image: "backdrop-home-indoors", visible: true, scale: 0.45, rotation: 0, opacity: 1.0, top: 0, left: 0),
+					Layer(image: "home-bed", visible: true, scale: 0.3, rotation: 0, opacity: 1.0, top: 300, left: 70),
+					Layer(image: "person", visible: true, scale: 0.3, rotation: 0, opacity: 1.0, top: 230, left: 150)
 				]),
 				Scene(caption: "Brush your teeth so you don't have the dragon breath!", backgroundColor: nil, foregroundColor: nil, layers: [
-					Layer(image: png("backdrop-home-indoors")!, visible: true, scale: 0.45, rotation: 0, opacity: 1.0, top: 0, left: 0),
-					Layer(image: png("home-sink")!, visible: true, scale: 0.3, rotation: 0, opacity: 1.0, top: 350, left: 120),
-					Layer(image: png("person")!, visible: true, scale: 0.3, rotation: 0, opacity: 1.0, top: 350, left: 190)
+					Layer(image: "backdrop-home-indoors", visible: true, scale: 0.45, rotation: 0, opacity: 1.0, top: 0, left: 0),
+					Layer(image: "home-sink", visible: true, scale: 0.3, rotation: 0, opacity: 1.0, top: 350, left: 120),
+					Layer(image: "person", visible: true, scale: 0.3, rotation: 0, opacity: 1.0, top: 350, left: 190)
 				]),
 				Scene(caption: "They say breakfast is the most important meal of the day.", backgroundColor: nil, foregroundColor: nil, layers: [
-					Layer(image: png("backdrop-home-indoors")!, visible: true, scale: 0.45, rotation: 0, opacity: 1.0, top: 0, left: 0),
-					Layer(image: png("home-table")!, visible: true, scale: 0.5, rotation: 0, opacity: 1.0, top: 0, left: 0),
-					Layer(image: png("person")!, visible: true, scale: 0.5, rotation: 0, opacity: 1.0, top: 0, left: 0)
+					Layer(image: "backdrop-home-indoors", visible: true, scale: 0.45, rotation: 0, opacity: 1.0, top: 0, left: 0),
+					Layer(image: "home-table", visible: true, scale: 0.5, rotation: 0, opacity: 1.0, top: 0, left: 0),
+					Layer(image: "person", visible: true, scale: 0.5, rotation: 0, opacity: 1.0, top: 0, left: 0)
 				]),
 				Scene(caption: "And then he drives to work for a new day of fun and excitement!", backgroundColor: nil, foregroundColor: nil, layers: [
-					Layer(image: png("backdrop-road")!, visible: true, scale: 0.45, rotation: 0, opacity: 1.0, top: 0, left: 0),
-					Layer(image: png("person")!, visible: true, scale: 0.5, rotation: 0, opacity: 1.0, top: 0, left: 0),
-					Layer(image: png("road-car-front")!, visible: true, scale: 0.5, rotation: 0, opacity: 1.0, top: 0, left: 0)
+					Layer(image: "backdrop-road", visible: true, scale: 0.45, rotation: 0, opacity: 1.0, top: 0, left: 0),
+					Layer(image: "person", visible: true, scale: 0.5, rotation: 0, opacity: 1.0, top: 0, left: 0),
+					Layer(image: "road-car-front", visible: true, scale: 0.5, rotation: 0, opacity: 1.0, top: 0, left: 0)
 				])
 			])
 		)
@@ -102,11 +109,11 @@ class DataUtility {
 		cards.append(
 			Card(title: "Happy Birthday", isNew: true, scenes: [
 				Scene(caption: "It is your birthday.", backgroundColor: nil, foregroundColor: nil, layers: [
-					Layer(image: png("backdrop-yellow")!, visible: true, scale: 0.45, rotation: 0, opacity: 1.0, top: 0, left: 0),
-					Layer(image: png("cake")!, visible: true, scale: 0.5, rotation: 0, opacity: 1.0, top: 0, left: 0)
+					Layer(image: "backdrop-yellow", visible: true, scale: 0.45, rotation: 0, opacity: 1.0, top: 0, left: 0),
+					Layer(image: "cake", visible: true, scale: 0.5, rotation: 0, opacity: 1.0, top: 0, left: 0)
 					]),
 				Scene(caption: "Now get back to work.", backgroundColor: nil, foregroundColor: nil, layers: [
-					Layer(image: png("person")!, visible: true, scale: 0.5, rotation: 0, opacity: 1.0, top: 0, left: 0)
+					Layer(image: "person", visible: true, scale: 0.5, rotation: 0, opacity: 1.0, top: 0, left: 0)
 					])
 				])
 		)
@@ -116,9 +123,6 @@ class DataUtility {
 		return cards
 	}
 
-	///
-	/// Generates a generic card with some dummy data
-	///
 	class func GenerateCard(title:String) -> Card
 	{
 		var scenes: [Scene] = []
@@ -130,17 +134,28 @@ class DataUtility {
 
 		return Card(title: title, isNew: true, scenes: scenes)
 	}
-
-	///
-	/// Generates a scene with some dummy data
-	///
+	
 	class func GenerateScene(caption: String) -> Scene
 	{
 		return Scene(caption: caption, backgroundColor: nil, foregroundColor: nil, layers: [])
 	}
+	
+	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
+	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
+	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
 
+	
+	
+	
+
+	
+	// HELPER METHODS //////////////////////////////////////////////////////////
+	
+	///
+	/// Resolves the full path to a given .PNG file
+	///
 	private class func png(basename: String) -> String?
 	{
-		return NSBundle.mainBundle().pathForResource(basename, ofType: ".png", inDirectory: "sprites")
+		return NSBundle.mainBundle().pathForResource(basename, ofType:".png", inDirectory:"sprites")
 	}
 }

@@ -13,10 +13,11 @@ class InboxTableViewController: UITableViewController,
 {
 	private let CARD_CELL        = "CardCell"
 	private let VIEW_CARD_SEGUE  = "ViewCardSegue"
+	private let EDIT_CARD_SEGUE  = "EditCardSegue"
 	private let TAG_TITLE_LABEL  = 1001
 	private let TAG_DETAIL_LABEL = 1002
 	
-	var cards: [Card] = DataUtility.LoadCards()
+	var cards: [Card] = DataUtility.AllCards()
 	
 	///
 	/// Post-initialization hook
@@ -33,9 +34,20 @@ class InboxTableViewController: UITableViewController,
 	{
 		let index = self.tableView.indexPathForCell(sender as UITableViewCell)!.item
 		
-		if (VIEW_CARD_SEGUE == segue.identifier) {
+		switch(segue.identifier) {
+			
+		case VIEW_CARD_SEGUE:
 			let controller = segue.destinationViewController as CardViewController
 			controller.card = self.cards[index]
+			break
+			
+		case EDIT_CARD_SEGUE:
+			let controller = segue.destinationViewController as EditCardViewController
+			controller.card = self.cards[index]
+			break
+			
+		default:
+			break
 		}
 	}
 	
