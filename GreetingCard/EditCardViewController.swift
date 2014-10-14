@@ -124,7 +124,7 @@ class EditCardViewController : UIViewController,
 	///
 	private func generateScene() -> Scene
 	{
-		let scene = DataUtility.createScene()
+		let scene = DataUtility.CreateScene()
 		card!.scenes.append(scene)
 		return scene
 	}

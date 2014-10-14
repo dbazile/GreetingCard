@@ -230,7 +230,7 @@ class RenderingAgent
 	///
 	private func png(identifier:String) -> UIImage
 	{
-		let path = DataUtility.resolve(identifier)
+		let path = DataUtility.Resolve(identifier)
 
 		return UIImage(contentsOfFile:path)
 	}

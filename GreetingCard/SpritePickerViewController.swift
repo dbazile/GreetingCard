@@ -13,7 +13,7 @@ class SpritePickerViewController : UICollectionViewController
 	private let SPRITE_CELL = "SpriteCell"
 
 	private let agent = RenderingAgent()
-	private let sprites = DataUtility.AllLocalSprites()
+	private let sprites = DataUtility.AllLocalSprites
 
 	var delegate : SpritePickerDelegate?
 

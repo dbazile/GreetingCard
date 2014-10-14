@@ -11,7 +11,6 @@
 		633FC91A19DF6ABD0033F742 /* EditSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633FC91919DF6ABD0033F742 /* EditSceneViewController.swift */; };
 		633FC91C19DF73C30033F742 /* EditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633FC91B19DF73C30033F742 /* EditCardViewController.swift */; };
 		6368FFB319EC2FB800745A93 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6368FFB019EC2F1C00745A93 /* Alamofire.framework */; };
-		6368FFBA19EC65E200745A93 /* cards.json in Resources */ = {isa = PBXBuildFile; fileRef = 6368FFB919EC65E200745A93 /* cards.json */; };
 		636A6A4B19E1D7EF001B4B6D /* SpritePickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636A6A4A19E1D7EF001B4B6D /* SpritePickerDelegate.swift */; };
 		636A6A4D19E1D8A8001B4B6D /* SpritePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636A6A4C19E1D8A8001B4B6D /* SpritePickerViewController.swift */; };
 		637C09AD19DFB48700E93BB0 /* EditSceneToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637C09AC19DFB48700E93BB0 /* EditSceneToolbarViewController.swift */; };
@@ -73,7 +72,6 @@
 		633FC91919DF6ABD0033F742 /* EditSceneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSceneViewController.swift; sourceTree = "<group>"; };
 		633FC91B19DF73C30033F742 /* EditCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditCardViewController.swift; sourceTree = "<group>"; };
 		6368FFAA19EC2F1C00745A93 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
-		6368FFB919EC65E200745A93 /* cards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = cards.json; sourceTree = "<group>"; };
 		636A6A4A19E1D7EF001B4B6D /* SpritePickerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpritePickerDelegate.swift; sourceTree = "<group>"; };
 		636A6A4C19E1D8A8001B4B6D /* SpritePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpritePickerViewController.swift; sourceTree = "<group>"; };
 		637C09AC19DFB48700E93BB0 /* EditSceneToolbarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSceneToolbarViewController.swift; sourceTree = "<group>"; };
@@ -153,7 +151,6 @@
 		6368FFBC19EC692100745A93 /* Config */ = {
 			isa = PBXGroup;
 			children = (
-				6368FFB919EC65E200745A93 /* cards.json */,
 			);
 			name = Config;
 			sourceTree = "<group>";
@@ -336,7 +333,6 @@
 				63AA5CDB19D7E31C009E15E7 /* Main.storyboard in Resources */,
 				633FC8E619DF4ECE0033F742 /* sprites in Resources */,
 				63AA5CE019D7E31C009E15E7 /* LaunchScreen.xib in Resources */,
-				6368FFBA19EC65E200745A93 /* cards.json in Resources */,
 				63AA5CDD19D7E31C009E15E7 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

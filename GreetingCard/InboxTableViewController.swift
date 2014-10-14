@@ -20,7 +20,7 @@ class InboxTableViewController: UITableViewController,
 	
 	private let agent = RenderingAgent()
 	
-	var cards: [Card] = DataUtility.AllCards()
+	var cards: [Card] = DataUtility.AllCards
 	
 	///
 	/// Reloads the cells when the view regains focus

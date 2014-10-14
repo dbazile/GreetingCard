@@ -44,7 +44,7 @@ class LayerPickerViewController : UITableViewController,
 	///
 	func spritePicker(picker: SpritePickerViewController, didSelectSprite identifier: String)
 	{
-		let layer = DataUtility.createLayer(identifier)
+		let layer = DataUtility.CreateLayer(identifier)
 
 		// Send the new layer to the delegate
 		self.delegate?.layerPicker(self, didCreateLayer:layer)
