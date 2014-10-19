@@ -1,6 +1,12 @@
+TASKS
+
 Visuals
 	- Implement mode-specific color scheme (Purple & Green for viewing; Blueprint Blue and Grey for editing)
 	- Add custom logo to navigation bar
+
+
+Testing
+	- DataUtility needs unit tests
 
 
 View all Cards
@@ -37,7 +43,7 @@ Share a Card
 
 
 Import a Card
-	- Read card data from JSON into local storage
+	~ Read card data from JSON into local storage
 
 
 Delete a Card
@@ -50,9 +56,9 @@ View Cards with new Sprites
 
 
 Read and Save Data
-	- Saving a card locally
+	# Saving a card locally
 	- Sharing a card
-	- Read a card from JSON
+	# Read a card from JSON
 	- Local sprite repository
 	- Web sprite repository
 	- HTTP call strategy
