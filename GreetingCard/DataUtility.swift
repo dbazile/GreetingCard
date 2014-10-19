@@ -10,7 +10,11 @@ import Foundation
 import Alamofire
 
 private let DEBUG_FORCE_INSTALL = true
-private let SCHEMA_VERSION = "1.0.0"
+private let CARDSTORE_SCHEMA_VERSION = "1"
+private let BASEPATH = "~/Documents".stringByExpandingTildeInPath
+private let CARDSTORE_PATH = BASEPATH.stringByAppendingPathComponent("cardstore.json")
+private let REPOSITORY_PATH = BASEPATH.stringByAppendingPathComponent("SpriteRepository")
+private let MANIFEST_PATH = REPOSITORY_PATH.stringByAppendingPathComponent("manifest.json")
 
 private var _allCards : [Card]?
 private var _allLocalSprites : [String]?
@@ -64,9 +68,6 @@ class DataUtility
 	///
 	class var AllCards : [Card] {
 		if (nil == _allCards) {
-			if (!IsInstalled()) {
-				Install()
-			}
 			_allCards = cards_read()
 		}
 		
@@ -109,14 +110,63 @@ class DataUtility
 		return encode(serialize([card]))
 	}
 	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	///
 	/// Imports a Card object from a base64 encoded string
 	///
 	class func Import(encodedCard: String) -> Card?
 	{
 		println("[data-util:Import -> attempting to import base64-encoded card]")
-		return unserialize(decode(encodedCard)).first
+		
+		if let newCard = unserialize(decode(encodedCard)).first {
+			
+			
+			/*
+			 * Holy hackery, batman!
+			 *
+			 * Here we do two things to deal with Swift weirdness:
+			 * (1) Ensure `_allCards` var is initialized by invoking the
+			 *     property getter at least once
+			 * (2) Append directly to `_allCards` because Swift DOES NOT pass
+			 *     arrays around by reference!
+			 */
+			
+			// Make sure the cardstore is initialized
+			let ignored = AllCards
+			
+			// Append directly to the underlying array since Swift
+			_allCards!.append(newCard)
+			Save()
+			
+			
+			return newCard
+		} else {
+			return nil
+		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	///
 	/// Set things up for the first time
@@ -229,6 +279,17 @@ class DataUtility
 	///
 	private class func cards_read() -> [Card]
 	{
+		
+		/*
+		 * Ideally, this would live somewhere in the AppDelegate.  But since I
+		 * don't know how to do that just yet without blowing up various view
+		 * controllers, we'll just leave it here for now.
+		 */
+		if (!IsInstalled()) {
+			Install()
+		}
+		
+		
 		let path = pathJson("cards")
 		println("[data-util:cards_read -> from '\(path.stringByAbbreviatingWithTildeInPath)']")
 		let jsonString = NSString(contentsOfFile:path, encoding:NSUTF8StringEncoding, error:nil)
@@ -335,7 +396,7 @@ class DataUtility
 		}
 		
 		var cardstore = NSMutableDictionary()
-		cardstore["$version"] = SCHEMA_VERSION
+		cardstore["$version"] = CARDSTORE_SCHEMA_VERSION
 		cardstore["$origin"] = "installer"
 		cardstore["cards"] = cards.map(_card)
 		
@@ -391,7 +452,7 @@ class DataUtility
 		let cards = (wrapper["cards"] as [NSDictionary]).map(_card)
 		
 		// Emit metrics
-		println("data-util:unserialize -> extracted \(cards.count) cards")
+		println("[data-util:unserialize -> extracted \(cards.count) cards]")
 		
 		return cards
 	}
