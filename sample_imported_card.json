@@ -1,0 +1,26 @@
+{
+	"$origin": "installer",
+	"$version": "1.0.0",
+	"cards": [
+		{
+			"title": "sample_imported_card",
+			"isNew": true,
+			"scenes": [
+				{
+					"layers": [
+						{
+							"scale": 0.43,
+							"top": 0,
+							"rotation": 0,
+							"left": 0,
+							"visible": true,
+							"image": "backdrop-yellow",
+							"opacity": 1
+						}
+					],
+					"caption": "This card is the result of an import operation"
+				}
+			]
+		}
+	]
+}
