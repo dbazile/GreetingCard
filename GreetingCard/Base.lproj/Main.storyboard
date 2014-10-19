@@ -196,7 +196,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="{{title}}" lineBreakMode="wordWrap" numberOfLines="2" adjustsFontSizeToFit="NO" id="iEk-mf-EiE">
-                                            <rect key="frame" x="8" y="84" width="236" height="24"/>
+                                            <rect key="frame" x="8" y="8" width="236" height="24"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
