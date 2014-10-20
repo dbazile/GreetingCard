@@ -13,5 +13,8 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "GreetingCard.DataUtility.(Install (GreetingCard.DataUtility.Type) -&gt; () -&gt; ()).(_sprites #1) () -&gt; Swift.Array&lt;Swift.String&gt;:DataUtility.swift">
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

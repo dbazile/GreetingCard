@@ -14,13 +14,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	var window: UIWindow?
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-		// Override point for customization after application launch.
 		
+		debug_dump_home_directory()
+		
+		if (!DataUtility.IsInstalled()) {
+			DataUtility.Install()
+		}
+
 		prototype_import_encoded_card()
 		
-		return true
+		return false
 	}
-
 	
 	
 	
@@ -36,12 +40,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	private func prototype_import_encoded_card()
 	{
-		debug_dump_home_directory()
-		
 		//
 		// 'Import Card' prototype
 		//
-		var HARDCODED_IMPORT_DATA:String? = "eyIkb3JpZ2luIjogImluc3RhbGxlciIsICIkdmVyc2lvbiI6ICIxLjAuMCIsICJjYXJkcyI6IFt7InRpdGxlIjogInNhbXBsZV9pbXBvcnRlZF9jYXJkIiwgImlzTmV3IjogdHJ1ZSwgInNjZW5lcyI6IFt7ImxheWVycyI6IFt7InNjYWxlIjogMC40MywgInRvcCI6IDAsICJyb3RhdGlvbiI6IDAsICJsZWZ0IjogMCwgInZpc2libGUiOiB0cnVlLCAiaW1hZ2UiOiAiYmFja2Ryb3AteWVsbG93IiwgIm9wYWNpdHkiOiAxIH0gXSwgImNhcHRpb24iOiAiVGhpcyBjYXJkIGlzIHRoZSByZXN1bHQgb2YgYW4gaW1wb3J0IG9wZXJhdGlvbiJ9IF0gfSBdIH0g"
+		var HARDCODED_IMPORT_DATA:String? = "eyIkb3JpZ2luIjogImRhdGEtZGlhZ25vc3RpY3MiLCAiJHZlcnNpb24iOiAiMSIsICIkY2FyZHMiOiBbeyJ0aXRsZSI6ICJzYW1wbGVfaW1wb3J0ZWRfY2FyZCIsICJpc05ldyI6IHRydWUsICJzY2VuZXMiOiBbeyJsYXllcnMiOiBbeyJzY2FsZSI6IDAuNDMsICJ0b3AiOiAwLCAicm90YXRpb24iOiAwLCAibGVmdCI6IDAsICJ2aXNpYmxlIjogdHJ1ZSwgImltYWdlIjogImJhY2tkcm9wLXJlZCIsICJvcGFjaXR5IjogMSB9IF0sICJjYXB0aW9uIjogIlRoaXMgY2FyZCBpcyB0aGUgcmVzdWx0IG9mIGFuIGltcG9ydCBvcGVyYXRpb24ifSBdIH0gXSB9IA=="
 		
 		if let encodedCardstore = HARDCODED_IMPORT_DATA? {
 			importCardstore(from:encodedCardstore)
@@ -50,10 +52,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	
 	private func debug_dump_home_directory()
 	{
-		println("**************************************** DEBUGGING AIDS ****************************************")
+		println("**************************************** DEBUGGING AIDS *****************************************")
 		println("Home Directory:\n\(NSHomeDirectory())")
 		println("*************************************************************************************************")
 	}
+
+	
+	
 	
 	
 	

@@ -5,19 +5,20 @@ import pprint
 
 def test_decode_from_base64():
 	s = base64.b64decode(
-		"""eyIkb3JpZ2luIjoiaW5zdGFsbGVyIiwiJHZlcnNpb24iOiIxLjAuMCIsImNhcmRzIjpbeyJ0aXRsZSI6IkFub3RoZXIgRGF5IGluIHRoZSBMaWZlIiwiaXNOZXciOnRydWUsInNjZW5lcyI6W3siY2FwdGlvbiI6Ikl0J3MgdGltZSB0byB3YWtlIHVwLCBEYXZlLiIsImxheWVycyI6W3sicm90YXRpb24iOjAsInZpc2libGUiOnRydWUsImltYWdlIjoiYmFja2Ryb3AtaG9tZS1pbmRvb3JzIiwibGVmdCI6MCwidG9wIjowLCJvcGFjaXR5IjoxLCJzY2FsZSI6MC40M30seyJyb3RhdGlvbiI6MCwidmlzaWJsZSI6dHJ1ZSwiaW1hZ2UiOiJob21lLWJlZCIsImxlZnQiOjcwLCJ0b3AiOjMwMCwib3BhY2l0eSI6MSwic2NhbGUiOjAuM30seyJyb3RhdGlvbiI6MCwidmlzaWJsZSI6dHJ1ZSwiaW1hZ2UiOiJwZXJzb24iLCJsZWZ0IjoxNTAsInRvcCI6MjMwLCJvcGFjaXR5IjoxLCJzY2FsZSI6MC4zfV19LHsiY2FwdGlvbiI6IkJydXNoIHlvdXIgdGVldGggc28geW91IGRvbid0IGhhdmUgdGhlIGRyYWdvbiBicmVhdGghIiwibGF5ZXJzIjpbeyJyb3RhdGlvbiI6MCwidmlzaWJsZSI6dHJ1ZSwiaW1hZ2UiOiJiYWNrZHJvcC1ob21lLWluZG9vcnMiLCJsZWZ0IjowLCJ0b3AiOjAsIm9wYWNpdHkiOjEsInNjYWxlIjowLjQzfSx7InJvdGF0aW9uIjowLCJ2aXNpYmxlIjp0cnVlLCJpbWFnZSI6ImhvbWUtc2luayIsImxlZnQiOjEyMCwidG9wIjozNTAsIm9wYWNpdHkiOjEsInNjYWxlIjowLjN9LHsicm90YXRpb24iOjAsInZpc2libGUiOnRydWUsImltYWdlIjoicGVyc29uIiwibGVmdCI6MTkwLCJ0b3AiOjM1MCwib3BhY2l0eSI6MSwic2NhbGUiOjAuM31dfSx7ImNhcHRpb24iOiJUaGV5IHNheSBicmVha2Zhc3QgaXMgdGhlIG1vc3QgaW1wb3J0YW50IG1lYWwgb2YgdGhlIGRheS4iLCJsYXllcnMiOlt7InJvdGF0aW9uIjowLCJ2aXNpYmxlIjp0cnVlLCJpbWFnZSI6ImJhY2tkcm9wLWhvbWUtaW5kb29ycyIsImxlZnQiOjAsInRvcCI6MCwib3BhY2l0eSI6MSwic2NhbGUiOjAuNDN9LHsicm90YXRpb24iOjAsInZpc2libGUiOnRydWUsImltYWdlIjoiaG9tZS10YWJsZSIsImxlZnQiOjgwLCJ0b3AiOjMxMCwib3BhY2l0eSI6MSwic2NhbGUiOjAuM30seyJyb3RhdGlvbiI6MCwidmlzaWJsZSI6dHJ1ZSwiaW1hZ2UiOiJwZXJzb24iLCJsZWZ0IjoxMTAsInRvcCI6MTU3LCJvcGFjaXR5IjoxLCJzY2FsZSI6MC4zfV19LHsiY2FwdGlvbiI6IkFuZCB0aGVuIGhlIGRyaXZlcyB0byB3b3JrIGZvciBhIG5ldyBkYXkgb2YgZnVuIGFuZCBleGNpdGVtZW50ISIsImxheWVycyI6W3sicm90YXRpb24iOjAsInZpc2libGUiOnRydWUsImltYWdlIjoiYmFja2Ryb3Atcm9hZCIsImxlZnQiOjAsInRvcCI6MCwib3BhY2l0eSI6MSwic2NhbGUiOjAuNDN9LHsicm90YXRpb24iOjAsInZpc2libGUiOnRydWUsImltYWdlIjoicGVyc29uIiwibGVmdCI6NDEsInRvcCI6MTUyLCJvcGFjaXR5IjowLjcsInNjYWxlIjowLjA5fSx7InJvdGF0aW9uIjowLCJ2aXNpYmxlIjp0cnVlLCJpbWFnZSI6InJvYWQtY2FyLWZyb250IiwibGVmdCI6MCwidG9wIjoxNDAsIm9wYWNpdHkiOjEsInNjYWxlIjowLjEzfV19XX0seyJ0aXRsZSI6IkhhcHB5IEJpcnRoZGF5IiwiaXNOZXciOnRydWUsInNjZW5lcyI6W3siY2FwdGlvbiI6Ikl0IGlzIHlvdXIgYmlydGhkYXkuIiwibGF5ZXJzIjpbeyJyb3RhdGlvbiI6MCwidmlzaWJsZSI6dHJ1ZSwiaW1hZ2UiOiJiYWNrZHJvcC15ZWxsb3ciLCJsZWZ0IjowLCJ0b3AiOjAsIm9wYWNpdHkiOjEsInNjYWxlIjowLjQzfSx7InJvdGF0aW9uIjowLCJ2aXNpYmxlIjp0cnVlLCJpbWFnZSI6ImNha2UiLCJsZWZ0IjowLCJ0b3AiOjAsIm9wYWNpdHkiOjEsInNjYWxlIjowLjV9XX0seyJjYXB0aW9uIjoiTm93IGdldCBiYWNrIHRvIHdvcmsuIiwibGF5ZXJzIjpbeyJyb3RhdGlvbiI6MCwidmlzaWJsZSI6dHJ1ZSwiaW1hZ2UiOiJwZXJzb24iLCJsZWZ0IjowLCJ0b3AiOjAsIm9wYWNpdHkiOjEsInNjYWxlIjowLjQzfV19XX1dfQ=="""
+		"""eyIkb3JpZ2luIjogImluc3RhbGxlciIsICIkdmVyc2lvbiI6ICIxLjAuMCIsICIkY2FyZHMiOiBbeyJ0aXRsZSI6ICJzYW1wbGVfaW1wb3J0ZWRfY2FyZCIsICJpc05ldyI6IHRydWUsICJzY2VuZXMiOiBbeyJsYXllcnMiOiBbeyJzY2FsZSI6IDAuNDMsICJ0b3AiOiAwLCAicm90YXRpb24iOiAwLCAibGVmdCI6IDAsICJ2aXNpYmxlIjogdHJ1ZSwgImltYWdlIjogImJhY2tkcm9wLXllbGxvdyIsICJvcGFjaXR5IjogMSB9IF0sICJjYXB0aW9uIjogIlRoaXMgY2FyZCBpcyB0aGUgcmVzdWx0IG9mIGFuIGltcG9ydCBvcGVyYXRpb24ifSBdIH0gXSB9IA=="""
 	).decode("utf-8")
 
 	cardstore = json.loads(s)
 
-	# print(json.dumps(cardstore, indent=4))
+	print(json.dumps(cardstore, indent=4))
 
 
-def test_encode_to_base64():
-	s = """{"$origin": "installer", "$version": "1.0.0", "cards": [{"title": "sample_imported_card", "isNew": true, "scenes": [{"layers": [{"scale": 0.43, "top": 0, "rotation": 0, "left": 0, "visible": true, "image": "backdrop-yellow", "opacity": 1 } ], "caption": "This card is the result of an import operation"} ] } ] } """
+def generate_import_card():
+	s = """{"$origin": "data-diagnostics", "$version": "1", "$cards": [{"title": "sample_imported_card", "isNew": true, "scenes": [{"layers": [{"scale": 0.43, "top": 0, "rotation": 0, "left": 0, "visible": true, "image": "backdrop-red", "opacity": 1 } ], "caption": "This card is the result of an import operation"} ] } ] } """
 
 	print(base64.b64encode(s.encode('utf-8')).decode('utf-8'))
 
 
-test_encode_to_base64()
+# test_decode_from_base64()
+generate_import_card()
 

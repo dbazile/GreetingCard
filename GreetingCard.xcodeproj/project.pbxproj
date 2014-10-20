@@ -7,10 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		633FC8E619DF4ECE0033F742 /* sprites in Resources */ = {isa = PBXBuildFile; fileRef = 633FC8E519DF4ECE0033F742 /* sprites */; };
+		633FC8E619DF4ECE0033F742 /* starterkit in Resources */ = {isa = PBXBuildFile; fileRef = 633FC8E519DF4ECE0033F742 /* starterkit */; };
 		633FC91A19DF6ABD0033F742 /* EditSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633FC91919DF6ABD0033F742 /* EditSceneViewController.swift */; };
 		633FC91C19DF73C30033F742 /* EditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633FC91B19DF73C30033F742 /* EditCardViewController.swift */; };
-		6368FFB319EC2FB800745A93 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6368FFB019EC2F1C00745A93 /* Alamofire.framework */; };
 		636A6A4B19E1D7EF001B4B6D /* SpritePickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636A6A4A19E1D7EF001B4B6D /* SpritePickerDelegate.swift */; };
 		636A6A4D19E1D8A8001B4B6D /* SpritePickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 636A6A4C19E1D8A8001B4B6D /* SpritePickerViewController.swift */; };
 		637C09AD19DFB48700E93BB0 /* EditSceneToolbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637C09AC19DFB48700E93BB0 /* EditSceneToolbarViewController.swift */; };
@@ -31,20 +30,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		6368FFAF19EC2F1C00745A93 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6368FFAA19EC2F1C00745A93 /* Alamofire.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F8111E3319A95C8B0040E7D1;
-			remoteInfo = Alamofire;
-		};
-		6368FFB119EC2F1C00745A93 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6368FFAA19EC2F1C00745A93 /* Alamofire.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = F8111E3E19A95C8B0040E7D1;
-			remoteInfo = AlamofireTests;
-		};
 		63AA5CE619D7E31C009E15E7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 63AA5CC419D7E31C009E15E7 /* Project object */;
@@ -54,24 +39,10 @@
 		};
 /* End PBXContainerItemProxy section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		6368FFB419EC2FCB00745A93 /* Copy Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Copy Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
-		633FC8E519DF4ECE0033F742 /* sprites */ = {isa = PBXFileReference; lastKnownFileType = folder; path = sprites; sourceTree = "<group>"; };
+		633FC8E519DF4ECE0033F742 /* starterkit */ = {isa = PBXFileReference; lastKnownFileType = folder; path = starterkit; sourceTree = "<group>"; };
 		633FC91919DF6ABD0033F742 /* EditSceneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSceneViewController.swift; sourceTree = "<group>"; };
 		633FC91B19DF73C30033F742 /* EditCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditCardViewController.swift; sourceTree = "<group>"; };
-		6368FFAA19EC2F1C00745A93 /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = Alamofire/Alamofire.xcodeproj; sourceTree = "<group>"; };
 		636A6A4A19E1D7EF001B4B6D /* SpritePickerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpritePickerDelegate.swift; sourceTree = "<group>"; };
 		636A6A4C19E1D8A8001B4B6D /* SpritePickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpritePickerViewController.swift; sourceTree = "<group>"; };
 		637C09AC19DFB48700E93BB0 /* EditSceneToolbarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSceneToolbarViewController.swift; sourceTree = "<group>"; };
@@ -100,7 +71,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6368FFB319EC2FB800745A93 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,15 +109,6 @@
 			name = "Edit Card";
 			sourceTree = "<group>";
 		};
-		6368FFAB19EC2F1C00745A93 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				6368FFB019EC2F1C00745A93 /* Alamofire.framework */,
-				6368FFB219EC2F1C00745A93 /* AlamofireTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		6368FFBC19EC692100745A93 /* Config */ = {
 			isa = PBXGroup;
 			children = (
@@ -170,7 +131,6 @@
 				63AA5CCE19D7E31C009E15E7 /* GreetingCard */,
 				63AA5CE819D7E31C009E15E7 /* GreetingCardTests */,
 				63AA5CCD19D7E31C009E15E7 /* Products */,
-				6368FFAA19EC2F1C00745A93 /* Alamofire.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -203,7 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				63AA5CDC19D7E31C009E15E7 /* Images.xcassets */,
-				633FC8E519DF4ECE0033F742 /* sprites */,
+				633FC8E519DF4ECE0033F742 /* starterkit */,
 				63AA5CD019D7E31C009E15E7 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -236,7 +196,6 @@
 				63AA5CC819D7E31C009E15E7 /* Sources */,
 				63AA5CC919D7E31C009E15E7 /* Frameworks */,
 				63AA5CCA19D7E31C009E15E7 /* Resources */,
-				6368FFB419EC2FCB00745A93 /* Copy Frameworks */,
 			);
 			buildRules = (
 			);
@@ -294,12 +253,6 @@
 			mainGroup = 63AA5CC319D7E31C009E15E7;
 			productRefGroup = 63AA5CCD19D7E31C009E15E7 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 6368FFAB19EC2F1C00745A93 /* Products */;
-					ProjectRef = 6368FFAA19EC2F1C00745A93 /* Alamofire.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				63AA5CCB19D7E31C009E15E7 /* GreetingCard */,
@@ -308,30 +261,13 @@
 		};
 /* End PBXProject section */
 
-/* Begin PBXReferenceProxy section */
-		6368FFB019EC2F1C00745A93 /* Alamofire.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = Alamofire.framework;
-			remoteRef = 6368FFAF19EC2F1C00745A93 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		6368FFB219EC2F1C00745A93 /* AlamofireTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = AlamofireTests.xctest;
-			remoteRef = 6368FFB119EC2F1C00745A93 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
-
 /* Begin PBXResourcesBuildPhase section */
 		63AA5CCA19D7E31C009E15E7 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				63AA5CDB19D7E31C009E15E7 /* Main.storyboard in Resources */,
-				633FC8E619DF4ECE0033F742 /* sprites in Resources */,
+				633FC8E619DF4ECE0033F742 /* starterkit in Resources */,
 				63AA5CE019D7E31C009E15E7 /* LaunchScreen.xib in Resources */,
 				63AA5CDD19D7E31C009E15E7 /* Images.xcassets in Resources */,
 			);

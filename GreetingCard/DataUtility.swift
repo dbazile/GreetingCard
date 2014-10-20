@@ -7,59 +7,28 @@
 //
 
 import Foundation
-import Alamofire
+//import Alamofire
 
 private let DEBUG_FORCE_INSTALL = true
+private let CARDSTORE_PATH  = "~/Documents/cardstore.json".stringByExpandingTildeInPath
+private let REPOSITORY_PATH = "~/Library/Caches/SpriteRepository".stringByExpandingTildeInPath
+private let MANIFEST_PATH   = "~/Library/Caches/SpriteRepository/manifest.json".stringByExpandingTildeInPath
+private let ORIGIN_INSTALLER = "installer"
+private let REMOTE_REPOSITORY_URL = "http://127.0.0.1:8000/sprites/"
+
+// Schema
+private let MANIFEST_SCHEMA_VERSION = "1"
 private let CARDSTORE_SCHEMA_VERSION = "1"
-private let BASEPATH = "~/Documents".stringByExpandingTildeInPath
-private let CARDSTORE_PATH = BASEPATH.stringByAppendingPathComponent("cardstore.json")
-private let REPOSITORY_PATH = BASEPATH.stringByAppendingPathComponent("SpriteRepository")
-private let MANIFEST_PATH = REPOSITORY_PATH.stringByAppendingPathComponent("manifest.json")
+private let KEY_ORIGIN  = "$origin"
+private let KEY_VERSION = "$version"
+private let KEY_CARDS   = "$cards"
+private let KEY_SPRITES = "$sprites"
 
 private var _allCards : [Card]?
 private var _allLocalSprites : [String]?
 
 class DataUtility
 {
-	
-	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-	private class func debug_HardcodedSpriteDefinition() -> [String]
-	{
-		var paths: [String] = []
-		
-		paths.append("backdrop-home-indoors")
-		paths.append("backdrop-road")
-		paths.append("backdrop-yellow")
-		paths.append("cake")
-		paths.append("home-bed")
-		paths.append("home-sink")
-		paths.append("home-table")
-		paths.append("person")
-		paths.append("road-car-front")
-		
-		return paths
-	}
-	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
-	
-	
-	
-	
 	
 	// MARK: PUBLIC INTERFACE //////////////////////////////////////////////////
 	
@@ -79,7 +48,7 @@ class DataUtility
 	///
 	class var AllLocalSprites : [String] {
 		if (nil == _allLocalSprites) {
-			_allLocalSprites = debug_HardcodedSpriteDefinition()
+			_allLocalSprites = manifest_read()
 		}
 		
 		return _allLocalSprites!
@@ -106,48 +75,31 @@ class DataUtility
 	///
 	class func Export(card: Card) -> String
 	{
-		println("[data-util:Export -> exporting base64-encoded card]")
-		return encode(serialize([card]))
+		println("[du:Export -> exporting base64-encoded card]")
+		return encode(serialize(cards:[card]))
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	///
 	/// Imports a Card object from a base64 encoded string
 	///
 	class func Import(encodedCard: String) -> Card?
 	{
-		println("[data-util:Import -> attempting to import base64-encoded card]")
+		println("[du:Import -> attempting to import base64-encoded card]")
 		
-		if let newCard = unserialize(decode(encodedCard)).first {
+		if let newCard = unserialize(cards:decode(encodedCard)).first {
 			
-			
-			/*
-			 * Holy hackery, batman!
-			 *
-			 * Here we do two things to deal with Swift weirdness:
-			 * (1) Ensure `_allCards` var is initialized by invoking the
-			 *     property getter at least once
-			 * (2) Append directly to `_allCards` because Swift DOES NOT pass
-			 *     arrays around by reference!
-			 */
+			// Precache each layer sprite
+			for scene in newCard.scenes {
+				for layer in scene.layers {
+					Resolve(layer.image)
+				}
+			}
 			
 			// Make sure the cardstore is initialized
-			let ignored = AllCards
-			
-			// Append directly to the underlying array since Swift
+			_allCards = cards_read()
 			_allCards!.append(newCard)
-			Save()
 			
+			Save()
 			
 			return newCard
 		} else {
@@ -155,25 +107,12 @@ class DataUtility
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	///
 	/// Set things up for the first time
 	///
 	class func Install()
 	{
-		func _cards() -> [Card]
+		func _generateCards() -> [Card]
 		{
 			var cards: [Card] = []
 			
@@ -217,26 +156,37 @@ class DataUtility
 			return cards
 		}
 		
-		/*
-		 * Notes:
-		 * 2014-10-13 -- While this does technically work, I still need to think
-		 * about how I'm going to do the sprite repository I/O.
-		 */
-		func _sprites() -> [String]
+		func _generateSpriteManifest() -> [String]
 		{
+			// Create the local sprite repository
 			let fs = NSFileManager.defaultManager()
-			let res = NSBundle.mainBundle()
-			let path = res.resourcePath!.stringByAppendingPathComponent("sprites")
-			let files = fs.contentsOfDirectoryAtPath(path, error:nil) as [String]
+			let repository = REPOSITORY_PATH.stringByExpandingTildeInPath
+			fs.removeItemAtPath(repository, error:nil)
+			fs.createDirectoryAtPath(repository, withIntermediateDirectories:true, attributes:nil,  error:nil)
 			
-			return files.map({ "\($0)".stringByDeletingPathExtension })
+			// Copy the files from the bundle to the local repository
+			var identifiers: [String] = []
+			let bundledSprites = NSBundle.mainBundle().pathsForResourcesOfType("png", inDirectory: "starterkit") as [String]
+			for source in bundledSprites {
+				let filename = source.lastPathComponent
+				let identifier = filename.stringByDeletingPathExtension
+				let destination = repository.stringByAppendingPathComponent(filename)
+				
+				// Copy the file
+				fs.copyItemAtPath(source, toPath: destination, error: nil)
+				
+				// Add the sprite to the manifest
+				identifiers.append(identifier)
+			}
+			
+			return identifiers
 		}
 		
-		println("[data-util:Install -> installing cardstore starter kit]")
-		cards_write(serialize(_cards()))
+		println("[du:Install -> installing cardstore starter kit]")
+		cards_write(_generateCards())
 		
-//		println("[data-util:Install -> installing sprite starter kit]")
-//		println(_sprites())
+		println("[du:Install -> installing sprite starter kit]")
+		manifest_write(_generateSpriteManifest())
 	}
 	
 	///
@@ -244,21 +194,35 @@ class DataUtility
 	///
 	class func IsInstalled() -> Bool
 	{
+		let cardstore = CARDSTORE_PATH.stringByExpandingTildeInPath
 		if (DEBUG_FORCE_INSTALL) {
-			println("[data-util:IsInstalled -> forcing install; `DEBUG_FORCE_INSTALL` is set to true]")
+			println("[du:IsInstalled -> forcing install; `DEBUG_FORCE_INSTALL` is set to true]")
 			return false
 		} else {
 			let fs = NSFileManager.defaultManager()
-			return fs.fileExistsAtPath(pathJson("cards"))
+			return fs.fileExistsAtPath(cardstore)
 		}
 	}
-	
+
 	///
-	/// Resolves an image identifier to its absolute file path
+	/// Resolves a sprite identifier to a local file path
 	///
-	class func Resolve(identifier:String) -> String
+	/// If the sprite is not present in the local repository, this function
+	/// will attempt to retrieve it from the remote repository and cache it
+	/// locally.  If that fails, it will return nil.
+	///
+	class func Resolve(identifier:String) -> String?
 	{
-		return pathPng(identifier)!
+		let path = REPOSITORY_PATH.stringByExpandingTildeInPath
+			                      .stringByAppendingPathComponent(identifier)
+			                      .stringByAppendingPathExtension("png")!
+		
+		let fs = NSFileManager.defaultManager()
+		if (fs.fileExistsAtPath(path)) {
+			return path
+		} else {
+			return fetchRemoteSprite(identifier)
+		}
 	}
 	
 	///
@@ -266,45 +230,60 @@ class DataUtility
 	///
 	class func Save()
 	{
-		println("[data-util:Save -> attempting to save \(AllCards.count) cards]")
+		println("[du:Save -> attempting to save \(AllCards.count) cards]")
 		
-		cards_write(serialize(AllCards))
+		cards_write(AllCards)
 	}
-	
+
 
 	// MARK: HELPER METHODS ////////////////////////////////////////////////////
 
+	///
+	/// Adds a list of sprite identifiers to the local repository manifest
+	///
+	private class func appendSpritesToManifest(identifiers: [String])
+	{
+		println("[du:appendSpritesToManifest -> \(identifiers)]")
+		
+		// Append to the local sprite list
+		_allLocalSprites = manifest_read() + identifiers
+		_allLocalSprites!.sort({ (a: String, b:String) -> Bool in return a < b })
+		
+		// Save new manifest
+		manifest_write(_allLocalSprites!)
+	}
+	
 	///
 	/// Reads all cards from the local JSON store
 	///
 	private class func cards_read() -> [Card]
 	{
+//		
+//		/*
+//		 * Ideally, this would live somewhere in the AppDelegate.  But since I
+//		 * don't know how to do that just yet without blowing up various view
+//		 * controllers, we'll just leave it here for now.
+//		 */
+//		if (!IsInstalled()) {
+//			Install()
+//		}
+//		
+		let path = CARDSTORE_PATH.stringByExpandingTildeInPath
+		println("[du:cards_read -> '\(path.stringByAbbreviatingWithTildeInPath)']")
+		let json = NSString(contentsOfFile:path, encoding:NSUTF8StringEncoding, error:nil)
 		
-		/*
-		 * Ideally, this would live somewhere in the AppDelegate.  But since I
-		 * don't know how to do that just yet without blowing up various view
-		 * controllers, we'll just leave it here for now.
-		 */
-		if (!IsInstalled()) {
-			Install()
-		}
-		
-		
-		let path = pathJson("cards")
-		println("[data-util:cards_read -> from '\(path.stringByAbbreviatingWithTildeInPath)']")
-		let jsonString = NSString(contentsOfFile:path, encoding:NSUTF8StringEncoding, error:nil)
-		
-		return unserialize(jsonString)
+		return unserialize(cards: json)
 	}
 	
 	///
 	/// Writes the JSON string to the cards file
 	///
-	private class func cards_write(json: String)
+	private class func cards_write(cards: [Card])
 	{
-		let path = pathJson("cards")
-		println("[data-util:cards_write -> to '\(path.stringByAbbreviatingWithTildeInPath)']")
+		let json = serialize(cards:cards)
+		let path = CARDSTORE_PATH.stringByExpandingTildeInPath
 		
+		println("[du:cards_write -> '\(path.stringByAbbreviatingWithTildeInPath)']")
 		json.writeToFile(path, atomically:true, encoding:NSUTF8StringEncoding, error:nil)
 	}
 	
@@ -325,34 +304,67 @@ class DataUtility
 		let data = plaintext.dataUsingEncoding(NSUTF8StringEncoding)!
 		return data.base64EncodedStringWithOptions(nil)
 	}
-	
-	///
-	/// Generates a path to a .JSON file.
-	///
-	/// *** This method returns a path whether or not the file exists! ***
-	///
-	private class func pathJson(basename: String) -> String
-	{
-		return NSHomeDirectory()
-			.stringByAppendingPathComponent("Documents")
-			.stringByAppendingPathComponent("com.andsoitcontinues.GreetingCard_")
-			.stringByAppendingString(basename)
-			.stringByAppendingPathExtension("json")!
-	}
-	
-	///
-	/// Returns the absolute path to a given .PNG file
-	///
-	private class func pathPng(basename: String) -> String?
-	{
-		let fs = NSBundle.mainBundle()
-		return fs.pathForResource(basename, ofType:".png", inDirectory:"sprites")
-	}
 
+	///
+	/// Retrieves a sprite from the remote repository
+	///
+	private class func fetchRemoteSprite(identifier: String) -> String?
+	{
+		let filename = identifier.stringByAppendingPathExtension("png")!
+		let spriteUrl = NSURL(string: filename,
+			relativeToURL: NSURL(string: REMOTE_REPOSITORY_URL))
+		
+		println("[du:fetchRemoteSprite -> '\(spriteUrl.absoluteString!)']")
+		if let data = NSData.dataWithContentsOfURL(spriteUrl, options: nil, error: nil) {
+			let path = REPOSITORY_PATH//.stringByExpandingTildeInPath
+				.stringByAppendingPathComponent(filename)
+			if (data.writeToFile(path, atomically: true)) {
+				appendSpritesToManifest([identifier])
+				
+				return path
+			} else {
+				println("[du:fetchRemoteSprite] Save failed for '\(path.stringByAbbreviatingWithTildeInPath)']")
+				return nil
+			}
+		} else {
+			println("[du:fetchRemoteSprite] Fetch failed")
+			return nil
+		}
+	}
+	
+	///
+	/// Retrieves a list of identifiers from the local sprite repository
+	///
+	private class func manifest_read() -> [String]
+	{
+		let path = MANIFEST_PATH.stringByExpandingTildeInPath
+		
+		println("[du:manifest_read -> '\(path.stringByAbbreviatingWithTildeInPath)']")
+		
+		let data = NSData.dataWithContentsOfFile(path, options: nil, error: nil)
+		let raw = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as NSDictionary
+		
+		return raw[KEY_SPRITES] as [String]
+	}
+	
+	///
+	/// Writes a list of identifiers to the local sprite repository
+	///
+	private class func manifest_write(identifiers: [String])
+	{
+		let path = MANIFEST_PATH.stringByExpandingTildeInPath
+		
+		println("[du:manifest_write -> '\(path.stringByAbbreviatingWithTildeInPath)']")
+		
+		let json = serialize(sprites: identifiers)
+		
+		json.writeToFile(path, atomically: true, encoding: NSUTF8StringEncoding, error: nil)
+	}
+	
 	///
 	/// Serializes a collection of cards to JSON
 	///
-	private class func serialize(cards: [Card]) -> String
+	private class func serialize(#cards: [Card]) -> String
 	{
 		/// Map function: transforms a layer into an NSDictionary
 		func _layer(layer: Layer) -> NSDictionary
@@ -384,7 +396,7 @@ class DataUtility
 		/// Map function: transforms a card into an NSDictionary
 		func _card(card: Card) -> NSDictionary
 		{
-			println("[data-util:serialize -> working on card '\(card.title)']")
+//			println("[du:serialize -> working on card '\(card.title)']")
 			
 			var item = NSMutableDictionary()
 			
@@ -395,21 +407,35 @@ class DataUtility
 			return item
 		}
 		
-		var cardstore = NSMutableDictionary()
-		cardstore["$version"] = CARDSTORE_SCHEMA_VERSION
-		cardstore["$origin"] = "installer"
-		cardstore["cards"] = cards.map(_card)
+		var wrapper = NSMutableDictionary()
+		wrapper[KEY_VERSION] = CARDSTORE_SCHEMA_VERSION
+		wrapper[KEY_ORIGIN] = ORIGIN_INSTALLER
+		wrapper[KEY_CARDS] = cards.map(_card)
 		
-		let bytes = NSJSONSerialization.dataWithJSONObject(cardstore, options:nil, error:nil)
+		let bytes = NSJSONSerialization.dataWithJSONObject(wrapper, options:nil, error:nil)
 		let output = NSString(data:bytes!, encoding: NSUTF8StringEncoding)
 		
 		return output
 	}
 	
 	///
+	/// Serializes the manifest for the local sprite repository
+	///
+	private class func serialize(sprites identifiers: [String]) -> String
+	{
+		var wrapper = NSMutableDictionary()
+		wrapper.setValue(MANIFEST_SCHEMA_VERSION, forKey: KEY_VERSION)
+		wrapper.setValue(ORIGIN_INSTALLER, forKey: KEY_ORIGIN)
+		wrapper.setValue(identifiers, forKey: KEY_SPRITES)
+		
+		let bytes = NSJSONSerialization.dataWithJSONObject(wrapper, options:nil, error:nil)
+		return NSString(data:bytes!, encoding: NSUTF8StringEncoding)
+	}
+	
+	///
 	/// Unserializes a collection of cards from a JSON string
 	///
-	private class func unserialize(json:String) -> [Card]
+	private class func unserialize(cards json:String) -> [Card]
 	{
 		// Map function: Transforms a dictionary into a Layer
 		func _layer(raw: NSDictionary) -> Layer
@@ -445,15 +471,26 @@ class DataUtility
 		let wrapper = NSJSONSerialization.JSONObjectWithData(data, options:nil, error:nil) as NSDictionary
 		
 		// Emit some metrics
-		let version = wrapper["$version"] as String
-		println("[data-util:unserialize -> now parsing cards.json (v\(version))]")
+		let version = wrapper[KEY_VERSION] as String
+		println("[du:unserialize -> now parsing json cardstore (v\(version))]")
 		
 		// Perform the operation
-		let cards = (wrapper["cards"] as [NSDictionary]).map(_card)
+		let cards = (wrapper[KEY_CARDS] as [NSDictionary]).map(_card)
 		
 		// Emit metrics
-		println("[data-util:unserialize -> extracted \(cards.count) cards]")
+		println("[du:unserialize -> extracted \(cards.count) cards]")
 		
 		return cards
+	}
+
+	///
+	/// Unserializes the manifest for the local sprite repository
+	///
+	private class func unserialize(sprites json: String) -> [String]
+	{
+		let bytes = json.dataUsingEncoding(NSUTF8StringEncoding)!
+		let wrapper = NSJSONSerialization.JSONObjectWithData(bytes, options: nil, error: nil) as NSDictionary
+		
+		return wrapper[KEY_SPRITES] as [String]
 	}
 }
