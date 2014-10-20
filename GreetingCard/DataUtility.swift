@@ -7,7 +7,6 @@
 //
 
 import Foundation
-//import Alamofire
 
 private let DEBUG_FORCE_INSTALL = true
 private let CARDSTORE_PATH  = "~/Documents/cardstore.json".stringByExpandingTildeInPath
@@ -69,7 +68,7 @@ class DataUtility
 	{
 		return Scene(caption:nil, layers:nil)
 	}
-
+	
 	///
 	/// Exports a base64 encoded string from a Card object
 	///
