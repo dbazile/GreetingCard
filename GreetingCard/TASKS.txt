@@ -6,7 +6,7 @@ Visuals
 
 
 Testing
-	- DataUtility needs unit tests
+	# DataUtility needs unit tests
 
 
 View all Cards
@@ -28,6 +28,10 @@ View a single Card
 	- Create navigation items for 'Edit', 'Share', 'Delete'
 
 
+Create a Card
+	- Add 'Create a card' button to Inbox
+
+
 Edit a Card
 	# Create 'Card Overview' View
 		# Need to render a preview image
@@ -36,14 +40,17 @@ Edit a Card
 	# Create 'Sprite Picker' View
 	- Create 'Save Card' button
 	- Add reordering capability to Layer Picker
+	- Add 'Synchronize with Remote Repository' button to Sprite Picker
 
 
 Share a Card
 	- Create View
+	- Create
 
 
-Import a Card
-	~ Read card data from JSON into local storage
+Import a Card from an emailed base64 URL
+	# Read card data from JSON into local storage
+	- After import, go directly to viewer
 
 
 Delete a Card
@@ -51,23 +58,26 @@ Delete a Card
 
 
 View Cards with new Sprites
-	- Download and cache sprites in local repository
-	- Determine repository strategy
+	# Download and cache sprites in local repository
+	# Determine repository strategy
+
+
+Get All Sprites from Remote Repository
+	- Create 'Synchronize with Repository' View
 
 
 Read and Save Data
 	# Saving a card locally
-	- Sharing a card
 	# Read a card from JSON
-	- Local sprite repository
-	- Web sprite repository
-	- HTTP call strategy
-	- Caching strategy
-	- Sharing strategy
+	# Local sprite repository
+	# HTTP call strategy
+	# Caching strategy
+	# Sharing strategy
 
 
 Use Sprites
-	- Build more sprites!
+	- Make more sprites!
+	- Web sprite repository
 	- Ideas:
 		- 'Alarm Clock' from mothers day (sleeping and awake)
 		- Moon
