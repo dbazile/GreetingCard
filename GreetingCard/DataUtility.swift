@@ -8,7 +8,7 @@
 
 import Foundation
 
-private let DEBUG_FORCE_INSTALL = true
+private let DEBUG_FORCE_INSTALL = false
 private let CARDSTORE_PATH  = "~/Documents/cardstore.json".stringByExpandingTildeInPath
 private let REPOSITORY_PATH = "~/Library/Caches/SpriteRepository".stringByExpandingTildeInPath
 private let MANIFEST_PATH   = "~/Library/Caches/SpriteRepository/manifest.json".stringByExpandingTildeInPath
@@ -194,12 +194,13 @@ class DataUtility
 	class func IsInstalled() -> Bool
 	{
 		let cardstore = CARDSTORE_PATH.stringByExpandingTildeInPath
+		let repository = REPOSITORY_PATH.stringByExpandingTildeInPath
 		if (DEBUG_FORCE_INSTALL) {
 			println("[du:IsInstalled -> forcing install; `DEBUG_FORCE_INSTALL` is set to true]")
 			return false
 		} else {
 			let fs = NSFileManager.defaultManager()
-			return fs.fileExistsAtPath(cardstore)
+			return fs.fileExistsAtPath(cardstore) && fs.fileExistsAtPath(repository)
 		}
 	}
 
