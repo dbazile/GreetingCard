@@ -13,7 +13,7 @@ private let CARDSTORE_PATH  = "~/Documents/cardstore.json".stringByExpandingTild
 private let REPOSITORY_PATH = "~/Library/Caches/SpriteRepository".stringByExpandingTildeInPath
 private let MANIFEST_PATH   = "~/Library/Caches/SpriteRepository/manifest.json".stringByExpandingTildeInPath
 private let ORIGIN_INSTALLER = "installer"
-private let REMOTE_REPOSITORY_URL = "http://127.0.0.1:8000/sprites/"
+private let REMOTE_REPOSITORY_URL = "http://127.0.0.1:8000/static/greetingcard/sprites/"
 
 // Schema
 private let MANIFEST_SCHEMA_VERSION = "1"
