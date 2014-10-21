@@ -19,6 +19,7 @@ class InboxTableViewController: UITableViewController,
 	private let TAG_CANVAS       = 3
 	
 	private let agent = RenderingAgent()
+	private var listeningForChangeEvents = false
 	
 	var cards: [Card] {
 		return DataUtility.AllCards
@@ -30,9 +31,21 @@ class InboxTableViewController: UITableViewController,
 	override func viewWillAppear(animated: Bool)
 	{
 		super.viewWillAppear(animated)
+		
 		tableView.reloadData()
+		
+		subscribeToCardchangeEvents()
 	}
 
+	///
+	/// Unlinks the notification observer
+	///
+	override func viewWillDisappear(animated: Bool) {
+		super.viewWillDisappear(animated)
+		
+		unsubscribeFromCardchangeEvents()
+	}
+	
 	///
 	/// Intercept segue to configure destination controllers
 	///
@@ -85,6 +98,46 @@ class InboxTableViewController: UITableViewController,
 	// MARK: HELPER METHODS ////////////////////////////////////////////////////
 
 	///
+	/// Callback to reloads the table data when the cardstore changes
+	///
+	func refreshTable()
+	{
+		println("Refreshing table")
+		tableView.reloadData()
+	}
+	
+	///
+	/// Enables listening for cardstore change notifications
+	///
+	private func subscribeToCardchangeEvents()
+	{
+		if (false == listeningForChangeEvents) {
+			println("Started listening for change events")
+			NSNotificationCenter.defaultCenter()
+				.addObserver(self,
+					selector:"refreshTable",
+					name:DataDidSaveCardstore,
+					object:nil)
+			
+			listeningForChangeEvents = true
+		}
+	}
+	
+	///
+	/// Disables listening for cardstore change notifications
+	///
+	private func unsubscribeFromCardchangeEvents()
+	{
+		if (true == listeningForChangeEvents) {
+			println("Stopped listening for change events")
+			NSNotificationCenter.defaultCenter()
+				.removeObserver(self)
+			
+			listeningForChangeEvents = false
+		}
+	}
+	
+	///
 	/// Updates a cell with the card data
 	///
 	private func updateCell(cell:UITableViewCell, card:Card)
@@ -95,7 +148,7 @@ class InboxTableViewController: UITableViewController,
 	
 		// Set the text
 		title.text = card.title
-		details.text = "(1 / \(card.scenes.count))"
+		details.text = "(\(card.scenes.count))"
 
 		// Render the preview with a vertical offset
 		let H = CGFloat(500)

@@ -26,6 +26,9 @@ private let KEY_SPRITES = "$sprites"
 private var _allCards : [Card]?
 private var _allLocalSprites : [String]?
 
+public let DataDidSaveCardstore = "DataDidSaveCardstore"
+public let DataDidModifyLocalSpriteRepository = "DataDidModifyLocalSpriteRepository"
+
 class DataUtility
 {
 	
@@ -232,6 +235,10 @@ class DataUtility
 	{
 		println("[du:Save -> attempting to save \(AllCards.count) cards]")
 		
+		// Send notifications
+		publishCardstoreSaveEvent()
+		
+		// Save the cardstore
 		cards_write(AllCards)
 	}
 
@@ -248,6 +255,9 @@ class DataUtility
 		// Append to the local sprite list
 		_allLocalSprites = manifest_read() + identifiers
 		_allLocalSprites!.sort({ (a: String, b:String) -> Bool in return a < b })
+		
+		// Send notifications
+		publishSpritesModifiedEvent()
 		
 		// Save new manifest
 		manifest_write(_allLocalSprites!)
@@ -359,6 +369,27 @@ class DataUtility
 		let json = serialize(sprites: identifiers)
 		
 		json.writeToFile(path, atomically: true, encoding: NSUTF8StringEncoding, error: nil)
+	}
+	
+	///
+	/// Sends a notification to any observers that the datastore has changed
+	///
+	private class func publishCardstoreSaveEvent()
+	{
+		NSNotificationCenter.defaultCenter()
+			.postNotificationName(DataDidSaveCardstore, object: nil)
+
+	}
+	
+	///
+	/// Sends a notification to any observers that the local sprite repository
+	/// has changed
+	///
+	private class func publishSpritesModifiedEvent()
+	{
+		NSNotificationCenter.defaultCenter()
+			.postNotificationName(DataDidModifyLocalSpriteRepository, object: nil)
+		
 	}
 	
 	///

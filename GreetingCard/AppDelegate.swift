@@ -10,57 +10,35 @@ import UIKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+	private let IMPORT_CARD = "import"
 
 	var window: UIWindow?
 	
 	func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 		
-		debug_dump_home_directory()
+		handleInvalidUrlAction()
 		
 		if (!DataUtility.IsInstalled()) {
 			DataUtility.Install()
 		}
 
-		prototype_import_encoded_card()
+		return true
+	}
+	
+	func application(application: UIApplication, openURL url: NSURL, sourceApplication: String, annotation: AnyObject?) -> Bool {
+		if let action = url.host {
+			
+			switch (action) {
+				case IMPORT_CARD:
+					DataUtility.Import(url.lastPathComponent)
+					return true
+				default:
+					handleInvalidUrlAction()
+			}
+		}
 		
 		return false
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	private func prototype_import_encoded_card()
-	{
-		//
-		// 'Import Card' prototype
-		//
-		var HARDCODED_IMPORT_DATA:String? = "eyIkb3JpZ2luIjogImRhdGEtZGlhZ25vc3RpY3MiLCAiJHZlcnNpb24iOiAiMSIsICIkY2FyZHMiOiBbeyJ0aXRsZSI6ICJzYW1wbGVfaW1wb3J0ZWRfY2FyZCIsICJpc05ldyI6IHRydWUsICJzY2VuZXMiOiBbeyJsYXllcnMiOiBbeyJzY2FsZSI6IDAuNDMsICJ0b3AiOiAwLCAicm90YXRpb24iOiAwLCAibGVmdCI6IDAsICJ2aXNpYmxlIjogdHJ1ZSwgImltYWdlIjogImJhY2tkcm9wLXJlZCIsICJvcGFjaXR5IjogMSB9IF0sICJjYXB0aW9uIjogIlRoaXMgY2FyZCBpcyB0aGUgcmVzdWx0IG9mIGFuIGltcG9ydCBvcGVyYXRpb24ifSBdIH0gXSB9IA=="
-		
-		if let encodedCardstore = HARDCODED_IMPORT_DATA? {
-			importCardstore(from:encodedCardstore)
-		}
-	}
-	
-	private func debug_dump_home_directory()
-	{
-		println("**************************************** DEBUGGING AIDS *****************************************")
-		println("Home Directory:\n\(NSHomeDirectory())")
-		println("*************************************************************************************************")
-	}
-
-	
-	
-	
-	
 	
 	func applicationWillResignActive(application: UIApplication) {
 		// Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -88,6 +66,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	}
 
 	// MARK: HELPER METHODS ////////////////////////////////////////////////////
+	
+	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
+	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
+	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
+	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
+	private func debug_dump_home_directory()
+	{
+		println("**************************************** DEBUGGING AIDS *****************************************")
+		println("Home Directory:\n\(NSHomeDirectory())")
+		println("*************************************************************************************************")
+	}
+	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
+	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
+	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
+	// DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG DEBUG
+	
+	///
+	/// Executed when an invalid url action is encountered
+	///
+	private func handleInvalidUrlAction()
+	{
+		// Note: AlertView is deprecated in ios8
+		let alert = UIAlertView(title: "OH NOES!", message: "You got a broken link from somewhere", delegate: nil, cancelButtonTitle: "K")
+		alert.show()
+		println("********* URL action failed **********")
+	}
 	
 	///
 	/// Performs an import
