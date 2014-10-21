@@ -5,7 +5,7 @@ Visuals
 	- Add custom logo to navigation bar
 
 
-Testing
+# Testing
 	# DataUtility needs unit tests
 
 
@@ -18,7 +18,6 @@ View all Cards
 		- Menu item for 'Edit Card'
 		- Menu item for 'Delete Card'
 		- Menu item for 'Share Card'
-	- Create navigation item for 'Create Card'
 
 
 View a single Card
@@ -44,20 +43,21 @@ Edit a Card
 
 
 Share a Card
-	- Create View
-	- Create
+	- Send data and focus directly to Mail app
+	- Make Embedded Card icon
 
 
 Import a Card from an emailed base64 URL
 	# Read card data from JSON into local storage
 	- After import, go directly to viewer
+	- Show a progress bar while the import/caching is happening
 
 
 Delete a Card
 	- After confirmation, remove a card from local storage
 
 
-View Cards with new Sprites
+# View Cards with new Sprites
 	# Download and cache sprites in local repository
 	# Determine repository strategy
 
@@ -66,7 +66,7 @@ Get All Sprites from Remote Repository
 	- Create 'Synchronize with Repository' View
 
 
-Read and Save Data
+# Read and Save Data
 	# Saving a card locally
 	# Read a card from JSON
 	# Local sprite repository
