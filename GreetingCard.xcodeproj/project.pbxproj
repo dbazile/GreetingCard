@@ -10,6 +10,7 @@
 		632D4B4419F4BB2900CDF685 /* DataUtilityTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632D4B4319F4BB2900CDF685 /* DataUtilityTest.swift */; };
 		632D4B4519F4BCA500CDF685 /* DataUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AA5CF919D7E37E009E15E7 /* DataUtility.swift */; };
 		632D4B4619F4BCDB00CDF685 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63AA5CFB19D7E37E009E15E7 /* Models.swift */; };
+		63337EDA19F7560F0068E083 /* Decorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63337ED919F7560F0068E083 /* Decorator.swift */; };
 		633FC8E619DF4ECE0033F742 /* starterkit in Resources */ = {isa = PBXBuildFile; fileRef = 633FC8E519DF4ECE0033F742 /* starterkit */; };
 		633FC91A19DF6ABD0033F742 /* EditSceneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633FC91919DF6ABD0033F742 /* EditSceneViewController.swift */; };
 		633FC91C19DF73C30033F742 /* EditCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 633FC91B19DF73C30033F742 /* EditCardViewController.swift */; };
@@ -44,6 +45,7 @@
 
 /* Begin PBXFileReference section */
 		632D4B4319F4BB2900CDF685 /* DataUtilityTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataUtilityTest.swift; sourceTree = "<group>"; };
+		63337ED919F7560F0068E083 /* Decorator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Decorator.swift; sourceTree = "<group>"; };
 		633FC8E519DF4ECE0033F742 /* starterkit */ = {isa = PBXFileReference; lastKnownFileType = folder; path = starterkit; sourceTree = "<group>"; };
 		633FC91919DF6ABD0033F742 /* EditSceneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditSceneViewController.swift; sourceTree = "<group>"; };
 		633FC91B19DF73C30033F742 /* EditCardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditCardViewController.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				633FC91E19DF74060033F742 /* Edit Card */,
 				63AA5CDE19D7E31C009E15E7 /* LaunchScreen.xib */,
 				63AA5CD119D7E31C009E15E7 /* AppDelegate.swift */,
+				63337ED919F7560F0068E083 /* Decorator.swift */,
 				637C09B019E0953100E93BB0 /* RenderingAgent.swift */,
 				6368FFBC19EC692100745A93 /* Config */,
 				63781A3E19D88BE0003174F7 /* Data */,
@@ -298,6 +301,7 @@
 				637C09B119E0953100E93BB0 /* RenderingAgent.swift in Sources */,
 				633FC91C19DF73C30033F742 /* EditCardViewController.swift in Sources */,
 				63AA5CFF19D7E37E009E15E7 /* InboxTableViewController.swift in Sources */,
+				63337EDA19F7560F0068E083 /* Decorator.swift in Sources */,
 				637C09AF19DFCA9600E93BB0 /* EditSceneToolbarDelegate.swift in Sources */,
 				636A6A4B19E1D7EF001B4B6D /* SpritePickerDelegate.swift in Sources */,
 				637C09AD19DFB48700E93BB0 /* EditSceneToolbarViewController.swift in Sources */,

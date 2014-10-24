@@ -25,6 +25,23 @@ class LayerPickerViewController : UITableViewController,
 	var layers : [Layer]?
 
 	///
+	/// One-time controller setup
+	///
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
+		Decorator.applyBackButton(on: self)
+	}
+	
+	///
+	/// Perform some action whenever the view comes active
+	///
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		Decorator.usingEditContext(navigationController)
+	}
+	
+	///
 	/// Intercepts the segue to configure the next view controller
 	///
 	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)

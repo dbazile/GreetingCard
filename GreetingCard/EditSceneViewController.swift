@@ -23,7 +23,8 @@ class EditSceneViewController : UIViewController,
 
 	private var toolbarController : EditSceneToolbarViewController?
 	var scene : Scene?
-
+	var sceneNumber = -1
+	
 	///
 	/// Focused Layer Property
 	///   Returns the layer corresponding to the current focused layer index
@@ -50,12 +51,14 @@ class EditSceneViewController : UIViewController,
 	}
 
 	///
-	/// Perform some one-time initialization for this controller
+	/// One-time controller setup
 	///
 	override func viewDidLoad()
 	{
 		super.viewDidLoad()
 
+		Decorator.applyBackButton(on:self)
+		
 		// Set some defaults on the canvas
 		agent.normalize(canvas)
 
@@ -71,7 +74,9 @@ class EditSceneViewController : UIViewController,
 		super.viewWillAppear(animated)
 
 		hideNavigationBar()
-
+		
+		sceneIndexLabel.text = "Scene \(sceneNumber)"
+		
 		render()
 	}
 
@@ -119,6 +124,11 @@ class EditSceneViewController : UIViewController,
 	// MARK: INTERFACE BUILDER /////////////////////////////////////////////////
 
 	@IBOutlet weak var canvas: UIView!
+	@IBOutlet weak var sceneIndexLabel: UILabel!
+	
+	@IBAction func didPressBackButton() {
+		navigationController?.popViewControllerAnimated(true)
+	}
 
 
 	// MARK: LAYER PICKER DATASOURCE/DELEGATE //////////////////////////////////
@@ -343,7 +353,7 @@ class EditSceneViewController : UIViewController,
 	{
 		_originalHideNavigationOnActivity = navigationController?.hidesBarsOnTap ?? false
 		_originalHideNavigationByDefault = navigationController?.navigationBarHidden ?? false
-		navigationController?.hidesBarsOnTap = true
+		navigationController?.hidesBarsOnTap = false
 		navigationController?.navigationBarHidden = true
 	}
 

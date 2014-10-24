@@ -26,17 +26,36 @@ class InboxTableViewController: UITableViewController,
 	}
 	
 	///
+	/// One-time controller setup
+	///
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
+		Decorator.applyLogo(on:self)
+		Decorator.applyCreateButton(on:self, onClickInvoke:"didClickCreateButton")
+		Decorator.applyBackButton(on:self)
+	}
+	
+	///
 	/// Reloads the cells when the view regains focus
 	///
 	override func viewWillAppear(animated: Bool)
 	{
 		super.viewWillAppear(animated)
 		
+		Decorator.usingViewContext(navigationController)
+
 		tableView.reloadData()
 		
 		subscribeToCardchangeEvents()
 	}
 
+	func didClickCreateButton()
+	{
+		self.performSegueWithIdentifier(EDIT_CARD_SEGUE,
+			sender: tableView.cellForRowAtIndexPath(NSIndexPath(forRow:0, inSection:0)))
+	}
+	
 	///
 	/// Unlinks the notification observer
 	///
@@ -102,7 +121,6 @@ class InboxTableViewController: UITableViewController,
 	///
 	func refreshTable()
 	{
-		println("Refreshing table")
 		tableView.reloadData()
 	}
 	
@@ -112,7 +130,6 @@ class InboxTableViewController: UITableViewController,
 	private func subscribeToCardchangeEvents()
 	{
 		if (false == listeningForChangeEvents) {
-			println("Started listening for change events")
 			NSNotificationCenter.defaultCenter()
 				.addObserver(self,
 					selector:"refreshTable",
@@ -129,7 +146,6 @@ class InboxTableViewController: UITableViewController,
 	private func unsubscribeFromCardchangeEvents()
 	{
 		if (true == listeningForChangeEvents) {
-			println("Stopped listening for change events")
 			NSNotificationCenter.defaultCenter()
 				.removeObserver(self)
 			

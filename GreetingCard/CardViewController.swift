@@ -18,12 +18,17 @@ class CardViewController : UIViewController,
 	var card : Card?
 
 	///
-	/// Configures the page view controller
+	/// One-time controller setup
 	///
     override func viewDidLoad()
 	{
         super.viewDidLoad()
-		self.initializePageViewController()
+		
+		Decorator.applyBackButton(on:self)
+		Decorator.applyMenuButton(on:self, onClickInvoke:"didClickMenuButton")
+		
+		initializePageViewController()
+    }
     }
 
 	///

@@ -16,7 +16,7 @@ class SceneViewController : UIViewController
 	var index : Int = -1
 
 	///
-	/// One-time setup for the canvas
+	/// One-time controller setup
 	///
     override func viewDidLoad()
 	{

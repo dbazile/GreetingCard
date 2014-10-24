@@ -16,7 +16,14 @@ class SpritePickerViewController : UICollectionViewController
 	private let sprites = DataUtility.AllLocalSprites
 
 	var delegate : SpritePickerDelegate?
-
+	
+	///
+	/// Applies the back button styling to the controller's navbar item
+	///
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		Decorator.applyBackButton(on: self)
+	}
 
 	// MARK: COLLECTIONVIEW SOURCE/DELEGATION //////////////////////////////////
 

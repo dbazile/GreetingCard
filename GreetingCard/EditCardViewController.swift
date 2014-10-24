@@ -25,6 +25,21 @@ class EditCardViewController : UIViewController,
 	private let agent = RenderingAgent()
 
 	var card : Card?
+	
+	///
+	/// One-time controller setup
+	///
+	override func viewDidLoad() {
+		super.viewDidLoad()
+		
+		Decorator.applyBackButton(on:self)
+		Decorator.applySaveButton(on:self, onClickInvoke:"didClickSaveButton")
+	}
+	
+	func didClickSaveButton()
+	{
+		println("Save card")
+	}
 
 	///
 	/// Refreshes all fields before coming into focus
@@ -35,6 +50,12 @@ class EditCardViewController : UIViewController,
 		collectionView.reloadData()
 
 		inputTitle.text = card?.title
+		Decorator.usingEditContext(navigationController)
+		
+		// Fix the placeholder color
+		inputTitle.attributedPlaceholder = NSAttributedString(
+			    string: inputTitle.placeholder ?? "Title",
+			attributes: [NSForegroundColorAttributeName:UIColor(white:1, alpha:0.2)])
 	}
 
 	///
