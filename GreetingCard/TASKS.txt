@@ -1,8 +1,8 @@
 TASKS
 
 Visuals
-	- Implement mode-specific color scheme (Purple & Green for viewing; Blueprint Blue and Grey for editing)
-	- Add custom logo to navigation bar
+	# Implement mode-specific color scheme (Purple & Green for viewing; Blueprint Blue and Grey for editing)
+	# Add custom logo to navigation bar
 
 
 # Testing
@@ -24,11 +24,11 @@ View a single Card
 	# Create 'View Card' View
 	# Create PageViewController to facilitate cycling through scenes
 	# Ability to specify background color
-	- Create navigation items for 'Edit', 'Share', 'Delete'
+	# Create navigation items for 'Edit', 'Share', 'Delete'
 
 
 Create a Card
-	- Add 'Create a card' button to Inbox
+	~ Add 'Create a card' button to Inbox
 
 
 Edit a Card
@@ -37,7 +37,7 @@ Edit a Card
 	# Create 'Scene Editor' View
 	# Create 'Layer List' View
 	# Create 'Sprite Picker' View
-	- Create 'Save Card' button
+	~ Create 'Save Card' button
 	- Add reordering capability to Layer Picker
 	- Add 'Synchronize with Remote Repository' button to Sprite Picker
 
@@ -49,12 +49,13 @@ Share a Card
 
 Import a Card from an emailed base64 URL
 	# Read card data from JSON into local storage
-	- After import, go directly to viewer
+	- After import, go directly to inbox
+	- Importing a card puts it at the TOP of your inbox
 	- Show a progress bar while the import/caching is happening
 
 
 Delete a Card
-	- After confirmation, remove a card from local storage
+	~ After confirmation, remove a card from local storage
 
 
 # View Cards with new Sprites
