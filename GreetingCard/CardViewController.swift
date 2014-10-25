@@ -9,8 +9,7 @@
 import UIKit
 
 class CardViewController : UIViewController,
-						   UIPageViewControllerDataSource,
-	                       UIActionSheetDelegate
+						   UIPageViewControllerDataSource
 {
 	private let ACTION_DELETE = 0
 	private let ACTION_SEND = 2
@@ -18,7 +17,10 @@ class CardViewController : UIViewController,
 	private let EDIT_SEGUE = "EditSegue"
 	private let SHARE_SEGUE = "ShareSegue"
 	private let SCENE_VIEW_CONTROLLER = "SceneViewController"
-	private let VERTICAL_OFFSET : CGFloat = 0
+	private let DELETE_CARD = "Delete this Card"
+	private let SHARE_CARD = "Share this Card"
+	private let EDIT_CARD = "Edit this Card"
+	private let CANCEL = "Cancel"
 	private var pageViewController : UIPageViewController?
 
 	var card : Card?
@@ -63,14 +65,15 @@ class CardViewController : UIViewController,
 	///
 	func didClickMenuButton()
 	{
-		let sheet = UIActionSheet(title:nil,
-			                   delegate:self,
-			          cancelButtonTitle:"Cancel",
-			     destructiveButtonTitle:"Delete this Card",
-			          otherButtonTitles:"Send this Card",
-			                            "Edit Card")
+		// Create the action sheet
+		let actionSheet = UIAlertController(title:nil, message:nil, preferredStyle: .ActionSheet)
+		actionSheet.addAction(UIAlertAction(title:DELETE_CARD, style:.Destructive, handler:didSelectDeleteAction))
+		actionSheet.addAction(UIAlertAction(title:SHARE_CARD, style:.Default, handler:didSelectSendAction))
+		actionSheet.addAction(UIAlertAction(title:EDIT_CARD, style:.Default, handler:didSelectEditAction))
+		actionSheet.addAction(UIAlertAction(title:CANCEL, style:.Cancel, handler:nil))
 		
-		sheet.showFromBarButtonItem(navigationItem.rightBarButtonItem, animated: true)
+		// Display
+		self.presentViewController(actionSheet, animated:true, completion:nil)
 	}
 
 	///
@@ -84,46 +87,33 @@ class CardViewController : UIViewController,
 	}
 
 	
-	// MARK: ACTIONSHEET DELEGATE //////////////////////////////////////////////
+	// MARK: INTERFACEBUILDER CONNECTIONS ///////////////////////////////////////////
 	
-	///
-	/// Executes when the user selects something from the action sheet
-	///
-	func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
-		
-		switch(buttonIndex) {
-		case ACTION_DELETE:
-			didSelectDeleteAction()
-			break
-			
-		case ACTION_EDIT:
-			didSelectEditAction()
-			break
-			
-		case ACTION_SEND:
-			didSelectSendAction()
-			break
-			
-		default:
-			break
-		}
-	}
+	@IBOutlet weak var placeholderForNoScenes: UIView!
+	
+	
+	// MARK: ACTIONCONTROLLER DELEGATE //////////////////////////////////////////////
 	
 	///
 	/// Executes when the user selects 'Delete Card' from the action sheet
 	///
-	private func didSelectDeleteAction()
+	private func didSelectDeleteAction(sender:UIAlertAction!)
 	{
 		DataUtility.Delete(card!)
-		let alert = UIAlertView(title: "Card Deleted", message: "You deleted the card titled \"\(card!.title)\".", delegate: nil, cancelButtonTitle:"OK")
-		alert.show()
+		
+		// Return to the inbox
 		navigationController?.popViewControllerAnimated(true)
+		
+		// Queue the delete notification
+		let alert = UIAlertController(title:"Card deleted", message:"You deleted the card titled \"\(card!.title)\".", preferredStyle:.Alert)
+		alert.addAction(UIAlertAction(title:"OK", style:.Default, handler:nil))
+		navigationController!.presentViewController(alert, animated:false, completion:nil)
 	}
 	
 	///
 	/// Executes when the user selects 'Edit Card' from the action sheet
 	///
-	private func didSelectEditAction()
+	private func didSelectEditAction(sender:UIAlertAction!)
 	{
 		performSegueWithIdentifier(EDIT_SEGUE, sender:nil)
 	}
@@ -131,7 +121,7 @@ class CardViewController : UIViewController,
 	///
 	/// Executes when the user selects 'Send Card' from the action sheet
 	///
-	private func didSelectSendAction()
+	private func didSelectSendAction(sender:UIAlertAction!)
 	{
 		let alert = UIAlertView(title: "EMAIL", message: "EMAIL", delegate: nil, cancelButtonTitle: "SEND")
 		alert.show()
@@ -188,25 +178,28 @@ class CardViewController : UIViewController,
 	///
 	private func initializePageViewController() {
 
-		// Create the PageViewController
-		let controller = UIPageViewController(transitionStyle:.Scroll, navigationOrientation:.Horizontal, options:nil)
-
-		// Add pages
-		let firstPage = sceneController(0)!
-		controller.setViewControllers([firstPage], direction:.Forward, animated:false, completion:{done in})
-		controller.dataSource = self
-
-		// Wire the PageViewController to this controller
-		self.addChildViewController(controller)
-		self.view.addSubview(controller.view)
-
-		controller.view.frame = CGRectMake(0, VERTICAL_OFFSET, self.view.bounds.width, self.view.bounds.height-VERTICAL_OFFSET)
-
-		// Trigger the PageViewController events
-		controller.didMoveToParentViewController(self)
-
-		self.pageViewController = controller
-		self.view.gestureRecognizers = controller.gestureRecognizers
+		if let firstPage = sceneController(0) {
+			// Get rid of the "No Scenes" placeholder
+			placeholderForNoScenes.removeFromSuperview()
+			
+			// Create the PageViewController
+			let controller = UIPageViewController(transitionStyle:.Scroll, navigationOrientation:.Horizontal, options:nil)
+			
+			controller.setViewControllers([firstPage], direction:.Forward, animated:false, completion:{done in})
+			controller.dataSource = self
+			
+			// Wire the PageViewController to this controller
+			self.addChildViewController(controller)
+			self.view.addSubview(controller.view)
+			
+			controller.view.frame = self.view.bounds
+			
+			// Trigger the PageViewController events
+			controller.didMoveToParentViewController(self)
+			
+			self.pageViewController = controller
+			self.view.gestureRecognizers = controller.gestureRecognizers
+		}
 	}
 
 	///

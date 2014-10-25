@@ -94,7 +94,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h5V-VX-3TY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="936" y="-911"/>
+            <point key="canvasLocation" x="936" y="-953"/>
         </scene>
         <!--Edit Card-->
         <scene sceneID="GAi-Qw-1P5">
@@ -173,7 +173,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fgh-E8-gmW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="556" y="-910"/>
+            <point key="canvasLocation" x="556" y="-952"/>
         </scene>
         <!--Inbox-->
         <scene sceneID="CQJ-Ds-mRd">
@@ -201,8 +201,8 @@
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="{{title}}" lineBreakMode="wordWrap" numberOfLines="2" adjustsFontSizeToFit="NO" id="iEk-mf-EiE">
-                                            <rect key="frame" x="8" y="8" width="236" height="24"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" tag="1" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="{{title}}" lineBreakMode="tailTruncation" numberOfLines="2" adjustsFontSizeToFit="NO" id="iEk-mf-EiE">
+                                            <rect key="frame" x="8" y="8" width="304" height="24"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="14"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -259,10 +259,48 @@
                     <view key="view" contentMode="scaleToFill" id="cc6-cB-pgf">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="2hx-9Y-UbP">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Oh Noes!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wwN-wH-kui">
+                                        <rect key="frame" x="39" y="247" width="103" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="24"/>
+                                        <color key="textColor" red="1" green="0.99997437000274658" blue="0.99999129772186279" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This Card has no Scenes..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pYu-G2-tJM">
+                                        <rect key="frame" x="57" y="277" width="206" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.71652781963348389" green="0.6674618124961853" blue="0.76176756620407104" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" (╯°□°）╯︵ ┻━┻" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="VIw-km-6Mm">
+                                        <rect key="frame" x="17" y="510" width="287" height="36"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <color key="textColor" red="0.80034545130000001" green="0.58702561580000001" blue="0.958207111" alpha="0.12" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="¯\(º_o)/¯" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QGP-NU-66f">
+                                        <rect key="frame" x="150" y="221" width="137" height="55"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="46"/>
+                                        <color key="textColor" red="0.74687862396240234" green="0.66260755062103271" blue="0.80908793210983276" alpha="0.33000000000000002" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.12385132908821106" green="0.11313844472169876" blue="0.13386933505535126" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" title="{{card.title}}" id="DEr-zg-dkV"/>
                     <connections>
+                        <outlet property="placeholderForNoScenes" destination="2hx-9Y-UbP" id="ogY-Wd-ZvB"/>
                         <segue destination="dkI-PZ-HEq" kind="push" identifier="EditSegue" id="A9x-Vp-7cW"/>
                     </connections>
                 </viewController>
@@ -317,7 +355,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="r4l-Hy-JgS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1802" y="-910"/>
+            <point key="canvasLocation" x="1802" y="-952"/>
         </scene>
         <!--Pick an Image-->
         <scene sceneID="8BH-J6-Kh6">
@@ -354,7 +392,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nDV-K0-iSv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2182" y="-911"/>
+            <point key="canvasLocation" x="2182" y="-953"/>
         </scene>
         <!--Edit Scene Toolbar View Controller-->
         <scene sceneID="9Nz-r9-Xh5">
@@ -572,7 +610,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5cW-Mc-bNz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1266" y="-590"/>
+            <point key="canvasLocation" x="1266" y="-632.5"/>
         </scene>
     </scenes>
     <resources>
