@@ -3,10 +3,8 @@ TASKS
 Visuals
 	# Implement mode-specific color scheme (Purple & Green for viewing; Blueprint Blue and Grey for editing)
 	# Add custom logo to navigation bar
-
-
-# Testing
-	# DataUtility needs unit tests
+	- Test against iPhone 6
+	- Integrate Auto-layout
 
 
 View all Cards
@@ -14,21 +12,7 @@ View all Cards
 		# Need to render a preview image
 	# Link to 'Edit'
 	# Generate a preview image for each Card tile
-	- Swipe to reveal cell menu
-		- Menu item for 'Edit Card'
-		- Menu item for 'Delete Card'
-		- Menu item for 'Share Card'
-
-
-View a single Card
-	# Create 'View Card' View
-	# Create PageViewController to facilitate cycling through scenes
-	# Ability to specify background color
-	# Create navigation items for 'Edit', 'Share', 'Delete'
-
-
-Create a Card
-	~ Add 'Create a card' button to Inbox
+	- Swiping cell should reveal 'Delete' button
 
 
 Edit a Card
@@ -37,13 +21,17 @@ Edit a Card
 	# Create 'Scene Editor' View
 	# Create 'Layer List' View
 	# Create 'Sprite Picker' View
-	~ Create 'Save Card' button
+	# Create 'Save Card' button
+	- Prompt to abandon changes on back
+	- Fading alert for "Saved Card" notification
+	- Long-press menu for scenes in 'Card Editor' for copy, delete
+	- Reordering scenes in 'Card Editor'
 	- Add reordering capability to Layer Picker
-	- Add 'Synchronize with Remote Repository' button to Sprite Picker
+	- Add 'Synchronize with Remote Repository' button to 'Sprite Picker'
 
 
 Share a Card
-	- Send data and focus directly to Mail app
+	- Send data and focus directly to Mail.app
 	- Make Embedded Card icon
 
 
@@ -58,13 +46,32 @@ Delete a Card
 	~ After confirmation, remove a card from local storage
 
 
+Get All Sprites from Remote Repository
+	- Create 'Synchronize with Repository' View with progress bar
+
+
+Ideas for Sprites
+	- 'Alarm Clock' from mothers day (sleeping and awake)
+	- Moon
+	- Z's
+	- Gradients for times of day
+
+
+
+# Create a Card
+	# Add 'Create a card' button to Inbox
+
+
+# View a single Card
+	# Create 'View Card' View
+	# Create PageViewController to facilitate cycling through scenes
+	# Ability to specify background color
+	# Create navigation items for 'Edit', 'Share', 'Delete'
+
+
 # View Cards with new Sprites
 	# Download and cache sprites in local repository
 	# Determine repository strategy
-
-
-Get All Sprites from Remote Repository
-	- Create 'Synchronize with Repository' View
 
 
 # Read and Save Data
@@ -76,14 +83,7 @@ Get All Sprites from Remote Repository
 	# Sharing strategy
 
 
-Use Sprites
-	- Make more sprites!
-	- Web sprite repository
-	- Ideas:
-		- 'Alarm Clock' from mothers day (sleeping and awake)
-		- Moon
-		- Z's
-		- Gradients for times of day
-
+# Testing
+	# DataUtility needs unit tests
 
 

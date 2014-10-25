@@ -1,5 +1,7 @@
 ISSUES
 
+- Saving a card with no scenes throws error
+
 - View scaling to larger resolutions probably doesn't work
 
 - Visibility flag not honored
