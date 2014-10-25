@@ -22,8 +22,8 @@ Edit a Card
 	# Create 'Layer List' View
 	# Create 'Sprite Picker' View
 	# Create 'Save Card' button
-	- Prompt to abandon changes on back
-	- Fading alert for "Saved Card" notification
+	# Prompt to abandon changes on back
+	# Fading alert for "Saved Card" notification
 	- Long-press menu for scenes in 'Card Editor' for copy, delete
 	- Reordering scenes in 'Card Editor'
 	- Add reordering capability to Layer Picker
@@ -40,10 +40,6 @@ Import a Card from an emailed base64 URL
 	- After import, go directly to inbox
 	- Importing a card puts it at the TOP of your inbox
 	- Show a progress bar while the import/caching is happening
-
-
-Delete a Card
-	~ After confirmation, remove a card from local storage
 
 
 Get All Sprites from Remote Repository
@@ -72,6 +68,10 @@ Ideas for Sprites
 # View Cards with new Sprites
 	# Download and cache sprites in local repository
 	# Determine repository strategy
+
+
+# Delete a Card
+	# After confirmation, remove a card from local storage
 
 
 # Read and Save Data
