@@ -40,6 +40,22 @@ class Decorator
 	}
 	
 	///
+	/// Applies the back button styling with custom operation on a view controller's navbar
+	///
+	class func applyBackButton(on controller:UIViewController, onClickInvoke selector:Selector)
+	{
+		// Custom button should supplant the normal back button
+		controller.navigationItem.leftItemsSupplementBackButton = false
+		
+		// Add our custom button
+		controller.navigationItem.leftBarButtonItem = UIBarButtonItem(
+			 image:image("ButtonBack"),
+			 style:.Plain,
+			target:controller,
+			action:selector)
+	}
+	
+	///
 	/// Adds and styles a create button on a view controller's navbar
 	///
 	class func applyCreateButton(on controller:UIViewController, onClickInvoke selector:Selector)

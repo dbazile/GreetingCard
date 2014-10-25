@@ -50,12 +50,6 @@ class InboxTableViewController: UITableViewController,
 		subscribeToCardchangeEvents()
 	}
 	
-	func didClickCreateButton()
-	{
-		self.performSegueWithIdentifier(EDIT_CARD_SEGUE,
-			sender:nil)
-	}
-	
 	///
 	/// Unlinks the notification observer
 	///
@@ -117,7 +111,15 @@ class InboxTableViewController: UITableViewController,
 		}
 		
 	}
-
+	
+	///
+	/// Executes when the user clicks the 'Create Card' button on the navbar
+	///
+	func didClickCreateButton()
+	{
+		self.performSegueWithIdentifier(EDIT_CARD_SEGUE, sender:nil)
+	}
+	
 
 	// MARK: TABLEVIEW DATASOURCE //////////////////////////////////////////////
 
@@ -221,11 +223,16 @@ class InboxTableViewController: UITableViewController,
 			title.alpha = 1.0
 			details.text = ""
 			
-			// Render the preview with a vertical offset
-			let H = CGFloat(500)
-			canvas.frame = CGRectMake(0, cell.frame.height - H/1.5, cell.frame.width, H)
-			agent.render(card.scenes.first!, onto:canvas)
-			canvas.alpha = 0.1
+			if let firstScene = card.scenes.first {
+				
+				// Render the preview with a vertical offset
+				let H = CGFloat(500)
+				canvas.frame = CGRectMake(0, cell.frame.height - H/1.5, cell.frame.width, H)
+				agent.render(card.scenes.first!, onto:canvas)
+				canvas.alpha = 0.1
+			} else {
+				details.text = "(No Scenes)"
+			}
 		}
 	}
 }

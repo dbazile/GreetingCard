@@ -12,6 +12,11 @@ class EditCardViewController : UIViewController,
                                UICollectionViewDataSource,
                                UICollectionViewDelegate
 {
+	private let CONFIRM_CANCEL_MESSAGE    = "If you go back now, you will lose your changes to this card.  Is this okay?"
+	private let CONFIRM_CANCEL_TITLE      = "Cancel Edit"
+	private let LOSE_CHANGES              = "Lose my changes"
+	private let SAVE_CHANGES              = "Save my changes"
+	private let CONTINUE_EDITING          = "Keep editing!"
 	private let EDIT_SCENE_SEGUE          = "EditSceneSegue"
 	private let SCENE_CELL                = "SceneCell"
 	private let TAG_LABEL                 = 1
@@ -43,23 +48,9 @@ class EditCardViewController : UIViewController,
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		
-		Decorator.applyBackButton(on:self)
+		Decorator.applyBackButton(on:self, onClickInvoke:"didClickBackButton")
 		Decorator.applySaveButton(on:self, onClickInvoke:"didClickSaveButton")
 	}
-	
-	func didClickSaveButton()
-	{
-		card!.title = workingCopyCard!.title
-		card!.isNew = false
-		card!.scenes = workingCopyCard!.scenes
-		
-		UIAlertView(title:"Saved", message:"Your card has been saved", delegate: nil, cancelButtonTitle: "OK").show()
-		
-		// Return to the inbox
-		navigationController?.popToRootViewControllerAnimated(true)
-	}
-	
-	
 	
 	///
 	/// Refreshes all fields before coming into focus
@@ -96,7 +87,62 @@ class EditCardViewController : UIViewController,
 			destinationController.sceneNumber = index
 		}
 	}
+	
+	///
+	/// Executes when the user presses the 'Back' button in the navbar.  Prompts to abandon or save changes.
+	///
+	func didClickBackButton()
+	{
+		let actionSheet = UIAlertController(title:CONFIRM_CANCEL_TITLE, message:CONFIRM_CANCEL_MESSAGE, preferredStyle: .ActionSheet)
+		actionSheet.addAction(UIAlertAction(title:LOSE_CHANGES, style:.Destructive, handler:didSelectCancelAction))
+		actionSheet.addAction(UIAlertAction(title:SAVE_CHANGES, style:.Default, handler:didSelectSaveAction))
+		actionSheet.addAction(UIAlertAction(title:CONTINUE_EDITING, style:.Default, handler:nil))
+		
+		presentViewController(actionSheet, animated:true, completion:nil)
+	}
+	
+	///
+	/// Executes when the user presses the 'Save' button in the navbar
+	///
+	func didClickSaveButton()
+	{
+		card!.title = ("" != workingCopyCard!.title) ? workingCopyCard!.title : "Untitled"
+		card!.isNew = false
+		card!.scenes = workingCopyCard!.scenes
 
+		// Queue an alert on the nav controller
+		let alert = UIAlertController(title:"Card Saved", message:"Your changes to \"\(card!.title)\" have been saved!", preferredStyle:.Alert)
+		alert.addAction(UIAlertAction(title:"OK", style:.Default, handler:nil))
+		
+		/*
+		 * Swift doesn't appear to like seeing the navcontroller operation in a callback, so
+		 * I wrapped it in a function here.
+		 */
+		func _returnToInbox() { navigationController?.popToRootViewControllerAnimated(true) }
+		navigationController?.presentViewController(alert, animated:false, completion:_returnToInbox)
+	}
+	
+	///
+	/// Discards the changes to the card and returns to whichever controller sent us to edit mode
+	///
+	func didSelectCancelAction(action:UIAlertAction!)
+	{
+		// Clean up if this was a new card
+		if (card!.isNew) {
+			DataUtility.Delete(card!)
+		}
+		
+		navigationController!.popViewControllerAnimated(true)
+	}
+	
+	///
+	/// Triggers the save operation from the navbar
+	///
+	func didSelectSaveAction(action:UIAlertAction!)
+	{
+		didClickSaveButton()
+	}
+	
 
 	// MARK: INTERFACE BUILDER /////////////////////////////////////////////////
 

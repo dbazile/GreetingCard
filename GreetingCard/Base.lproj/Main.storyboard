@@ -323,7 +323,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view clipsSubviews="YES" tag="2" contentMode="scaleToFill" id="XBA-Y5-TQ3">
-                                            <rect key="frame" x="5" y="5" width="75" height="75"/>
+                                            <rect key="frame" x="5" y="5" width="60" height="75"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" red="0.78823529411764703" green="0.85490196078431369" blue="0.94509803921568625" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </view>
