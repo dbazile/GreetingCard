@@ -21,6 +21,9 @@ class SceneViewController : UIViewController
     override func viewDidLoad()
 	{
         super.viewDidLoad()
+		
+		// Clear the greenscreen on the canvas
+		canvas.backgroundColor = UIColor.clearColor()
 		agent.normalize(canvas)
     }
 

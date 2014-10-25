@@ -9,8 +9,14 @@
 import UIKit
 
 class CardViewController : UIViewController,
-						   UIPageViewControllerDataSource
+						   UIPageViewControllerDataSource,
+	                       UIActionSheetDelegate
 {
+	private let ACTION_DELETE = 0
+	private let ACTION_SEND = 2
+	private let ACTION_EDIT = 3
+	private let EDIT_SEGUE = "EditSegue"
+	private let SHARE_SEGUE = "ShareSegue"
 	private let SCENE_VIEW_CONTROLLER = "SceneViewController"
 	private let VERTICAL_OFFSET : CGFloat = 0
 	private var pageViewController : UIPageViewController?
@@ -29,8 +35,7 @@ class CardViewController : UIViewController,
 		
 		initializePageViewController()
     }
-    }
-
+	
 	///
 	/// Hides the nav bar when viewing a card
 	///
@@ -39,8 +44,11 @@ class CardViewController : UIViewController,
 		self.navigationController?.navigationBarHidden = true
 		self.navigationController?.hidesBarsOnTap = true
 		self.title = card?.title
+		
+		// Make card as read
+		card?.isNew = false
 	}
-
+	
 	///
 	/// Restores the nav bar when leaving
 	///
@@ -49,7 +57,86 @@ class CardViewController : UIViewController,
 		self.navigationController?.navigationBarHidden = false
 		self.navigationController?.hidesBarsOnTap = false
 	}
+	
+	///
+	/// Executes when the user clicks the menu button in the navbar
+	///
+	func didClickMenuButton()
+	{
+		let sheet = UIActionSheet(title:nil,
+			                   delegate:self,
+			          cancelButtonTitle:"Cancel",
+			     destructiveButtonTitle:"Delete this Card",
+			          otherButtonTitles:"Send this Card",
+			                            "Edit Card")
+		
+		sheet.showFromBarButtonItem(navigationItem.rightBarButtonItem, animated: true)
+	}
 
+	///
+	/// Intercepts the segue to pass data to the next controller
+	///
+	override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+		if (EDIT_SEGUE == segue.identifier) {
+			let controller = segue.destinationViewController as EditCardViewController
+			controller.card = card!
+		}
+	}
+
+	
+	// MARK: ACTIONSHEET DELEGATE //////////////////////////////////////////////
+	
+	///
+	/// Executes when the user selects something from the action sheet
+	///
+	func actionSheet(actionSheet: UIActionSheet, clickedButtonAtIndex buttonIndex: Int) {
+		
+		switch(buttonIndex) {
+		case ACTION_DELETE:
+			didSelectDeleteAction()
+			break
+			
+		case ACTION_EDIT:
+			didSelectEditAction()
+			break
+			
+		case ACTION_SEND:
+			didSelectSendAction()
+			break
+			
+		default:
+			break
+		}
+	}
+	
+	///
+	/// Executes when the user selects 'Delete Card' from the action sheet
+	///
+	private func didSelectDeleteAction()
+	{
+		DataUtility.Delete(card!)
+		let alert = UIAlertView(title: "Card Deleted", message: "You deleted the card titled \"\(card!.title)\".", delegate: nil, cancelButtonTitle:"OK")
+		alert.show()
+		navigationController?.popViewControllerAnimated(true)
+	}
+	
+	///
+	/// Executes when the user selects 'Edit Card' from the action sheet
+	///
+	private func didSelectEditAction()
+	{
+		performSegueWithIdentifier(EDIT_SEGUE, sender:nil)
+	}
+	
+	///
+	/// Executes when the user selects 'Send Card' from the action sheet
+	///
+	private func didSelectSendAction()
+	{
+		let alert = UIAlertView(title: "EMAIL", message: "EMAIL", delegate: nil, cancelButtonTitle: "SEND")
+		alert.show()
+	}
+	
 
 	// MARK: PAGE VIEW CONTROLLER DATASOURCE ///////////////////////////////////
 

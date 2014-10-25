@@ -47,13 +47,6 @@ class SpritePickerViewController : UICollectionViewController
 		// Render the icon
 		agent.render(fromIdentifier:sprite, onto: cell)
 
-		// Add a border around the icon
-		agent.decorate(cell, borderSize:1, borderColor:UIColor(white:1, alpha:1), dashed:false)
-
-		cell.layer.shadowOffset = CGSize(width: 2, height: 2)
-		cell.layer.shadowColor = UIColor.blackColor().CGColor
-		cell.layer.shadowOpacity = 1
-
 		return cell
 	}
 

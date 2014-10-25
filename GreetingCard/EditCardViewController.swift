@@ -21,10 +21,21 @@ class EditCardViewController : UIViewController,
 	private let SCENE_ICON_ALPHA          = 0.3
 	private let CREATE_SCENE_CELL_ALPHA   = 0.5
 	private let CREATE_SCENE_CELL_BGCOLOR = UIColor(white: 0, alpha: 0.5)
-	
 	private let agent = RenderingAgent()
+	private var _card: Card?
+	private var workingCopyCard : Card?
 
-	var card : Card?
+	///
+	/// Card property
+	///   Automatically makes a working copy of the card
+	///
+	var card : Card? {
+		get { return _card }
+		set {
+			_card = newValue
+			workingCopyCard = DataUtility.Clone(_card!)
+		}
+	}
 	
 	///
 	/// One-time controller setup
@@ -38,9 +49,18 @@ class EditCardViewController : UIViewController,
 	
 	func didClickSaveButton()
 	{
-		println("Save card")
+		card!.title = workingCopyCard!.title
+		card!.isNew = false
+		card!.scenes = workingCopyCard!.scenes
+		
+		UIAlertView(title:"Saved", message:"Your card has been saved", delegate: nil, cancelButtonTitle: "OK").show()
+		
+		// Return to the inbox
+		navigationController?.popToRootViewControllerAnimated(true)
 	}
-
+	
+	
+	
 	///
 	/// Refreshes all fields before coming into focus
 	///
@@ -49,13 +69,15 @@ class EditCardViewController : UIViewController,
 		super.viewWillAppear(animated)
 		collectionView.reloadData()
 
-		inputTitle.text = card?.title
+		// Since this controller is the front-door for editing, flip the switch here
 		Decorator.usingEditContext(navigationController)
+		
+		inputTitle.text = workingCopyCard?.title
 		
 		// Fix the placeholder color
 		inputTitle.attributedPlaceholder = NSAttributedString(
-			    string: inputTitle.placeholder ?? "Title",
-			attributes: [NSForegroundColorAttributeName:UIColor(white:1, alpha:0.2)])
+			    string:inputTitle.placeholder ?? "Title",
+			attributes:[NSForegroundColorAttributeName:UIColor(white:1, alpha:0.2)])
 	}
 
 	///
@@ -66,10 +88,12 @@ class EditCardViewController : UIViewController,
 		let destinationController = segue.destinationViewController as EditSceneViewController
 		let index = collectionView.indexPathForCell(sender as UICollectionViewCell)!.item
 
-		if (index < card?.scenes.count) {
-			destinationController.scene = card!.scenes[index]
+		if (index < workingCopyCard?.scenes.count) {
+			destinationController.scene = workingCopyCard!.scenes[index]
+			destinationController.sceneNumber = index + 1
 		} else {
 			destinationController.scene = generateScene()
+			destinationController.sceneNumber = index
 		}
 	}
 
@@ -84,7 +108,7 @@ class EditCardViewController : UIViewController,
 	///
 	@IBAction func didChangeTitle(sender: UITextField)
 	{
-		card!.title = sender.text
+		workingCopyCard!.title = sender.text
 	}
 
 
@@ -104,7 +128,7 @@ class EditCardViewController : UIViewController,
 	func collectionView(collectionView:UICollectionView, numberOfItemsInSection section:Int) -> Int
 	{
 		// Return an extra cell to account for the 'New Scene' button
-		return card!.scenes.count + 1
+		return workingCopyCard!.scenes.count + 1
 	}
 
 	///
@@ -121,10 +145,10 @@ class EditCardViewController : UIViewController,
 		
 		agent.purge(canvas)
 		
-		if (index < self.card!.scenes.count) {
+		if (index < self.workingCopyCard!.scenes.count) {
 			label.text = "\(index + 1)"
 			
-			agent.render(card!.scenes[index], onto:canvas)
+			agent.render(workingCopyCard!.scenes[index], onto:canvas)
 			canvas.alpha = CGFloat(SCENE_ICON_ALPHA)
 			cell.backgroundColor = SCENE_CELL_BGCOLOR
 			cell.alpha = CGFloat(SCENE_CELL_ALPHA)
@@ -146,7 +170,7 @@ class EditCardViewController : UIViewController,
 	private func generateScene() -> Scene
 	{
 		let scene = DataUtility.CreateScene()
-		card!.scenes.append(scene)
+		workingCopyCard!.scenes.append(scene)
 		return scene
 	}
 }

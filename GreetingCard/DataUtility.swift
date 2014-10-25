@@ -57,6 +57,14 @@ class DataUtility
 	}
 	
 	///
+	/// Duplicates a card
+	///
+	class func Clone(card:Card) -> Card
+	{
+		return unserialize(cards:serialize(cards:[card])).first!
+	}
+	
+	///
 	/// Factory method for layers
 	///
 	class func CreateLayer(image:String) -> Layer
@@ -73,11 +81,25 @@ class DataUtility
 	}
 	
 	///
+	/// Deletes a card
+	///
+	class func Delete(card: Card) -> Bool
+	{
+		for (index, ignored) in enumerate(_allCards!) {
+			if (_allCards![index] === card) {
+				_allCards!.removeAtIndex(index)
+				return true
+			}
+		}
+		return false
+	}
+	
+	///
 	/// Exports a base64 encoded string from a Card object
 	///
 	class func Export(card: Card) -> String
 	{
-		println("[du:Export -> exporting base64-encoded card]")
+//		println("[du:Export -> exporting base64-encoded card]")
 		return encode(serialize(cards:[card]))
 	}
 	
@@ -86,7 +108,7 @@ class DataUtility
 	///
 	class func Import(encodedCard: String) -> Card?
 	{
-		println("[du:Import -> attempting to import base64-encoded card]")
+//		println("[du:Import -> attempting to import base64-encoded card]")
 		
 		if let newCard = unserialize(cards:decode(encodedCard)).first {
 			
@@ -147,10 +169,10 @@ class DataUtility
 				Card(title: "Happy Birthday", isNew: true, scenes: [
 					Scene(caption: "It is your birthday.", layers: [
 						Layer(image: "backdrop-yellow", visible: true, scale: 0.43, rotation: 0, opacity: 1.0, top: 0, left: 0),
-						Layer(image: "cake", visible: true, scale: 0.5, rotation: 0, opacity: 1.0, top: 0, left: 0)
+						Layer(image: "cake", visible: true, scale: 0.5, rotation: 0, opacity: 1.0, top: 110, left: 30)
 						]),
 					Scene(caption: "Now get back to work.", layers: [
-						Layer(image: "person", visible: true, scale: 0.43, rotation: 0, opacity: 1.0, top: 0, left: 0)
+						Layer(image: "person", visible: true, scale: 0.43, rotation: 0, opacity: 1.0, top: 170, left: 80)
 						])
 					])
 			)
@@ -184,10 +206,10 @@ class DataUtility
 			return identifiers
 		}
 		
-		println("[du:Install -> installing cardstore starter kit]")
+//		println("[du:Install -> installing cardstore starter kit]")
 		cards_write(_generateCards())
 		
-		println("[du:Install -> installing sprite starter kit]")
+//		println("[du:Install -> installing sprite starter kit]")
 		manifest_write(_generateSpriteManifest())
 	}
 	
@@ -199,7 +221,7 @@ class DataUtility
 		let cardstore = CARDSTORE_PATH.stringByExpandingTildeInPath
 		let repository = REPOSITORY_PATH.stringByExpandingTildeInPath
 		if (DEBUG_FORCE_INSTALL) {
-			println("[du:IsInstalled -> forcing install; `DEBUG_FORCE_INSTALL` is set to true]")
+//			println("[du:IsInstalled -> forcing install; `DEBUG_FORCE_INSTALL` is set to true]")
 			return false
 		} else {
 			let fs = NSFileManager.defaultManager()
@@ -207,6 +229,20 @@ class DataUtility
 		}
 	}
 
+	///
+	/// Factory method for cards
+	///
+	/// Note:
+	///
+	///     This immediately adds the newly created card to the cardstore, but does not trigger a save!
+	///
+	class func NewCard() -> Card
+	{
+		let card = Card(title:nil, isNew:true, scenes:nil)
+		_allCards!.append(card)
+		return card
+	}
+	
 	///
 	/// Resolves a sprite identifier to a local file path
 	///
@@ -233,7 +269,7 @@ class DataUtility
 	///
 	class func Save()
 	{
-		println("[du:Save -> attempting to save \(AllCards.count) cards]")
+//		println("[du:Save -> attempting to save \(AllCards.count) cards]")
 		
 		// Send notifications
 		publishCardstoreSaveEvent()
@@ -250,7 +286,7 @@ class DataUtility
 	///
 	private class func appendSpritesToManifest(identifiers: [String])
 	{
-		println("[du:appendSpritesToManifest -> \(identifiers)]")
+//		println("[du:appendSpritesToManifest -> \(identifiers)]")
 		
 		// Append to the local sprite list
 		_allLocalSprites = manifest_read() + identifiers
@@ -279,7 +315,7 @@ class DataUtility
 //		}
 //		
 		let path = CARDSTORE_PATH.stringByExpandingTildeInPath
-		println("[du:cards_read -> '\(path.stringByAbbreviatingWithTildeInPath)']")
+//		println("[du:cards_read -> '\(path.stringByAbbreviatingWithTildeInPath)']")
 		let json = NSString(contentsOfFile:path, encoding:NSUTF8StringEncoding, error:nil)
 		
 		return unserialize(cards: json)
@@ -293,7 +329,7 @@ class DataUtility
 		let json = serialize(cards:cards)
 		let path = CARDSTORE_PATH.stringByExpandingTildeInPath
 		
-		println("[du:cards_write -> '\(path.stringByAbbreviatingWithTildeInPath)']")
+//		println("[du:cards_write -> '\(path.stringByAbbreviatingWithTildeInPath)']")
 		json.writeToFile(path, atomically:true, encoding:NSUTF8StringEncoding, error:nil)
 	}
 	
@@ -324,7 +360,7 @@ class DataUtility
 		let spriteUrl = NSURL(string: filename,
 			relativeToURL: NSURL(string: REMOTE_REPOSITORY_URL))
 		
-		println("[du:fetchRemoteSprite -> '\(spriteUrl.absoluteString!)']")
+//		println("[du:fetchRemoteSprite -> '\(spriteUrl.absoluteString!)']")
 		if let data = NSData.dataWithContentsOfURL(spriteUrl, options: nil, error: nil) {
 			let path = REPOSITORY_PATH//.stringByExpandingTildeInPath
 				.stringByAppendingPathComponent(filename)
@@ -333,11 +369,11 @@ class DataUtility
 				
 				return path
 			} else {
-				println("[du:fetchRemoteSprite] Save failed for '\(path.stringByAbbreviatingWithTildeInPath)']")
+//				println("[du:fetchRemoteSprite] Save failed for '\(path.stringByAbbreviatingWithTildeInPath)']")
 				return nil
 			}
 		} else {
-			println("[du:fetchRemoteSprite] Fetch failed")
+//			println("[du:fetchRemoteSprite] Fetch failed")
 			return nil
 		}
 	}
@@ -349,7 +385,7 @@ class DataUtility
 	{
 		let path = MANIFEST_PATH.stringByExpandingTildeInPath
 		
-		println("[du:manifest_read -> '\(path.stringByAbbreviatingWithTildeInPath)']")
+//		println("[du:manifest_read -> '\(path.stringByAbbreviatingWithTildeInPath)']")
 		
 		let data = NSData.dataWithContentsOfFile(path, options: nil, error: nil)
 		let raw = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as NSDictionary
@@ -364,7 +400,7 @@ class DataUtility
 	{
 		let path = MANIFEST_PATH.stringByExpandingTildeInPath
 		
-		println("[du:manifest_write -> '\(path.stringByAbbreviatingWithTildeInPath)']")
+//		println("[du:manifest_write -> '\(path.stringByAbbreviatingWithTildeInPath)']")
 		
 		let json = serialize(sprites: identifiers)
 		
@@ -503,13 +539,13 @@ class DataUtility
 		
 		// Emit some metrics
 		let version = wrapper[KEY_VERSION] as String
-		println("[du:unserialize -> now parsing json cardstore (v\(version))]")
+//		println("[du:unserialize -> now parsing json cardstore (v\(version))]")
 		
 		// Perform the operation
 		let cards = (wrapper[KEY_CARDS] as [NSDictionary]).map(_card)
 		
 		// Emit metrics
-		println("[du:unserialize -> extracted \(cards.count) cards]")
+//		println("[du:unserialize -> extracted \(cards.count) cards]")
 		
 		return cards
 	}
