@@ -121,7 +121,7 @@ class DataUtility
 			
 			// Make sure the cardstore is initialized
 			_allCards = cards_read()
-			_allCards!.append(newCard)
+			_allCards!.insert(newCard, atIndex:0)
 			
 			Save()
 			
