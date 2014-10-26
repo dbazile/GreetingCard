@@ -32,7 +32,7 @@ class DataUtilityTest: XCTestCase {
 		
 		XCTAssertGreaterThan(cards.count, 0, "Should have at least one card")
 		
-		for card in cards {
+		for card in cards.values {
 			
 			XCTAssertNotEqual(card.title, "", "Card must have a title")
 			XCTAssertGreaterThan(card.scenes.count, 0, "Card should have at least one scene")

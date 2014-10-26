@@ -184,7 +184,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.47450980392156861" green="0.40392156862745099" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="center" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="0.0" reuseIdentifier="CardCell" rowHeight="115" id="7Y0-LE-BTq">
+                            <tableViewCell clipsSubviews="YES" contentMode="center" selectionStyle="default" showsReorderControl="YES" accessoryType="disclosureIndicator" indentationWidth="0.0" reuseIdentifier="CardCell" rowHeight="115" id="7Y0-LE-BTq">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7Y0-LE-BTq" id="ei2-3g-r5x">
                                     <autoresizingMask key="autoresizingMask"/>

@@ -21,7 +21,7 @@ class InboxTableViewController: UITableViewController,
 	private let agent = RenderingAgent()
 	private var listeningForChangeEvents = false
 	
-	var cards: [Card] {
+	var cards: ArrayList<Card> {
 		return DataUtility.AllCards
 	}
 	
@@ -144,6 +144,68 @@ class InboxTableViewController: UITableViewController,
 		return cell
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	var pressTimer: NSTimer?
+
+	override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+		return .None
+	}
+	
+	override func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+		println("Moving!")
+		cards.swap(sourceIndexPath.item, destinationIndexPath.item)
+	}
+	
+	override func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+		return false
+	}
+	
+	override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+		return true
+	}
+	
+	override func tableView(tableView: UITableView, didHighlightRowAtIndexPath indexPath: NSIndexPath) {
+		let cell = tableView.cellForRowAtIndexPath(indexPath)!
+		pressTimer = NSTimer.scheduledTimerWithTimeInterval(1, target:self, selector:"didLongPressCells:", userInfo:["cell":cell], repeats:false)
+	}
+	
+	override func tableView(tableView: UITableView, didUnhighlightRowAtIndexPath indexPath: NSIndexPath) {
+		pressTimer?.invalidate()
+	}
+	
+	func didLongPressCells(timer: NSTimer)
+	{
+		tableView.editing = true
+		Decorator.applyTableEndEditingButton(on:self, onClickInvoke:"didClickFinishedEditingCells")
+	}
+	
+	func didClickFinishedEditingCells()
+	{
+		tableView.editing = false
+		Decorator.applyCreateButton(on:self, onClickInvoke:"didClickCreateButton")
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 	// MARK: - HELPER METHODS ////////////////////////////////////////////////////
 

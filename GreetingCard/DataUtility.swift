@@ -23,7 +23,7 @@ private let KEY_VERSION = "$version"
 private let KEY_CARDS   = "$cards"
 private let KEY_SPRITES = "$sprites"
 
-private var _allCards : [Card]?
+private var _allCards : ArrayList<Card>?
 private var _allLocalSprites : [String]?
 
 public let DataDidSaveCardstore = "DataDidSaveCardstore"
@@ -37,9 +37,9 @@ class DataUtility
 	///
 	/// Static property for all cards
 	///
-	class var AllCards : [Card] {
+	class var AllCards : ArrayList<Card> {
 		if (nil == _allCards) {
-			_allCards = cards_read()
+			_allCards = ArrayList(items:cards_read())
 		}
 		
 		return _allCards!
@@ -85,9 +85,9 @@ class DataUtility
 	///
 	class func Delete(card: Card) -> Bool
 	{
-		for (index, ignored) in enumerate(_allCards!) {
+		for (index, ignored) in enumerate(_allCards!.values) {
 			if (_allCards![index] === card) {
-				_allCards!.removeAtIndex(index)
+				_allCards!.remove(index)
 				return true
 			}
 		}
@@ -120,8 +120,8 @@ class DataUtility
 			}
 			
 			// Make sure the cardstore is initialized
-			_allCards = cards_read()
-			_allCards!.insert(newCard, atIndex:0)
+			_allCards = ArrayList(items: cards_read())
+			_allCards!.prepend(newCard)
 			
 			Save()
 			
@@ -275,7 +275,7 @@ class DataUtility
 		publishCardstoreSaveEvent()
 		
 		// Save the cardstore
-		cards_write(AllCards)
+		cards_write(AllCards.values)
 	}
 
 

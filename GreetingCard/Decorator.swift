@@ -89,6 +89,19 @@ class Decorator
 	}
 	
 	///
+	/// Adds the "done editing table" button to the navbar
+	///
+	class func applyTableEndEditingButton(on controller:UIViewController, onClickInvoke selector:Selector)
+	{
+		// Add our custom button
+		controller.navigationItem.rightBarButtonItem = UIBarButtonItem(
+			 title:"Done",
+			 style:UIBarButtonItemStyle.Done,
+			target:controller,
+			action:selector)
+	}
+	
+	///
 	/// Initializes the navbar style settings
 	///
 	class func initialize()
