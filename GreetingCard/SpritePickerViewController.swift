@@ -25,7 +25,7 @@ class SpritePickerViewController : UICollectionViewController
 		Decorator.applyBackButton(on: self)
 	}
 
-	// MARK: COLLECTIONVIEW SOURCE/DELEGATION //////////////////////////////////
+	// MARK: - COLLECTIONVIEW SOURCE/DELEGATION //////////////////////////////////
 
 	///
 	/// Returns the number of sprites available

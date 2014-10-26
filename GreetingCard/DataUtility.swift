@@ -32,7 +32,7 @@ public let DataDidModifyLocalSpriteRepository = "DataDidModifyLocalSpriteReposit
 class DataUtility
 {
 	
-	// MARK: PUBLIC INTERFACE //////////////////////////////////////////////////
+	// MARK: - PUBLIC INTERFACE //////////////////////////////////////////////////
 	
 	///
 	/// Static property for all cards
@@ -279,7 +279,7 @@ class DataUtility
 	}
 
 
-	// MARK: HELPER METHODS ////////////////////////////////////////////////////
+	// MARK: - HELPER METHODS ////////////////////////////////////////////////////
 
 	///
 	/// Adds a list of sprite identifiers to the local repository manifest

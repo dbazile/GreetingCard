@@ -38,7 +38,7 @@ class SceneViewController : UIViewController
 	}
 
 
-	// MARK: INTERFACE BUILDER /////////////////////////////////////////////////
+	// MARK: - INTERFACE BUILDER /////////////////////////////////////////////////
 
 	@IBOutlet weak var canvas : UIView!
 	@IBOutlet weak var caption : UILabel!

@@ -26,6 +26,7 @@ class EditCardViewController : UIViewController,
 	private let SCENE_ICON_ALPHA          = 0.3
 	private let CREATE_SCENE_CELL_ALPHA   = 0.5
 	private let CREATE_SCENE_CELL_BGCOLOR = UIColor(white: 0, alpha: 0.5)
+	
 	private let agent = RenderingAgent()
 	private var _card: Card?
 	private var workingCopyCard : Card?
@@ -144,7 +145,7 @@ class EditCardViewController : UIViewController,
 	}
 	
 
-	// MARK: INTERFACE BUILDER /////////////////////////////////////////////////
+	// MARK: - INTERFACE BUILDER /////////////////////////////////////////////////
 
 	@IBOutlet weak var inputTitle : UITextField!
 	@IBOutlet weak var collectionView : UICollectionView!
@@ -158,7 +159,7 @@ class EditCardViewController : UIViewController,
 	}
 
 
-	// MARK: COLLECTIONVIEW DATASOURCE/DELEGATE ////////////////////////////////
+	// MARK: - COLLECTIONVIEW DATASOURCE/DELEGATE ////////////////////////////////
 
 	///
 	/// Sets the number of sections
@@ -208,7 +209,7 @@ class EditCardViewController : UIViewController,
 	}
 	
 
-	// MARK: HELPER METHODS ////////////////////////////////////////////////////
+	// MARK: - HELPER METHODS ////////////////////////////////////////////////////
 
 	///
 	/// Creates a new Scene to be edited

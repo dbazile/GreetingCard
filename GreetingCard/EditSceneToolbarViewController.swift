@@ -37,7 +37,7 @@ class EditSceneToolbarViewController : UIViewController
 	}
 
 
-	// MARK: INTERFACE BUILDER /////////////////////////////////////////////////
+	// MARK: - INTERFACE BUILDER /////////////////////////////////////////////////
 
 	@IBOutlet weak var inputCaption    : UITextField!
 	@IBOutlet weak var inputLeft       : UISlider!
@@ -118,7 +118,7 @@ class EditSceneToolbarViewController : UIViewController
 	}
 
 
-	// MARK: HELPER METHODS ////////////////////////////////////////////////////
+	// MARK: - HELPER METHODS ////////////////////////////////////////////////////
 
 	///
 	/// Sets an degree-formatted value to the given label

@@ -121,7 +121,7 @@ class EditSceneViewController : UIViewController,
 	}
 
 
-	// MARK: INTERFACE BUILDER /////////////////////////////////////////////////
+	// MARK: - INTERFACE BUILDER /////////////////////////////////////////////////
 
 	@IBOutlet weak var canvas: UIView!
 	@IBOutlet weak var sceneIndexLabel: UILabel!
@@ -131,7 +131,7 @@ class EditSceneViewController : UIViewController,
 	}
 
 
-	// MARK: LAYER PICKER DATASOURCE/DELEGATE //////////////////////////////////
+	// MARK: - LAYER PICKER DATASOURCE/DELEGATE //////////////////////////////////
 
 	///
 	/// EventHandler: A new layer was created
@@ -169,7 +169,7 @@ class EditSceneViewController : UIViewController,
 	}
 
 
-	// MARK: TOOLBAR DATASOURCE/DELEGATE ///////////////////////////////////////
+	// MARK: - TOOLBAR DATASOURCE/DELEGATE ///////////////////////////////////////
 
 	///
 	/// EventHandler: The scene caption was changed
@@ -336,7 +336,7 @@ class EditSceneViewController : UIViewController,
 	}
 
 
-	// MARK: HELPER METHODS ////////////////////////////////////////////////////
+	// MARK: - HELPER METHODS ////////////////////////////////////////////////////
 
 	///
 	/// Renders the scene onto the canvas

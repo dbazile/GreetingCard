@@ -121,7 +121,7 @@ class InboxTableViewController: UITableViewController,
 	}
 	
 
-	// MARK: TABLEVIEW DATASOURCE //////////////////////////////////////////////
+	// MARK: - TABLEVIEW DATASOURCE //////////////////////////////////////////////
 
 	///
 	/// Returns the total number of table rows
@@ -145,7 +145,7 @@ class InboxTableViewController: UITableViewController,
 	}
 
 
-	// MARK: HELPER METHODS ////////////////////////////////////////////////////
+	// MARK: - HELPER METHODS ////////////////////////////////////////////////////
 
 	///
 	/// Callback to reloads the table data when the cardstore changes

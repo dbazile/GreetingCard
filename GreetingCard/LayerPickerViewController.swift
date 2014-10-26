@@ -54,7 +54,7 @@ class LayerPickerViewController : UITableViewController,
 	}
 
 
-	// MARK: SPRITEPICKER DELEGATION ///////////////////////////////////////////
+	// MARK: - SPRITEPICKER DELEGATION ///////////////////////////////////////////
 
 	///
 	/// EventHandler: Executes when a sprite is picked from the sprite picker
@@ -68,7 +68,7 @@ class LayerPickerViewController : UITableViewController,
 	}
 
 
-	// MARK: TABLEVIEW SOURCE/DELEGATION ///////////////////////////////////////
+	// MARK: - TABLEVIEW SOURCE/DELEGATION ///////////////////////////////////////
 
 	///
 	/// Returns the number of table cells
@@ -126,7 +126,7 @@ class LayerPickerViewController : UITableViewController,
 	}
 
 
-	// MARK: HELPER METHODS ////////////////////////////////////////////////////
+	// MARK: - HELPER METHODS ////////////////////////////////////////////////////
 
 	///
 	/// Translates the array index into one that makes more semantic sense from

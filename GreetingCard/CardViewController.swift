@@ -87,12 +87,12 @@ class CardViewController : UIViewController,
 	}
 
 	
-	// MARK: INTERFACEBUILDER CONNECTIONS ///////////////////////////////////////////
+	// MARK: - INTERFACEBUILDER CONNECTIONS ///////////////////////////////////////////
 	
 	@IBOutlet weak var placeholderForNoScenes: UIView!
 	
 	
-	// MARK: ACTIONCONTROLLER DELEGATE //////////////////////////////////////////////
+	// MARK: - ACTIONCONTROLLER DELEGATE //////////////////////////////////////////////
 	
 	///
 	/// Executes when the user selects 'Delete Card' from the action sheet
@@ -128,7 +128,7 @@ class CardViewController : UIViewController,
 	}
 	
 
-	// MARK: PAGE VIEW CONTROLLER DATASOURCE ///////////////////////////////////
+	// MARK: - PAGE VIEW CONTROLLER DATASOURCE ///////////////////////////////////
 
 	///
 	/// Sets the total number of pages
@@ -163,7 +163,7 @@ class CardViewController : UIViewController,
 	}
 
 
-	// MARK: HELPER METHODS ////////////////////////////////////////////////////
+	// MARK: - HELPER METHODS ////////////////////////////////////////////////////
 
 	///
 	/// Returns the index of a given page
