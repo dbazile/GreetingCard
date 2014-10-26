@@ -141,7 +141,7 @@ class RenderingAgent
 		purge(canvas)
 
 		var currentIndex = 0
-		for layer in scene.layers {
+		for layer in scene.layers.values {
 			let image = png(layer.image)
 
 			let renderedLayer = UIImageView()

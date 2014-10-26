@@ -239,11 +239,7 @@ class EditSceneViewController : UIViewController,
 	func toolbar(toolbar:UIViewController, didClickLayerUpButton:Bool)
 	{
 		if (focusedLayerIndex + 1 < scene!.layers.count) {
-			let layer = scene!.layers[focusedLayerIndex]
-			let upperLayer = scene!.layers[focusedLayerIndex + 1]
-			scene!.layers[focusedLayerIndex] = upperLayer
-			scene!.layers[focusedLayerIndex + 1] = layer
-
+			scene!.layers.swap(focusedLayerIndex, focusedLayerIndex+1)
 			focusedLayerIndex += 1
 
 			render()
@@ -257,11 +253,7 @@ class EditSceneViewController : UIViewController,
 	{
 		if (scene!.layers.count > 1) {
 			if (focusedLayerIndex > 0) {
-				let layer = scene!.layers[focusedLayerIndex]
-				let lowerLayer = scene!.layers[focusedLayerIndex - 1]
-				scene!.layers[focusedLayerIndex] = lowerLayer
-				scene!.layers[focusedLayerIndex - 1] = layer
-
+				scene!.layers.swap(focusedLayerIndex, focusedLayerIndex-1)
 				focusedLayerIndex -= 1
 
 				render()
@@ -277,7 +269,7 @@ class EditSceneViewController : UIViewController,
 		let layers = scene!.layers
 
 		if (layers.count > 0) {
-			scene?.layers.removeAtIndex(focusedLayerIndex)
+			scene?.layers.remove(focusedLayerIndex)
 
 			if (focusedLayerIndex > 0) {
 				focusedLayerIndex -= 1

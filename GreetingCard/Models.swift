@@ -39,8 +39,8 @@ class Layer : Printable
 
 class Scene : Printable
 {
-	var caption:         String
-	var layers:          [Layer]
+	var caption: String
+	var layers:  ArrayList<Layer>
 	
 	///
 	/// Constructor
@@ -48,7 +48,7 @@ class Scene : Printable
 	init(caption:String?, layers:[Layer]?)
 	{
 		self.caption = caption ?? ""
-		self.layers = layers ?? []
+		self.layers = ArrayList(items:layers ?? [])
 	}
 	
 	var description : String {
@@ -60,7 +60,7 @@ class Card : Printable
 {
 	var title:  String
 	var isNew:  Bool
-	var scenes: [Scene]
+	var scenes: ArrayList<Scene>
 	
 	///
 	/// Constructor
@@ -69,10 +69,115 @@ class Card : Printable
 	{
 		self.title = title ?? ""
 		self.isNew = isNew
-		self.scenes = scenes ?? []
+		self.scenes = ArrayList(items:scenes ?? [])
 	}
 	
 	var description : String {
 		return "<Card\n\ttitle='\(title)'\n\tscenes=\(scenes)>"
 	}
 }
+
+///
+/// Got tired of dealing with pass-by-value arrays
+///
+class ArrayList<T>
+{
+	private var items: [T]
+
+	///
+	/// Returns a count for items in this collection
+	///
+	var count: Int {
+		return items.count
+	}
+	
+	///
+	/// Grabs the first item in the collection, if exists
+	///
+	var first: T? {
+		return items.count > 0 ? items[0] : nil
+	}
+	
+	///
+	/// Returns the array of items (needed because I'm too dumb to get Generators working)
+	///
+	var values: [T] {
+		return items
+	}
+	
+	///
+	/// Constructor
+	///
+	init(items: [T])
+	{
+		self.items = items
+	}
+	
+	///
+	/// Convenience Constructor
+	///
+	convenience init()
+	{
+		self.init(items: [])
+	}
+	
+	///
+	/// Adds an item to the tail of an array
+	///
+	func append(item: T)
+	{
+		items.append(item)
+	}
+	
+	///
+	/// Performs a map operation against a collection
+	///
+	func map(transform: (T) -> AnyObject) -> [AnyObject]
+	{
+		return items.map(transform)
+	}
+	
+	///
+	/// Inserts an item at the head of the array
+	///
+	func prepend(item: T)
+	{
+		items.insert(item, atIndex:0)
+	}
+	
+	///
+	/// Removes the item at a given index
+	///
+	func remove(index: Int)
+	{
+		items.removeAtIndex(index)
+	}
+	
+	///
+	/// Swaps the indices of two objects
+	///
+	func swap(a: Int, _ b: Int)
+	{
+		let currentA = items[a]
+		let currentB = items[b]
+		items[a] = currentB
+		items[b] = currentA
+	}
+	
+	///
+	/// Enables array-style subscripting on instances this class
+	///
+	subscript(index: Int) -> T
+	{
+		return items[index]
+	}
+	
+	///
+	/// Property to assist in debugging
+	///
+	var description: String {
+		return "\(items)"
+	}
+}
+
+

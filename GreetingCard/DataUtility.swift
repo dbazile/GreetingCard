@@ -113,8 +113,8 @@ class DataUtility
 		if let newCard = unserialize(cards:decode(encodedCard)).first {
 			
 			// Precache each layer sprite
-			for scene in newCard.scenes {
-				for layer in scene.layers {
+			for scene in newCard.scenes.values {
+				for layer in scene.layers.values {
 					Resolve(layer.image)
 				}
 			}
@@ -455,7 +455,7 @@ class DataUtility
 			var item = NSMutableDictionary()
 			
 			item["caption"] = scene.caption
-			item["layers"] = scene.layers.map(_layer)
+			item["layers"] = scene.layers.values.map(_layer)
 			
 			return item
 		}
@@ -520,8 +520,7 @@ class DataUtility
 		func _scene(raw: NSDictionary) -> Scene
 		{
 			return Scene(caption: raw["caption"] as String!,
-				          layers: (raw["layers"] as [NSDictionary]).map(_layer)
-			)
+				          layers: (raw["layers"] as [NSDictionary]).map(_layer))
 		}
 		
 		// Map function: Transforms a dictionary into a Card
@@ -529,8 +528,7 @@ class DataUtility
 		{
 			return Card(title: raw["title"] as String!,
 				        isNew: raw["isNew"] as Bool,
-				       scenes: (raw["scenes"] as [NSDictionary]).map(_scene)
-			)
+				       scenes: (raw["scenes"] as [NSDictionary]).map(_scene))
 		}
 		
 		// Read the string into an NSDictionary structure

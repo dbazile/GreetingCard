@@ -22,7 +22,7 @@ class LayerPickerViewController : UITableViewController,
 	private let agent = RenderingAgent()
 
 	var delegate : LayerPickerDelegate?
-	var layers : [Layer]?
+	var layers : ArrayList<Layer>?
 
 	///
 	/// One-time controller setup

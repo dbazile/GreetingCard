@@ -37,12 +37,12 @@ class DataUtilityTest: XCTestCase {
 			XCTAssertNotEqual(card.title, "", "Card must have a title")
 			XCTAssertGreaterThan(card.scenes.count, 0, "Card should have at least one scene")
 			
-			for scene in card.scenes {
+			for scene in card.scenes.values {
 				
 				XCTAssertNotEqual(scene.caption, "", "Scene must have a caption")
 				XCTAssertGreaterThan(scene.layers.count, 0, "Scene must have at least one layer")
 				
-				for layer in scene.layers {
+				for layer in scene.layers.values {
 					
 					XCTAssertNotEqual(layer.image, "", "Layer must have an image")
 				}
