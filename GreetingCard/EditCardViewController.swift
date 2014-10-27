@@ -10,7 +10,8 @@ import UIKit
 
 class EditCardViewController : UIViewController,
                                UICollectionViewDataSource,
-                               UICollectionViewDelegate
+                               UICollectionViewDelegate,
+	                           UIGestureRecognizerDelegate
 {
 	private let CONFIRM_CANCEL_MESSAGE    = "If you go back now, you will lose your changes to this card.  Is this okay?"
 	private let CONFIRM_CANCEL_TITLE      = "Cancel Edit"
@@ -26,7 +27,9 @@ class EditCardViewController : UIViewController,
 	private let SCENE_ICON_ALPHA          = 0.3
 	private let CREATE_SCENE_CELL_ALPHA   = 0.5
 	private let CREATE_SCENE_CELL_BGCOLOR = UIColor(white: 0, alpha: 0.5)
+	private let LONGPRESS_DURATION        = 0.3
 	
+	private var dirty = false
 	private let agent = RenderingAgent()
 	private var _card: Card?
 	private var workingCopyCard : Card?
@@ -39,9 +42,11 @@ class EditCardViewController : UIViewController,
 		get { return _card }
 		set {
 			_card = newValue
-			workingCopyCard = DataUtility.Clone(_card!)
+			workingCopyCard = DataUtility.Clone(card: _card!)
 		}
 	}
+	
+	// MARK: -
 	
 	///
 	/// One-time controller setup
@@ -51,6 +56,8 @@ class EditCardViewController : UIViewController,
 		
 		Decorator.applyBackButton(on:self, onClickInvoke:"didClickBackButton")
 		Decorator.applySaveButton(on:self, onClickInvoke:"didClickSaveButton")
+		
+		activateLongPressGesture()
 	}
 	
 	///
@@ -59,6 +66,7 @@ class EditCardViewController : UIViewController,
 	override func viewWillAppear(animated: Bool)
 	{
 		super.viewWillAppear(animated)
+		
 		collectionView.reloadData()
 
 		// Since this controller is the front-door for editing, flip the switch here
@@ -69,7 +77,7 @@ class EditCardViewController : UIViewController,
 		// Fix the placeholder color
 		inputTitle.attributedPlaceholder = NSAttributedString(
 			    string:inputTitle.placeholder ?? "Title",
-			attributes:[NSForegroundColorAttributeName:UIColor(white:1, alpha:0.2)])
+			attributes:[NSForegroundColorAttributeName:UIColor(white:1, alpha:0.1)])
 	}
 
 	///
@@ -79,14 +87,16 @@ class EditCardViewController : UIViewController,
 	{
 		let destinationController = segue.destinationViewController as EditSceneViewController
 		let index = collectionView.indexPathForCell(sender as UICollectionViewCell)!.item
+		
+		// Let's just assume that the user modifies something out here because it's easier to code :)
+		dirty = true
 
 		if (index < workingCopyCard?.scenes.count) {
 			destinationController.scene = workingCopyCard!.scenes[index]
-			destinationController.sceneNumber = index + 1
 		} else {
 			destinationController.scene = generateScene()
-			destinationController.sceneNumber = index
 		}
+		destinationController.sceneNumber = index + 1
 	}
 	
 	///
@@ -94,12 +104,16 @@ class EditCardViewController : UIViewController,
 	///
 	func didClickBackButton()
 	{
-		let actionSheet = UIAlertController(title:CONFIRM_CANCEL_TITLE, message:CONFIRM_CANCEL_MESSAGE, preferredStyle: .ActionSheet)
-		actionSheet.addAction(UIAlertAction(title:LOSE_CHANGES, style:.Destructive, handler:didSelectCancelAction))
-		actionSheet.addAction(UIAlertAction(title:SAVE_CHANGES, style:.Default, handler:didSelectSaveAction))
-		actionSheet.addAction(UIAlertAction(title:CONTINUE_EDITING, style:.Default, handler:nil))
-		
-		presentViewController(actionSheet, animated:true, completion:nil)
+		if (dirty) {
+			let actionSheet = UIAlertController(title:CONFIRM_CANCEL_TITLE, message:CONFIRM_CANCEL_MESSAGE, preferredStyle: .ActionSheet)
+			actionSheet.addAction(UIAlertAction(title:LOSE_CHANGES, style:.Destructive, handler:didSelectCancelAction))
+			actionSheet.addAction(UIAlertAction(title:SAVE_CHANGES, style:.Default, handler:didSelectSaveAction))
+			actionSheet.addAction(UIAlertAction(title:CONTINUE_EDITING, style:.Default, handler:nil))
+			
+			presentViewController(actionSheet, animated:true, completion:nil)
+		} else {
+			navigationController?.popViewControllerAnimated(true)
+		}
 	}
 	
 	///
@@ -121,6 +135,39 @@ class EditCardViewController : UIViewController,
 		 */
 		func _returnToInbox() { navigationController?.popToRootViewControllerAnimated(true) }
 		navigationController?.presentViewController(alert, animated:false, completion:_returnToInbox)
+	}
+	
+	///
+	/// Executes whenever a cell is long-pressed
+	///
+	func didLongPressCell(gesture: UILongPressGestureRecognizer)
+	{
+		func _bind(index: Int, operation:(Int) -> Void) -> (UIAlertAction!) -> Void
+		{
+			return {action in operation(index)}
+		}
+		
+		if (.Began == gesture.state) {
+			let touchPoint = gesture.locationInView(collectionView)
+			let index = collectionView.indexPathForItemAtPoint(touchPoint)!.item
+			
+			// Only show the context menu for the actual scenes, not the "Create New" one
+			if (index < workingCopyCard?.scenes.count) {
+				
+				let actionSheet = UIAlertController(title:nil, message: nil, preferredStyle: .ActionSheet)
+				actionSheet.addAction(UIAlertAction(title:"Delete this Scene", style:.Destructive, handler: _bind(index, deleteScene)))
+				actionSheet.addAction(UIAlertAction(title:"Copy this Scene", style:.Default, handler: _bind(index, copyScene)))
+				if (index > 0 && index < workingCopyCard?.scenes.count ) {
+					actionSheet.addAction(UIAlertAction(title:"Move left", style:.Default, handler: _bind(index, moveSceneLeft)))
+				}
+				if (index + 1 < workingCopyCard?.scenes.count) {
+					actionSheet.addAction(UIAlertAction(title:"Move right", style:.Default, handler: _bind(index, moveSceneRight)))
+				}
+				actionSheet.addAction(UIAlertAction(title:"Cancel", style:.Default, handler:nil))
+				
+				presentViewController(actionSheet, animated:true, completion:nil)
+			}
+		}
 	}
 	
 	///
@@ -155,6 +202,7 @@ class EditCardViewController : UIViewController,
 	///
 	@IBAction func didChangeTitle(sender: UITextField)
 	{
+		dirty = true
 		workingCopyCard!.title = sender.text
 	}
 
@@ -212,6 +260,37 @@ class EditCardViewController : UIViewController,
 	// MARK: - HELPER METHODS ////////////////////////////////////////////////////
 
 	///
+	/// Activates the long-press gesture recognizer that provides the action sheet for each cell
+	///
+	private func activateLongPressGesture()
+	{
+		let longpressGesture = UILongPressGestureRecognizer(target:self, action:"didLongPressCell:")
+		longpressGesture.minimumPressDuration = LONGPRESS_DURATION
+		longpressGesture.delegate = self
+		collectionView.addGestureRecognizer(longpressGesture)
+	}
+	
+	///
+	/// Places a duplicate of a scene to its right
+	///
+	private func copyScene(index: Int)
+	{
+		let oldScene = workingCopyCard!.scenes[index]
+		let copiedScene = DataUtility.Clone(scene:oldScene)
+		workingCopyCard!.scenes.insert(copiedScene, atIndex:index+1)
+		collectionView.reloadData()
+	}
+	
+	///
+	/// Deletes a scene at a given index
+	///
+	private func deleteScene(index: Int)
+	{
+		workingCopyCard!.scenes.remove(index)
+		collectionView.reloadData()
+	}
+	
+	///
 	/// Creates a new Scene to be edited
 	///
 	private func generateScene() -> Scene
@@ -219,5 +298,27 @@ class EditCardViewController : UIViewController,
 		let scene = DataUtility.CreateScene()
 		workingCopyCard!.scenes.append(scene)
 		return scene
+	}
+	
+	///
+	/// Reorders a scene by moving it one index to the right
+	///
+	private func moveSceneRight(index: Int)
+	{
+		if (index + 1 < workingCopyCard?.scenes.count ) {
+			workingCopyCard!.scenes.swap(index, index+1)
+			collectionView.reloadData()
+		}
+	}
+	
+	///
+	/// Reorders a scene by moving it one index to the left
+	///
+	private func moveSceneLeft(index: Int)
+	{
+		if (index > 0 && index < workingCopyCard?.scenes.count ) {
+			workingCopyCard!.scenes.swap(index, index-1)
+			collectionView.reloadData()
+		}
 	}
 }

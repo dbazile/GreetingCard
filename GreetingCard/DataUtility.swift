@@ -59,9 +59,28 @@ class DataUtility
 	///
 	/// Duplicates a card
 	///
-	class func Clone(card:Card) -> Card
+	class func Clone(#card:Card) -> Card
 	{
 		return unserialize(cards:serialize(cards:[card])).first!
+	}
+	
+	///
+	/// Duplicates a scene
+	///
+	class func Clone(#scene:Scene) -> Scene
+	{
+		func _layer(layer:Layer) -> Layer
+		{
+			return Layer(image:layer.image,
+				       visible:layer.visible,
+				         scale:layer.scale,
+					  rotation:layer.rotation,
+				       opacity:layer.opacity,
+				           top:layer.top,
+				          left:layer.left)
+		}
+		
+		return Scene(caption:scene.caption, layers:scene.layers.values.map(_layer))
 	}
 	
 	///
@@ -455,7 +474,7 @@ class DataUtility
 			var item = NSMutableDictionary()
 			
 			item["caption"] = scene.caption
-			item["layers"] = scene.layers.values.map(_layer)
+			item["layers"] = scene.layers.map(_layer)
 			
 			return item
 		}

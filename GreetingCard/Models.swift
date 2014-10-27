@@ -130,9 +130,17 @@ class ArrayList<T>
 	}
 	
 	///
+	/// Inserts an element at a given index
+	///
+	func insert(item: T, atIndex: Int)
+	{
+		items.insert(item, atIndex:atIndex)
+	}
+	
+	///
 	/// Performs a map operation against a collection
 	///
-	func map(transform: (T) -> AnyObject) -> [AnyObject]
+	func map(transform: (T) -> AnyObject!) -> [AnyObject!]
 	{
 		return items.map(transform)
 	}
