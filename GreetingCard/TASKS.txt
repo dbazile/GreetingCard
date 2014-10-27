@@ -24,9 +24,8 @@ Edit a Card
 	# Create 'Save Card' button
 	# Prompt to abandon changes on back
 	# Fading alert for "Saved Card" notification
-	- Long-press menu for scenes in 'Card Editor' for copy, delete
-	- Reordering scenes in 'Card Editor'
-	- Add reordering capability to Layer Picker
+	# Long-press menu for scenes in 'Card Editor' for copy, delete
+	# Reordering scenes in 'Card Editor'
 	- Add 'Synchronize with Remote Repository' button to 'Sprite Picker'
 
 
