@@ -12,8 +12,8 @@ class InboxTableViewController: UITableViewController,
                                 UITableViewDataSource
 {
 	private let CARD_CELL        = "CardCell"
-	private let VIEW_CARD_SEGUE  = "ViewCardSegue"
-	private let EDIT_CARD_SEGUE  = "EditCardSegue"
+	private let VIEW_CARD_SEGUE = "ViewCardSegue"
+	private let EDIT_CARD_SEGUE = "EditCardSegue"
 	private let TAG_TITLE_LABEL  = 1
 	private let TAG_DETAIL_LABEL = 2
 	private let TAG_CANVAS       = 3
@@ -94,7 +94,7 @@ class InboxTableViewController: UITableViewController,
 		
 		
 		
-		switch(segue.identifier) {
+		switch(segue.identifier!) {
 		case EDIT_CARD_SEGUE:
 			let controller = segue.destinationViewController as EditCardViewController
 			

@@ -316,7 +316,7 @@ class DataUtility
 //		
 		let path = CARDSTORE_PATH.stringByExpandingTildeInPath
 //		println("[du:cards_read -> '\(path.stringByAbbreviatingWithTildeInPath)']")
-		let json = NSString(contentsOfFile:path, encoding:NSUTF8StringEncoding, error:nil)
+		let json = NSString(contentsOfFile:path, encoding:NSUTF8StringEncoding, error:nil)!
 		
 		return unserialize(cards: json)
 	}
@@ -338,8 +338,8 @@ class DataUtility
 	///
 	private class func decode(encoded:String) -> String
 	{
-		let data = NSData(base64EncodedString:encoded, options:nil)
-		return NSString(data:data, encoding:NSUTF8StringEncoding)
+		let data = NSData(base64EncodedString:encoded, options:nil)!
+		return NSString(data:data, encoding:NSUTF8StringEncoding)!
 	}
 	
 	///
@@ -358,10 +358,10 @@ class DataUtility
 	{
 		let filename = identifier.stringByAppendingPathExtension("png")!
 		let spriteUrl = NSURL(string: filename,
-			relativeToURL: NSURL(string: REMOTE_REPOSITORY_URL))
+			relativeToURL: NSURL(string: REMOTE_REPOSITORY_URL)!)!
 		
 //		println("[du:fetchRemoteSprite -> '\(spriteUrl.absoluteString!)']")
-		if let data = NSData.dataWithContentsOfURL(spriteUrl, options: nil, error: nil) {
+		if let data = NSData(contentsOfURL:spriteUrl, options: nil, error: nil) {
 			let path = REPOSITORY_PATH//.stringByExpandingTildeInPath
 				.stringByAppendingPathComponent(filename)
 			if (data.writeToFile(path, atomically: true)) {
@@ -387,7 +387,7 @@ class DataUtility
 		
 //		println("[du:manifest_read -> '\(path.stringByAbbreviatingWithTildeInPath)']")
 		
-		let data = NSData.dataWithContentsOfFile(path, options: nil, error: nil)
+		let data = NSData(contentsOfFile:path, options: nil, error: nil)!
 		let raw = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: nil) as NSDictionary
 		
 		return raw[KEY_SPRITES] as [String]
@@ -480,7 +480,7 @@ class DataUtility
 		wrapper[KEY_CARDS] = cards.map(_card)
 		
 		let bytes = NSJSONSerialization.dataWithJSONObject(wrapper, options:nil, error:nil)
-		let output = NSString(data:bytes!, encoding: NSUTF8StringEncoding)
+		let output = NSString(data:bytes!, encoding: NSUTF8StringEncoding)!
 		
 		return output
 	}
@@ -496,7 +496,7 @@ class DataUtility
 		wrapper.setValue(identifiers, forKey: KEY_SPRITES)
 		
 		let bytes = NSJSONSerialization.dataWithJSONObject(wrapper, options:nil, error:nil)
-		return NSString(data:bytes!, encoding: NSUTF8StringEncoding)
+		return NSString(data:bytes!, encoding: NSUTF8StringEncoding)!
 	}
 	
 	///

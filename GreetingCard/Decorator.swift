@@ -157,7 +157,7 @@ class Decorator
 	///
 	private class func image(imageName:String) -> UIImage
 	{
-		return UIImage(named:imageName).imageWithRenderingMode(.AlwaysOriginal)
+		return UIImage(named:imageName)!.imageWithRenderingMode(.AlwaysOriginal)
 	}
 	
 	///

@@ -100,7 +100,7 @@ class EditSceneViewController : UIViewController,
 	{
 		super.prepareForSegue(segue, sender: sender)
 
-		switch (segue.identifier) {
+		switch (segue.identifier!) {
 			case TOOLBAR_SEGUE:
 				let controller = segue.destinationViewController as EditSceneToolbarViewController
 				controller.delegate = self

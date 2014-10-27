@@ -231,9 +231,9 @@ class RenderingAgent
 	private func png(identifier:String) -> UIImage
 	{
 		if let path = DataUtility.Resolve(identifier) {
-			return UIImage(contentsOfFile:path)
+			return UIImage(contentsOfFile:path)!
 		} else {
-			return UIImage(named:"QuestionMark")
+			return UIImage(named:"QuestionMark")!
 		}
 	}
 }

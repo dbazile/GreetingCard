@@ -87,7 +87,7 @@ class DataUtilityTest: XCTestCase {
 		
 		let export = DataUtility.Export(card)
 
-		let json = NSString(data:NSData(base64EncodedString:export, options:nil), encoding:NSUTF8StringEncoding)
+		let json = NSString(data:NSData(base64EncodedString:export, options:nil)!, encoding:NSUTF8StringEncoding)!
 		
 		XCTAssertNotNil(json.rangeOfString("\\{.*\\}", options: .RegularExpressionSearch), "Should be a JSON string")
 		XCTAssertNotNil(json.rangeOfString("\\$cards", options: .RegularExpressionSearch), "Should contain the $cards property")
