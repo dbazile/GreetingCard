@@ -7,14 +7,6 @@ Visuals
 	- Integrate Auto-layout
 
 
-View all Cards
-	# Create 'Inbox' View
-		# Need to render a preview image
-	# Link to 'Edit'
-	# Generate a preview image for each Card tile
-	- Swiping cell should reveal 'Delete' button
-
-
 Edit a Card
 	# Create 'Card Overview' View
 		# Need to render a preview image
@@ -30,14 +22,14 @@ Edit a Card
 
 
 Share a Card
-	- Send data and focus directly to Mail.app
+	# Send data and focus directly to Mail.app
 	- Make Embedded Card icon
 
 
 Import a Card from an emailed base64 URL
 	# Read card data from JSON into local storage
-	- After import, go directly to inbox
-	- Importing a card puts it at the TOP of your inbox
+	# After import, go directly to inbox
+	# Importing a card puts it at the TOP of your inbox
 	- Show a progress bar while the import/caching is happening
 
 
@@ -55,6 +47,14 @@ Ideas for Sprites
 
 # Create a Card
 	# Add 'Create a card' button to Inbox
+
+
+# View all Cards
+	# Create 'Inbox' View
+		# Need to render a preview image
+	# Link to 'Edit'
+	# Generate a preview image for each Card tile
+	# Swiping cell should reveal 'Delete' button
 
 
 # View a single Card
