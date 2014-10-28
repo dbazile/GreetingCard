@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MessageUI
 
 class CardViewController : UIViewController,
 						   UIPageViewControllerDataSource
@@ -123,8 +124,19 @@ class CardViewController : UIViewController,
 	///
 	private func didSelectSendAction(sender:UIAlertAction!)
 	{
-		let alert = UIAlertView(title: "EMAIL", message: "EMAIL", delegate: nil, cancelButtonTitle: "SEND")
-		alert.show()
+		//
+		// SHARE OPERATION
+		//
+		var encodedImage = UIImagePNGRepresentation(UIImage(named: "EmbeddedIcon")).base64EncodedStringWithOptions(nil)
+		var encodedCard = DataUtility.Export(card!)
+		var html = "<a href=\"greetingcard://import/\(encodedCard)\"><img src=\"data:image/png;base64,\(encodedImage)\"/></a>"
+		var mf = MFMailComposeViewController()
+		mf.setSubject("GreetingCard: ")
+		mf.setMessageBody(html, isHTML: true)
+		self.presentViewController(mf, animated: false, completion: nil)
+		//
+		// SHARE OPERATION
+		//
 	}
 	
 

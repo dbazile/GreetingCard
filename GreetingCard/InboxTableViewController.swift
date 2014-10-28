@@ -6,14 +6,16 @@
 //  Copyright (c) 2014 David Bazile. All rights reserved.
 //
 
+import MessageUI
 import UIKit
 
 class InboxTableViewController: UITableViewController,
-                                UITableViewDataSource
+                                UITableViewDataSource,
+	                            UIGestureRecognizerDelegate
 {
 	private let CARD_CELL        = "CardCell"
-	private let VIEW_CARD_SEGUE = "ViewCardSegue"
-	private let EDIT_CARD_SEGUE = "EditCardSegue"
+	private let VIEW_CARD_SEGUE  = "ViewCardSegue"
+	private let EDIT_CARD_SEGUE  = "EditCardSegue"
 	private let TAG_TITLE_LABEL  = 1
 	private let TAG_DETAIL_LABEL = 2
 	private let TAG_CANVAS       = 3
@@ -68,9 +70,6 @@ class InboxTableViewController: UITableViewController,
 		// Determine which card Get the card
 		var card: Card?
 		
-		
-		
-		
 		// TODO: Not crazy about this implementation
 		/*
 		 * Use the sender to determine where the segue is going and what it needs to
@@ -89,10 +88,6 @@ class InboxTableViewController: UITableViewController,
 			// Segue originating from a navbar action
 			card = DataUtility.NewCard()
 		}
-		
-		
-		
-		
 		
 		switch(segue.identifier!) {
 		case EDIT_CARD_SEGUE:
@@ -120,9 +115,57 @@ class InboxTableViewController: UITableViewController,
 		self.performSegueWithIdentifier(EDIT_CARD_SEGUE, sender:nil)
 	}
 	
+	///
+	/// Executes when the user clicks on the `Delete` button after swiping a table cell
+	///
+	private func didClickDeleteAction(action: UITableViewRowAction!, indexPath: NSIndexPath!)
+	{
+		cards.remove(indexPath.item)
+		tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Left)
+		tableView(tableView, commitEditingStyle: .Delete, forRowAtIndexPath: indexPath)
+	}
+	
+	///
+	/// Executes when the user clicks on the `Share` button after swiping a table cell
+	///
+	private func didClickShareAction(action: UITableViewRowAction!, indexPath: NSIndexPath!)
+	{
+		//
+		// SHARE OPERATION
+		//
+		var encodedImage = UIImagePNGRepresentation(UIImage(named: "EmbeddedIcon")).base64EncodedStringWithOptions(nil)
+		var encodedCard = DataUtility.Export(cards[indexPath.item])
+		var html = "<a href=\"greetingcard://import/\(encodedCard)\"><img src=\"data:image/png;base64,\(encodedImage)\"/></a>"
+		var mf = MFMailComposeViewController()
+		mf.setSubject("GreetingCard: ")
+		mf.setMessageBody(html, isHTML: true)
+		print(html)
+		self.presentViewController(mf, animated: false, completion: nil)
+		//
+		// SHARE OPERATION
+		//
+	}
+	
 
 	// MARK: - TABLEVIEW DATASOURCE //////////////////////////////////////////////
 
+	///
+	/// Performs the final action on a table row edit (doesn't get automatically called if you've got
+	/// custom edit actions defined...)
+	///
+	override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+		tableView.editing = false
+	}
+	
+	///
+	/// Sets the availble options when the row is swiped
+	///
+	override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [AnyObject]? {
+		let deleteAction = UITableViewRowAction(style:.Default, title:"Delete", handler:didClickDeleteAction)
+		let shareAction = UITableViewRowAction(style:.Normal, title:"Share", handler:didClickShareAction)
+		return [deleteAction, shareAction]
+	}
+	
 	///
 	/// Returns the total number of table rows
 	///
@@ -144,68 +187,6 @@ class InboxTableViewController: UITableViewController,
 		return cell
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	var pressTimer: NSTimer?
-
-	override func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
-		return .None
-	}
-	
-	override func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
-		println("Moving!")
-		cards.swap(sourceIndexPath.item, destinationIndexPath.item)
-	}
-	
-	override func tableView(tableView: UITableView, shouldIndentWhileEditingRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-		return false
-	}
-	
-	override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-		return true
-	}
-	
-	override func tableView(tableView: UITableView, didHighlightRowAtIndexPath indexPath: NSIndexPath) {
-		let cell = tableView.cellForRowAtIndexPath(indexPath)!
-		pressTimer = NSTimer.scheduledTimerWithTimeInterval(1, target:self, selector:"didLongPressCells:", userInfo:["cell":cell], repeats:false)
-	}
-	
-	override func tableView(tableView: UITableView, didUnhighlightRowAtIndexPath indexPath: NSIndexPath) {
-		pressTimer?.invalidate()
-	}
-	
-	func didLongPressCells(timer: NSTimer)
-	{
-		tableView.editing = true
-		Decorator.applyTableEndEditingButton(on:self, onClickInvoke:"didClickFinishedEditingCells")
-	}
-	
-	func didClickFinishedEditingCells()
-	{
-		tableView.editing = false
-		Decorator.applyCreateButton(on:self, onClickInvoke:"didClickCreateButton")
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 
 	// MARK: - HELPER METHODS ////////////////////////////////////////////////////
 
