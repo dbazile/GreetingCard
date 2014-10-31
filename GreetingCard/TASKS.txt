@@ -33,6 +33,10 @@ Ideas for Sprites
 
 
 
+
+
+
+
 # Share a Card
 	# Send data and focus directly to Mail.app
 	# Make Embedded Card icon
