@@ -1,10 +1,10 @@
 ISSUES
 
-- Saving a card with no scenes throws error
+# Saving a card with no scenes throws error: Fixed
 
 - View scaling to larger resolutions probably doesn't work
 
-- Visibility flag not honored
+# Visibility flag not honored: Removed
 
 # 'Edit Scene' should select topmost layer on load
 

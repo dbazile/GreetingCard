@@ -21,18 +21,6 @@ Edit a Card
 	- Add 'Synchronize with Remote Repository' button to 'Sprite Picker'
 
 
-Share a Card
-	# Send data and focus directly to Mail.app
-	- Make Embedded Card icon
-
-
-Import a Card from an emailed base64 URL
-	# Read card data from JSON into local storage
-	# After import, go directly to inbox
-	# Importing a card puts it at the TOP of your inbox
-	- Show a progress bar while the import/caching is happening
-
-
 Get All Sprites from Remote Repository
 	- Create 'Synchronize with Repository' View with progress bar
 
@@ -43,6 +31,17 @@ Ideas for Sprites
 	- Z's
 	- Gradients for times of day
 
+
+
+# Share a Card
+	# Send data and focus directly to Mail.app
+	# Make Embedded Card icon
+
+
+# Import a Card from an emailed base64 URL
+	# Read card data from JSON into local storage
+	# After import, go directly to inbox
+	# Importing a card puts it at the TOP of your inbox
 
 
 # Create a Card
