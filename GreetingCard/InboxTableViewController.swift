@@ -250,7 +250,6 @@ class InboxTableViewController: UITableViewController,
 			details.text = "Unread"
 			
 			let envelope = UIImageView(image: UIImage(named: "Unread"))
-			canvas.frame = cell.frame
 			envelope.frame = canvas.frame
 			
 			canvas.addSubview(envelope)
@@ -267,11 +266,7 @@ class InboxTableViewController: UITableViewController,
 			details.text = ""
 			
 			if let firstScene = card.scenes.first {
-				
-				// Render the preview with a vertical offset
-				let H = CGFloat(500)
-				canvas.frame = CGRectMake(0, cell.frame.height - H/1.5, cell.frame.width, H)
-				agent.render(card.scenes.first!, onto:canvas)
+				agent.render(firstScene, onto:canvas, offset:CGPoint(x:0, y:-200))
 				canvas.alpha = 0.1
 			} else {
 				details.text = "(No Scenes)"

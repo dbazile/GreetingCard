@@ -128,14 +128,30 @@ class RenderingAgent
 	///
 	func render(scene:Scene, onto:UIView) -> RenderingAgent
 	{
-		return render(scene, onto:onto, highlighting:nil)
+		return render(scene, onto:onto, highlighting:nil, offset:nil)
 	}
 
+	///
+	/// Renders all layers in a given scene to the canvas
+	///
+	func render(scene:Scene, onto:UIView, highlighting highlightIndex:Int) -> RenderingAgent
+	{
+		return render(scene, onto:onto, highlighting:highlightIndex, offset:nil)
+	}
+	
+	///
+	/// Renders all layers in a given scene to the canvas
+	///
+	func render(scene:Scene, onto:UIView, offset:CGPoint) -> RenderingAgent
+	{
+		return render(scene, onto:onto, highlighting:nil, offset:offset)
+	}
+	
 	///
 	/// Renders all layers in a given scene to the canvas with highlighting
 	/// of a specific layer index
 	///
-	func render(scene:Scene, onto canvas:UIView, highlighting highlightIndex:Int?) -> RenderingAgent
+	func render(scene:Scene, onto canvas:UIView, highlighting highlightIndex:Int?, offset:CGPoint?) -> RenderingAgent
 	{
 		// Always start with a blank slate
 		purge(canvas)
@@ -149,9 +165,15 @@ class RenderingAgent
 			renderedLayer.image = image
 			renderedLayer.contentMode = DEFAULT_CONTENT_MODE
 			renderedLayer.clipsToBounds = true
-			renderedLayer.frame = calculateImageSize(layer, image:image)
+			renderedLayer.frame.size = calculateSize(layer, image:image, canvas:canvas)
+			renderedLayer.frame.origin = calculatePosition(layer, canvas:canvas)
 			renderedLayer.alpha = calculateOpacity(layer)
-
+			
+			if let relativeOffset = offset {
+				let x = renderedLayer.frame.origin.x + relativeOffset.x
+				let y = renderedLayer.frame.origin.y + relativeOffset.y
+				renderedLayer.frame.origin = CGPoint(x:x, y:y)
+			}
 
 			if (currentIndex == highlightIndex) {
 				formatHighlightedLayer(renderedLayer)
@@ -173,21 +195,19 @@ class RenderingAgent
 	///
 	/// Calculates the size for a given layer
 	///
-	private func calculateImageSize(layer:Layer, image:UIImage) -> CGRect
+	private func calculateSize(layer:Layer, image:UIImage, canvas:UIView) -> CGSize
 	{
-		// Calculate the (x,y)
-		let origin = CGPoint(x:Int(layer.left), y:Int(layer.top))
-
+		let screenWidth = UIScreen.mainScreen().bounds.width
+		let scaleModifier = Float(canvas.frame.width) / Float(screenWidth)
+		
 		// Calculate the height and width
-		let w = Float(image.size.width) * layer.scale
-		let h = Float(image.size.height) * layer.scale
-
-		let size = CGSize(width: CGFloat(w),
-			              height:CGFloat(h))
-
-		return CGRect(origin:origin, size:size)
+		let w = Float(image.size.width) * layer.scale * scaleModifier
+		let h = Float(image.size.height) * layer.scale * scaleModifier
+		
+		return CGSize(width: CGFloat(w),
+			         height:CGFloat(h))
 	}
-
+	
 	///
 	/// Calculates the opacity for a given layer
 	///
@@ -199,12 +219,15 @@ class RenderingAgent
 	///
 	/// Caculates the (x,y) position for a given layer
 	///
-	private func calculatePosition(layer:Layer) -> CGPoint
+	private func calculatePosition(layer:Layer, canvas:UIView) -> CGPoint
 	{
-		return CGPoint(x: Int(layer.left),
-			y: Int(layer.top))
+		let screenWidth = UIScreen.mainScreen().bounds.width
+		let positionModifier = Float(canvas.frame.width) / Float(screenWidth)
+		
+		return CGPoint(x: Int(Float(layer.left) * positionModifier),
+			y: Int(Float(layer.top) * positionModifier))
 	}
-
+	
 	///
 	/// Calculates the rotation for a given layer
 	///
