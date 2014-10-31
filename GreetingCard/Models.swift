@@ -11,7 +11,6 @@ import Foundation
 class Layer : Printable
 {
 	var image:    String
-	var visible:  Bool
 	var scale:    Float
 	var rotation: Int
 	var opacity:  Float
@@ -21,10 +20,9 @@ class Layer : Printable
 	///
 	/// Constructor
 	///
-	init(image:String, visible:Bool, scale:Float, rotation:Int, opacity:Float, top:Int, left:Int)
+	init(image:String, scale:Float, rotation:Int, opacity:Float, top:Int, left:Int)
 	{
 		self.image = image
-		self.visible = visible
 		self.scale = scale
 		self.rotation = rotation
 		self.opacity = opacity
