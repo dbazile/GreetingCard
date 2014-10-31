@@ -106,12 +106,16 @@ class EditCardViewController : UIViewController,
 	{
 		if (dirty) {
 			let actionSheet = UIAlertController(title:CONFIRM_CANCEL_TITLE, message:CONFIRM_CANCEL_MESSAGE, preferredStyle: .ActionSheet)
-			actionSheet.addAction(UIAlertAction(title:LOSE_CHANGES, style:.Destructive, handler:didSelectCancelAction))
+			actionSheet.addAction(UIAlertAction(title:LOSE_CHANGES, style:.Destructive, handler:didSelectLoseChangesAction))
 			actionSheet.addAction(UIAlertAction(title:SAVE_CHANGES, style:.Default, handler:didSelectSaveAction))
 			actionSheet.addAction(UIAlertAction(title:CONTINUE_EDITING, style:.Default, handler:nil))
 			
 			presentViewController(actionSheet, animated:true, completion:nil)
 		} else {
+			// Clean up if this was a new card
+			if (card!.isNew) {
+				DataUtility.Delete(card!)
+			}
 			navigationController?.popViewControllerAnimated(true)
 		}
 	}
@@ -173,7 +177,7 @@ class EditCardViewController : UIViewController,
 	///
 	/// Discards the changes to the card and returns to whichever controller sent us to edit mode
 	///
-	func didSelectCancelAction(action:UIAlertAction!)
+	func didSelectLoseChangesAction(action:UIAlertAction!)
 	{
 		// Clean up if this was a new card
 		if (card!.isNew) {
