@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 			
 			switch (action) {
 				case IMPORT_CARD:
-					DataUtility.Import(url.lastPathComponent)
+					DataUtility.Import(url.lastPathComponent!)
 					return true
 				default:
 					handleInvalidUrlAction()
