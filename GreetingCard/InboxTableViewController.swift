@@ -250,7 +250,7 @@ class InboxTableViewController: UITableViewController,
 			details.text = "Unread"
 			
 			let envelope = UIImageView(image: UIImage(named: "Unread"))
-			envelope.frame = canvas.frame
+			envelope.frame = cell.bounds
 			
 			canvas.addSubview(envelope)
 			canvas.alpha = 1
