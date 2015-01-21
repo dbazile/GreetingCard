@@ -4,7 +4,7 @@ Visuals
 	# Implement mode-specific color scheme (Purple & Green for viewing; Blueprint Blue and Grey for editing)
 	# Add custom logo to navigation bar
 	- Test against iPhone 6
-	- Integrate Auto-layout
+	# Integrate Auto-layout
 
 
 Edit a Card

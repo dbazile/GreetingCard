@@ -12,3 +12,5 @@ ISSUES
 
 - Keyboard show/hide in editor might not work properly
 
+- Autolayout and hide-header-on-tap quirkiness
+
